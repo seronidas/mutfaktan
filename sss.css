@@ -1,18 +1,4 @@
-@font-face {
-  font-family: 'Playfair Display';
-  font-style: normal;
-  font-weight: 600 700;
-  font-display: swap;
-  src: url('./fonts/playfair-display.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('./fonts/plus-jakarta-sans.woff2') format('woff2');
-}
+@import url('./base.css');
 
 :root {
   --primary: #f40009;
@@ -49,7 +35,7 @@
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body), sans-serif;
   background: radial-gradient(circle at 10% 20%, #fbf8f5 0%, #f4ede4 100%);
   color: var(--gray-700);
   min-height: 100vh;
@@ -174,7 +160,7 @@ main.sss-main {
 }
 
 .page-hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-headline), serif;
   font-size: 2.75rem;
   font-weight: 700;
   color: var(--gray-900);

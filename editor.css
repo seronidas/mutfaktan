@@ -1,26 +1,12 @@
-@font-face {
-  font-family: 'Playfair Display';
-  font-style: normal;
-  font-weight: 600 700;
-  font-display: swap;
-  src: url('./fonts/playfair-display.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('./fonts/plus-jakarta-sans.woff2') format('woff2');
-}
+@import url('./base.css');
 
 :root {
-  --primary: #c2410c;
-  --primary-hover: #9a3412;
-  --primary-light: #fff7ed;
-  --primary-glow: rgba(194, 65, 12, 0.18);
-  --accent: #d97706;
-  --accent-soft: #fef3c7;
+  --primary: #f40009;
+  --primary-hover: #d80007;
+  --primary-light: #fff1f2;
+  --primary-glow: rgba(244, 0, 9, 0.18);
+  --accent: #b91c1c;
+  --accent-soft: #fee2e2;
   --dark: #0f172a;
   --gray-900: #0f172a;
   --gray-700: #334155;
