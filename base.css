@@ -1,0 +1,239 @@
+/*============================================================================================
+  Mutfaktan Yarına & Coca-Cola Akademi
+  Kurumsal Temel CSS (base.css)
+  Resmî TCCC Unity (Headline & Text) & Foglihten Font Tanımlamaları
+============================================================================================*/
+
+/*-------- 1. TCCC Unity Headline (Kurumsal Başlık Fontu) --------*/
+@font-face {
+  font-family: 'TCCC-UnityHeadline';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityHeadline-Light.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityHeadline';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityHeadline-Regular.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityHeadline';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityHeadline-Medium.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityHeadline';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityHeadline-Bold.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityHeadline';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityHeadline-Black.woff2?v=2') format('woff2');
+}
+
+/*-------- 2. TCCC Unity Text (Kurumsal Gövde, Form ve Metin Fontu) --------*/
+@font-face {
+  font-family: 'TCCC-UnityText';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Light.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityText';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Regular.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityText';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Medium.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityText';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Bold.woff2?v=2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TCCC-UnityText';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Black.woff2?v=2') format('woff2');
+}
+
+/*-------- 3. Foglihten (Kurumsal Logo & Tırnaklı Vurgu Fontu) --------*/
+@font-face {
+  font-family: 'Foglihten';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/foglihten.woff2?v=2') format('woff2');
+}
+
+/* Geriye Dönük Uyumluluk (Eski referansların bozulmaması için) */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/foglihten.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/TCCC-UnityText-Regular.woff2') format('woff2');
+}
+
+/*-------- Kurumsal Tasarım Değişkenleri (:root) --------*/
+:root {
+  /* Kurumsal Renkler (Rehber Sayfa 11) */
+  --primary: #f40009;            /* Coca-Cola & Mutfaktan Yarına Kırmızısı (R:244 G:0 B:0) */
+  --primary-hover: #c90007;
+  --primary-dark: #a30006;
+  --primary-light: #fff5f5;
+  --primary-tint: #fee2e2;
+  --primary-glow: rgba(244, 0, 9, 0.22);
+
+  /* Kademeli Siyah ve Gri Skalası (Rehber: %100, %80, %60, %40, %20) */
+  --dark: #000000;
+  --gray-900: #000000;           /* %100 Siyah */
+  --gray-800: #333333;           /* %80 Siyah */
+  --gray-700: #555555;
+  --gray-600: #666666;           /* %60 Siyah */
+  --gray-500: #777777;
+  --gray-400: #999999;           /* %40 Siyah */
+  --gray-300: #cccccc;
+  --gray-200: #e5e5e5;           /* %20 Siyah */
+  --gray-150: #eeeeee;
+  --gray-100: #f5f5f5;
+  --gray-50: #fbfbfb;
+  --white: #ffffff;
+
+  /* Zemin ve Çerçeve Renkleri */
+  --bg-page: #f7f8fc;
+  --bg-card: #ffffff;
+  --bg-muted: #fbfcfd;
+  --border-color: #dddddd;
+  --border-light: #ededed;
+  --border-focus: #f40009;
+
+  /* Durum Renkleri */
+  --danger: #e34f4f;
+  --danger-light: #fff2f2;
+  --danger-border: #fecaca;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+  --warning-bar: #f8bd2c;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --success-border: #bbf7d0;
+
+  /* Potenza Geri Butonu */
+  --btn-backward-bg: #e8e8e8;
+  --btn-backward-color: #666666;
+  --btn-backward-hover: #000000;
+
+  /* Tipografi Aileleri */
+  --font-headline: 'TCCC-UnityHeadline', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Foglihten', Georgia, serif;
+  --font-body: 'TCCC-UnityText', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Köşe Yuvarlaklıkları */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 14px;
+  --radius-pill: 50px;
+
+  /* Gölgeler */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 25px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 4px 14px rgba(244, 0, 9, 0.28);
+  --shadow-btn-hover: 0 6px 18px rgba(201, 0, 7, 0.35);
+
+  /* Geçişler */
+  --transition: all 0.25s ease-in-out;
+  --btn-transition: background 0.35s ease, color 0.35s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+/*-------- Temel Sıfırlama (CSS Reset) --------*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--gray-800);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Başlıklar */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.25;
+}
+
+/* Linkler */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Genel Buton Temeli */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
