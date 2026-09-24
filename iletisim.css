@@ -1,0 +1,190 @@
+/*============================================================================================
+  Mutfaktan Yarına — İletişim ve Koordinasyon Masası
+  Theme: Potenza Split-Screen Modeli (base.css ve kayit.css üzerine kurulu)
+============================================================================================*/
+@import url('./base.css');
+@import url('./kayit.css');
+
+/* İletişim Sol Panel Bilgi Kartları */
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1.25rem 0 1.5rem;
+  text-align: left;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+}
+
+.contact-info-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.contact-info-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-info-text strong {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.contact-info-text p,
+.contact-info-text a {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.contact-info-text a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+textarea#txt-message {
+  width: 100%;
+  min-height: 110px;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  background: var(--white);
+  resize: vertical;
+  transition: var(--transition);
+}
+
+textarea#txt-message:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+select#sel-topic {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  background: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+select#sel-topic:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.success-state {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+}
+
+.success-state.active {
+  display: block;
+}
+
+.icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.success-state h3 {
+  font-family: var(--font-headline);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 0.5rem;
+}
+
+.success-state p {
+  color: #166534;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.ref-code {
+  display: inline-block;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+#btn-new-message {
+  background: var(--white);
+  border: 1.5px solid #86efac;
+  color: #15803d;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#btn-new-message:hover {
+  background: #f0fdf4;
+}

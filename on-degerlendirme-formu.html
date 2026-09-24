@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ön Değerlendirme Formu | Mutfaktan Yarına</title>
+  <meta name="description" content="Mutfaktan Yarına Eğitim ve Destek Programı 2026 6 Soruluk Ön Değerlendirme Formu">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header class="panel-header">
+    <div class="header-inner">
+      <a href="panel.html" class="brand">
+        <div class="brand-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Mutfaktan Yarına</span>
+          <span class="brand-sub">← Başvuru Takip Paneline Dön</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="user-badge">
+          <span id="preeval-username">Başvuru Sahibi</span>
+        </div>
+        <a href="giris.html" class="btn-logout">Çıkış Yap</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="preeval-container">
+    <div class="preeval-card">
+      <div class="status-info">
+        <h1>
+          <span>6 Soruluk Ön Değerlendirme</span>
+          <span class="status-badge" id="preeval-status-badge">
+            <span class="dot"></span>
+            30 Puanlık Aşama
+          </span>
+        </h1>
+        <p class="preeval-q-sub">
+          Tebrikler! SGK ve resmî belge doğrulamasını başarıyla tamamladınız. Aşağıdaki 6 soruyu en fazla 1000 karakter olacak şekilde yanıtlayınız. Yanıtlarınız Değerlendirme Kurulu tarafından şartnamedeki puan anahtarına göre (0–5 puan) değerlendirilecek ve 70 puanlık Sistem Puanınıza eklenerek 100 puanlık Jüri Aday Listesi belirlenecektir.
+        </p>
+      </div>
+    </div>
+
+    <div id="preeval-feedback" class="info-banner" hidden></div>
+
+    <form id="preeval-form">
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö1</span>
+            <div>
+              <h2 class="preeval-q-title">İşletmeniz son iki yılda herhangi bir kurumdan geri ödemesiz hibe veya ayni destek aldı mı?</h2>
+              <p class="preeval-q-sub">Destek aldıysanız hangi kurumdan, ne zaman ve ne tutarda aldığınızı belirtiniz. (İlk kez destek alacak işletmeler pozitif ayrışır.)</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q1" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q1">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö2</span>
+            <div>
+              <h2 class="preeval-q-title">İşletme tamamen size mi ait, yoksa başka ortaklarınız da var mı?</h2>
+              <p class="preeval-q-sub">Varsa işletmedeki ortaklık payınız yüzde kaçtır? (Şahıs işletmeleri ve kadın kooperatifleri doğrudan 5 tam puan alır.)</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q2" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q2">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö3</span>
+            <div>
+              <h2 class="preeval-q-title">Düzenli olarak ürün veya hizmet aldığınız kadın girişimci, kadın üretici ya da kadın kooperatifi var mı?</h2>
+              <p class="preeval-q-sub">Varsa tedarikçilerinizin adını ve tedarik ettiğiniz ürünleri belirtiniz.</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q3" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q3">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö4</span>
+            <div>
+              <h2 class="preeval-q-title">İşletmenizin menüsünde veya üretiminde öne çıkan, coğrafi işaretli, yerel veya reçetesi size özel bir ürün var mı?</h2>
+              <p class="preeval-q-sub">Gastronomi kültürüne ve yerel mirasa katkı sağlayan özgün reçetenizi ve ürününüzü açıklayınız.</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q4" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q4">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö5</span>
+            <div>
+              <h2 class="preeval-q-title">Gıda güvenliği, hijyen ve sıfır atık / gıda israfını önleme konusunda işletmenizde uyguladığınız özel bir yöntem veya belgeniz var mı?</h2>
+              <p class="preeval-q-sub">Hijyen eğitimi, ISO 22000 / HACCP, sıfır atık belgesi veya mutfakta uyguladığınız sürdürülebilirlik yöntemlerini belirtiniz.</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q5" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q5">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-card">
+        <div class="preeval-q-header">
+          <div class="preeval-q-title-wrap">
+            <span class="preeval-q-badge">Ö6</span>
+            <div>
+              <h2 class="preeval-q-title">Yaptığınız işe katkı sağlamak amacıyla bugüne kadar katıldığınız mesleki eğitim, kurs veya sertifika programları var mı?</h2>
+              <p class="preeval-q-sub">Eğitim veya sertifika adı, düzenleyen kurum ve yılıyla birlikte belirtiniz. (MSA ortak eğitimi bu soru kapsamında sayılmaz.)</p>
+            </div>
+          </div>
+        </div>
+        <textarea id="ans-q6" class="preeval-textarea" maxlength="1000" placeholder="Yanıtınızı buraya yazınız..." required></textarea>
+        <span class="char-counter"><span id="count-q6">0</span> / 1000 karakter</span>
+      </div>
+
+      <div class="preeval-declaration">
+        <input type="checkbox" id="preeval-confirm" required>
+        <label for="preeval-confirm">
+          Ön değerlendirme formunda verdiğim tüm bilgilerin ve açıklamaların doğru, eksiksiz ve işletmeme ait olduğunu kabul ve beyan ederim. Gerçeğe aykırı beyan halinde başvurumun iptal edileceğini biliyorum.
+        </label>
+      </div>
+
+      <button type="submit" class="preeval-submit-btn" id="btn-submit-preeval">
+        <span>Ön Değerlendirme Cevaplarını Gönder</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>Mutfaktan Yarına Eğitim ve Destek Programı 2026 · Tüm Hakları Saklıdır.</p>
+  </footer>
+
+  <script src="on-degerlendirme-formu.js"></script>
+</body>
+</html>

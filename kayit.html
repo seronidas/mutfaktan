@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mutfaktan Yarına - Eğitim ve Destek Programı 2026 Kayıt ve Başvuru Sayfası.">
+  <title>Başvuru Yap | Mutfaktan Yarına</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="kayit.css">
+</head>
+<body>
+
+  <!-- İki Kolonlu Split-Screen Düzeni (Potenza Teması Benzeri) -->
+  <div class="split-container">
+    
+    <!-- SOL TARAF: Kurumsal Kırmızı Panel (Proje Görseli & Tanıtım) -->
+    <aside class="content-left">
+      <div class="content-left-wrapper">
+        
+        <!-- Üst: Marka Logoları ve Ana Sayfaya Dönüş -->
+        <div class="left-top-bar">
+          <a href="index.html" class="left-logo-pill" title="Ana Sayfaya Dön">
+            <img src="assets/coca-cola-akademi-clean.png" alt="Coca-Cola Akademi" class="brand-cc-left">
+            <span class="left-logo-sep"></span>
+            <img src="assets/mutfaktan-clean-mark.png" alt="Mutfaktan Yarına" class="brand-my-left">
+          </a>
+
+          <a href="index.html" class="left-nav-home" title="Ana Sayfaya Dön">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Ana Sayfa</span>
+          </a>
+        </div>
+
+        <!-- Orta: Proje Görseli ve Açıklamalar -->
+        <div class="left-middle">
+          <figure class="left-figure">
+            <img src="assets/brand-collage.jpg" alt="Mutfaktan Yarına Programı" class="left-hero-img">
+            <div class="left-hero-badge">
+              <span class="pulse-dot"></span>
+              <span>2026 BAŞVURU DÖNEMİ</span>
+            </div>
+          </figure>
+
+          <h2 class="left-heading">Mutfaktan Yarına</h2>
+          <p class="left-tagline">Eğitim ve Destek Programı</p>
+          
+          <p class="left-desc">
+            Gastronomi sektöründeki kadın işletmecilere ve kadın kooperatiflerine ücretsiz MSA eğitimi ve bir işletmeye 1 Milyon TL, toplamda 25 işletmeye 4 Milyon TL hibe desteği!
+          </p>
+
+          <!-- 4 Özet İstatistik Kutusu -->
+          <div class="left-stats-grid">
+            <div class="left-stat-box">
+              <span class="stat-num">4 Milyon TL</span>
+              <span class="stat-lbl">Toplam Hibe</span>
+            </div>
+            <div class="left-stat-box">
+              <span class="stat-num">1 Milyon TL</span>
+              <span class="stat-lbl">1. Sıra Desteği</span>
+            </div>
+            <div class="left-stat-box">
+              <span class="stat-num">25 Aday</span>
+              <span class="stat-lbl">Hibe Desteği</span>
+            </div>
+            <div class="left-stat-box">
+              <span class="stat-num">Ücretsiz MSA</span>
+              <span class="stat-lbl">Akademi Eğitimi</span>
+            </div>
+          </div>
+
+          <a href="index.html#hibe-destegi" class="btn-left-outline">
+            <span>Hibe ve Program Detayları</span>
+            <span>➔</span>
+          </a>
+        </div>
+
+        <!-- Alt: Telif Bilgisi -->
+        <div class="left-footer">
+          <p>© 2026 Mutfaktan Yarına · Coca-Cola Akademi &amp; ÖSGD</p>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- SAĞ TARAF: Başvuru ve Kayıt Formu -->
+    <main class="content-right">
+      <div class="form-box">
+        
+        <!-- Mobil Ekranlar için Üst Logo Çubuğu -->
+        <div class="mobile-topbar">
+          <a href="index.html" class="mobile-brand">
+            <img src="assets/coca-cola-akademi-clean.png" alt="Coca-Cola Akademi" height="28">
+            <img src="assets/mutfaktan-clean-mark.png" alt="Mutfaktan Yarına" height="24">
+          </a>
+          <a href="index.html" class="mobile-back-link">← Ana Sayfa</a>
+        </div>
+
+        <header class="form-header">
+          <span class="form-tag">ÖN BAŞVURU</span>
+          <h1 class="form-title">Başvuru Adımı</h1>
+          <p class="form-subtitle">Hibe başvuru adımlarına geçmek için lütfen hesabınızı oluşturun.</p>
+        </header>
+
+        <form id="register-form" novalidate>
+          <div class="field">
+            <label for="username">Kullanıcı adı / e-posta</label>
+            <div class="input-box">
+              <input type="text" id="username" name="username" placeholder="ornek@mutfaktan.com veya kullanici_adi" autocomplete="username">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="error">Lütfen geçerli bir kullanıcı adı veya e-posta giriniz.</span>
+          </div>
+
+          <div class="field">
+            <label for="password">
+              Şifre
+              <small>En az 8 karakter</small>
+            </label>
+            <div class="input-box">
+              <input type="password" id="password" name="password" placeholder="Güçlü bir şifre belirleyiniz" autocomplete="new-password">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <button type="button" id="toggle-pw" aria-label="Şifreyi Göster">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+
+            <div class="strength" id="strength-box">
+              <div>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p>
+                <span>Şifre Gücü: <b id="strength-txt">Çok Zayıf</b></span>
+                <span id="strength-hint">Harf, rakam ve sembol kullanın</span>
+              </p>
+            </div>
+
+            <span class="error">Şifreniz en az 8 karakter uzunluğunda olmalıdır.</span>
+          </div>
+
+          <div class="agreements">
+            <label>
+              <input type="checkbox" id="chk-kvkk">
+              <span>Kişisel verilerin işlenmesine ilişkin <a href="#" id="open-kvkk">Aydınlatma Metni'ni</a> okudum.</span>
+            </label>
+            <span class="error" id="err-kvkk">Lütfen Kişisel Verilerin İşlenmesine İlişkin Aydınlatma Metni'ni onaylayınız.</span>
+
+            <label>
+              <input type="checkbox" id="chk-consent">
+              <span><a href="#" id="open-consent">Açık Rıza Metni'ni</a> onaylıyorum.</span>
+            </label>
+            <span class="error" id="err-consent">Lütfen Açık Rıza Metni'ni onaylayınız.</span>
+          </div>
+
+          <button type="submit" id="btn-submit">
+            <span>Hesabımı Oluştur ve Devam Et</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <div class="notice" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <h2>Hibe ve MSA Sertifikası Bilgilendirmesi</h2>
+            <p>
+              Kayıt işleminizin ardından sistem sizi <strong>Hibe Başvuru Formu</strong>'na yönlendirecektir. Program kapsamında sunulan ücretsiz MSA eğitimini tamamlayıp en az 70 puan alarak hak kazandığınız <strong>MSA Sertifikasını</strong>, başvuru formundaki ilgili alana yüklemeniz gerekmektedir.
+            </p>
+            <small>✦ Başvuru formunda sertifika yükleme adımı mevcuttur</small>
+          </div>
+        </div>
+
+        <p class="login-link">Zaten bir başvurunuz var mı? <a href="giris.html">Giriş Yap</a></p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODALLAR -->
+  <div class="modal" id="modal-kvkk" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <header>
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Kişisel Verilerin İşlenmesine İlişkin Aydınlatma Metni
+        </h3>
+        <button type="button" data-close="modal-kvkk" aria-label="Kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      <article>
+        <h4>1. Veri Sorumlusu</h4>
+        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, Mutfaktan Yarına Eğitim ve Destek Programı çerçevesinde toplanan kişisel verileriniz veri sorumlusu sıfatıyla işlenmektedir.</p>
+
+        <h4>2. Kişisel Verilerin Hangi Amaçla İşleneceği</h4>
+        <p>Toplanan kullanıcı adı, e-posta adresi, iletişim bilgileri, MSA sertifika bilgileri ve hibe başvuru projenize ilişkin veriler;</p>
+        <ul>
+          <li>Girişimci aday kayıtlarının oluşturulması ve doğrulanması,</li>
+          <li>Hibe ve teşvik başvuru süreçlerinin yürütülmesi ve değerlendirilmesi,</li>
+          <li>MSA sertifikası geçerlilik doğrulamasının yapılması,</li>
+          <li>Değerlendirme sonuçlarının ve bilgilendirmelerin adaylara tebliği amacıyla işlenmektedir.</li>
+        </ul>
+
+        <h4>3. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi</h4>
+        <p>Kişisel verileriniz, işbu kayıt formu ve akabinde dolduracağınız hibe başvuru formu üzerinden elektronik ortamda toplanmaktadır.</p>
+      </article>
+      <footer>
+        <button type="button" class="secondary" data-close="modal-kvkk">Kapat</button>
+        <button type="button" class="primary" id="accept-kvkk">Okudum ve Anladım</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-consent" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <header>
+        <h3>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+          Açık Rıza Metni
+        </h3>
+        <button type="button" data-close="modal-consent" aria-label="Kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      <article>
+        <h4>Açık Rıza Beyanı</h4>
+        <p>Mutfaktan Yarına Eğitim ve Destek Programı kapsamında tarafıma sunulan Aydınlatma Metni'ni inceledim. Bu doğrultuda;</p>
+        <ul>
+          <li>Kimlik, iletişim ve MSA sertifika belgelerimin hibe komisyonu ve yetkili değerlendirme ekibi ile paylaşılmasına,</li>
+          <li>Hibe sürecindeki mentorluk ve eğitim programlarının planlanması doğrultusunda bilgilendirici bildirimler gönderilmesine,</li>
+          <li>Kişisel verilerimin güvenli altyapılarda başvuru süreci boyunca saklanmasına,</li>
+        </ul>
+        <p>Özgür irademle açık rıza veriyorum.</p>
+      </article>
+      <footer>
+        <button type="button" class="secondary" data-close="modal-consent">İptal</button>
+        <button type="button" class="primary" id="accept-consent">Açık Rıza Metnini Onayla</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-success" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <article>
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <h3>Tebrikler! Başvurunuz Başlatıldı</h3>
+        <p>Hesabınız başarıyla oluşturuldu. Sıradaki adım: Hibe Başvurunuzu Tamamlamak.</p>
+
+        <div class="alert-card">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            MSA Sertifikası Olanların Dikkatine!
+          </h4>
+          <p>
+            Mutfak Sanatları Akademisi (MSA) sertifikası alan girişimcilerimizin, açılacak olan <strong>Hibe Başvuru Formu</strong> içerisindeki sertifika alanına belgelerini (PDF / JPG) yüklemeleri gerekmektedir.
+          </p>
+        </div>
+
+        <p>Aşağıdaki butona tıklayarak başvuru formunuza hemen başlayabilirsiniz.</p>
+      </article>
+
+      <footer>
+        <button type="button" class="primary" id="proceed-grant">
+          Hibe Başvuru Formuna Devam Et →
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="kayit.js"></script>
+</body>
+</html>
