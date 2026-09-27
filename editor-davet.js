@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackBox = document.getElementById('feedbackBox');
 
   if (emailParam && emailInput) {
-    emailInput.value = decodeURIComponent(emailParam);
+    emailInput.value = emailParam;
   }
 
   if (togglePwBtn && passwordInput) {
@@ -59,26 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function setEthicsModal(isOpen) {
-    if (ethicsModal) {
-      if (isOpen) {
-        ethicsModal.removeAttribute('hidden');
-      } else {
-        ethicsModal.setAttribute('hidden', '');
-      }
-    }
-  }
-
   if (openEthicsModalBtn) {
     openEthicsModalBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      setEthicsModal(true);
+      MYUI.openModal(ethicsModal);
     });
   }
 
   if (closeEthicsModalBtn) {
     closeEthicsModalBtn.addEventListener('click', () => {
-      setEthicsModal(false);
+      MYUI.closeModal(ethicsModal);
     });
   }
 
@@ -87,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (ethicsCheck) {
         ethicsCheck.checked = true;
       }
-      setEthicsModal(false);
+      MYUI.closeModal(ethicsModal);
     });
   }
 

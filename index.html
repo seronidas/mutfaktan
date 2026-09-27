@@ -1,92 +1,99 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <!-- @include head title="Mutfaktan Yarına | Eğitim ve Destek Programı 2026" description="Mutfaktan Yarına Eğitim ve Destek Programı. Coca-Cola Akademi ve ÖSGD iş birliğiyle kadın işletmecilere ve kadın kooperatiflerine ücretsiz MSA eğitimi ve 4 Milyon TL hibe desteği." css="base site-chrome index" scripts="site-chrome index" -->
+  <!-- DÜZENLEME: partials/head.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Mutfaktan Yarına Eğitim ve Destek Programı. Coca-Cola Akademi ve ÖSGD iş birliğiyle kadın işletmecilere ve kadın kooperatiflerine ücretsiz MSA eğitimi ve 4 Milyon TL hibe desteği.">
   <title>Mutfaktan Yarına | Eğitim ve Destek Programı 2026</title>
+  <meta name="description" content="Mutfaktan Yarına Eğitim ve Destek Programı. Coca-Cola Akademi ve ÖSGD iş birliğiyle kadın işletmecilere ve kadın kooperatiflerine ücretsiz MSA eğitimi ve 4 Milyon TL hibe desteği.">
+  <meta name="theme-color" content="#F40009">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mutfaktan Yarına | Eğitim ve Destek Programı 2026">
+  <meta property="og:description" content="Mutfaktan Yarına Eğitim ve Destek Programı. Coca-Cola Akademi ve ÖSGD iş birliğiyle kadın işletmecilere ve kadın kooperatiflerine ücretsiz MSA eğitimi ve 4 Milyon TL hibe desteği.">
+  <meta property="og:image" content="https://mutfaktan.anatolia.solutions/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="fonts/TCCC-UnityText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityText-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityHeadline-Black.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="forms.css">
   <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="site-chrome.css">
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="print.css" media="print">
+  <script src="site-chrome.js" defer></script>
+  <script src="index.js" defer></script>
+  <!-- @end head -->
+  <!-- LCP: hero görseli. <picture> kaynaklarıyla aynı ölçüt sırası; yalnızca eşleşen önyüklenir, yüksek öncelikle -->
+  <link rel="preload" as="image" type="image/webp" href="assets/brand-collage-lg.webp" media="(min-width: 1024px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/brand-collage-md.webp" media="(min-width: 600px) and (max-width: 1023px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/brand-collage-portrait.webp" media="(max-width: 599px)" fetchpriority="high">
 </head>
 <body>
+  <!-- @include skip-link -->
+  <!-- DÜZENLEME: partials/skip-link.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
+  <a href="#main">İçeriğe geç</a>
+  <!-- @end skip-link -->
 
-  <!-- =====================================================================
-       1. ANA MENÜ (Nav Header)
-       ===================================================================== -->
+  <!-- @include header-public active=ana-sayfa -->
+  <!-- DÜZENLEME: partials/header-public.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <header class="main-header" id="top-header">
-    <div class="header-container">
-      
-      <!-- Marka Logo Grubu: Resmî Kurumsal Kimlik Görselleri -->
-      <a href="index.html" class="brand-lockup" aria-label="Mutfaktan Yarına Ana Sayfa">
-        <img src="assets/coca-cola-akademi-clean.png" alt="Coca-Cola Akademi" class="brand-cc-img">
-        <div class="brand-divider"></div>
-        <img src="assets/mutfaktan-clean-mark.png" alt="Mutfaktan Yarına" class="brand-my-img">
+    <div>
+      <a href="index.html" aria-label="Mutfaktan Yarına Ana Sayfa">
+        <img class="brand-logo" src="assets/mutfaktan-clean-mark-opt.png" alt="Mutfaktan Yarına" width="128" height="50" decoding="async">
       </a>
-
-      <!-- Ortalanmış ve İnce Fontlu Ana Menü (Ana Sayfa logosundan gidildiği için kaldırıldı) -->
-      <nav class="nav-menu" id="nav-menu" aria-label="Ana Menü">
-        <ul class="nav-list">
-          <li class="nav-item">
-            <a href="#hibe-sartlari" class="nav-link" id="nav-link-sartlar">HİBE BAŞVURU ŞARTLARI</a>
-          </li>
-          <li class="nav-item">
-            <a href="#hibe-yonergesi" class="nav-link" id="nav-link-yonerge">HİBE YÖNERGESİ</a>
-          </li>
-          <li class="nav-item">
-            <a href="sss.html" class="nav-link">SIKÇA SORULAN SORULAR</a>
-          </li>
-          <li class="nav-item">
-            <a href="iletisim.html" class="nav-link">İLETİŞİM</a>
-          </li>
+      <nav id="nav-menu" aria-label="Ana Menü">
+        <ul>
+          <li><a href="index.html" aria-current="page">ANA SAYFA</a></li>
+          <li><a href="hibe-sartlari.html">HİBE BAŞVURU ŞARTLARI</a></li>
+          <li><a href="hibe-yonergesi.html">HİBE YÖNERGESİ</a></li>
+          <li><a href="sss.html">SIKÇA SORULAN SORULAR</a></li>
+          <li><a href="iletisim.html">İLETİŞİM</a></li>
         </ul>
       </nav>
-
-      <!-- Sağ Aksiyon Butonu -->
-      <div class="header-actions">
-        <a href="kayit.html" class="btn-primary-nav">
-          <span>BAŞVURU</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Mobil Menü Aç/Kapa Butonu -->
-      <button class="mobile-toggle" id="mobile-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+      <a href="kayit.html" class="btn btn-sm">BAŞVURU
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <button type="button" id="mobile-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
       </button>
-
     </div>
   </header>
+  <!-- @end header-public -->
 
   <!-- =====================================================================
        2. HERO BÖLÜMÜ
        ===================================================================== -->
   <section class="hero-section" id="hero">
     <div class="hero-bg-layer">
-      <img src="assets/brand-collage.jpg" alt="Mutfaktan Yarına Eğitim ve Destek Programı" class="hero-bg-img">
-      <div class="hero-overlay"></div>
+      <picture>
+        <source srcset="assets/brand-collage-lg.webp" media="(min-width: 1024px)" type="image/webp">
+        <source srcset="assets/brand-collage-md.webp" media="(min-width: 600px)" type="image/webp">
+        <source srcset="assets/brand-collage-portrait.webp" type="image/webp">
+        <img src="assets/brand-collage.jpg" alt="Mutfaktan Yarına Eğitim ve Destek Programı" width="1600" height="898" decoding="async" fetchpriority="high">
+      </picture>
+      <div></div>
     </div>
 
     <div class="hero-content-wrapper">
       <div class="hero-badge">
-        <span class="badge-dot"></span>
+        <span></span>
         Coca-Cola Akademi & ÖSGD İş Birliğiyle
       </div>
 
-      <h1 class="hero-title">
-        Mutfaktan Yarına Eğitim ve Destek Programı<br>
-        ile yeme-içme sektöründe faaliyet gösteren<br>
-        kadın işletmecilere ve kadın kooperatiflerine ücretsiz eğitim<br>
-        ve bir işletmeye 1 Milyon TL,<br>
-        toplamda 25 işletmeye 4 Milyon TL hibe desteği!
+      <h1>
+        Mutfaktan Yarına Eğitim ve Destek Programı ile yeme-içme sektöründe faaliyet gösteren kadın işletmecilere ve kadın kooperatiflerine ücretsiz eğitim ve bir işletmeye 1 Milyon TL, toplamda 25 işletmeye 4 Milyon TL hibe desteği!
       </h1>
 
       <div class="hero-buttons">
-        <a href="kayit.html" class="btn-hero-primary">
+        <a href="kayit.html" class="btn btn-lg">
           <span>Hemen Başvur</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -104,24 +111,24 @@
 
       <!-- Hero Hızlı Özet Rakamları -->
       <div class="hero-stats-bar">
-        <div class="stat-box">
+        <div>
           <div class="stat-number">4 Milyon TL</div>
-          <div class="stat-label">Toplam Hibe Desteği</div>
+          <div>Toplam Hibe Desteği</div>
         </div>
         <div class="stat-divider"></div>
-        <div class="stat-box">
+        <div>
           <div class="stat-number">1 Milyon TL</div>
-          <div class="stat-label">1. Sıra Desteği</div>
+          <div>1. Sıra Desteği</div>
         </div>
         <div class="stat-divider"></div>
-        <div class="stat-box">
+        <div>
           <div class="stat-number">25 Aday</div>
-          <div class="stat-label">Hibe Alacak İşletmeci</div>
+          <div>Hibe Alacak İşletmeci</div>
         </div>
         <div class="stat-divider"></div>
-        <div class="stat-box">
+        <div>
           <div class="stat-number">Ücretsiz MSA</div>
-          <div class="stat-label">Akademi Eğitimi & Sertifika</div>
+          <div>Akademi Eğitimi & Sertifika</div>
         </div>
       </div>
     </div>
@@ -134,27 +141,27 @@
   <!-- Mobil ve Tablet için Üst Sekme Barı (1024px altında aktif) -->
   <nav class="subnav-sticky" id="subnav-bar" aria-label="Mobil Sayfa Sekmeleri">
     <div class="subnav-container">
-      <ul class="subnav-list">
+      <ul>
         <li>
-          <a href="#proje-hakkinda" class="subnav-tab active" data-target="proje-hakkinda">
+          <a href="#proje-hakkinda" class="active" data-target="proje-hakkinda">
             <span class="tab-arrow">➔</span>
             <span>PROJE HAKKINDA</span>
           </a>
         </li>
         <li>
-          <a href="#msa-egitimi" class="subnav-tab" data-target="msa-egitimi">
+          <a href="#msa-egitimi" data-target="msa-egitimi">
             <span class="tab-arrow">➔</span>
             <span>MSA EĞİTİMİ</span>
           </a>
         </li>
         <li>
-          <a href="#hibe-destegi" class="subnav-tab" data-target="hibe-destegi">
+          <a href="#hibe-destegi" data-target="hibe-destegi">
             <span class="tab-arrow">➔</span>
-            <span>HİBE DESTEĞİ &amp; TUTARLARI</span>
+            <span>HİBE DESTEĞİ</span>
           </a>
         </li>
         <li>
-          <a href="#program-takvimi" class="subnav-tab" data-target="program-takvimi">
+          <a href="#program-takvimi" data-target="program-takvimi">
             <span class="tab-arrow">➔</span>
             <span>PROGRAM TAKVİMİ</span>
           </a>
@@ -168,49 +175,49 @@
 
     <!-- SOL YAN MENÜ (Masaüstünde Yanda Sabit Kalan Kurumsal Menü) -->
     <aside class="desktop-side-nav" aria-label="Yan Menü">
-      <div class="side-nav-card">
+      <div>
         <div class="side-nav-header">
-          <div class="side-nav-tag">
+          <div>
             <span class="side-dot"></span>
             <span>YAN MENÜ</span>
           </div>
-          <h3 class="side-nav-title">Bölümler</h3>
+          <h2>Bölümler</h2>
         </div>
 
-        <nav class="side-nav-menu" aria-label="Sayfa Sekmeleri">
-          <ul class="side-nav-list">
+        <nav aria-label="Sayfa Sekmeleri">
+          <ul>
             <li>
-              <a href="#proje-hakkinda" class="side-nav-link active" data-target="proje-hakkinda">
+              <a href="#proje-hakkinda" class="active" data-target="proje-hakkinda">
                 <span class="side-arrow">➔</span>
-                <span class="side-text">PROJE HAKKINDA</span>
+                <span>PROJE HAKKINDA</span>
               </a>
             </li>
             <li>
-              <a href="#msa-egitimi" class="side-nav-link" data-target="msa-egitimi">
+              <a href="#msa-egitimi" data-target="msa-egitimi">
                 <span class="side-arrow">➔</span>
-                <span class="side-text">MSA EĞİTİMİ</span>
+                <span>MSA EĞİTİMİ</span>
               </a>
             </li>
             <li>
-              <a href="#hibe-destegi" class="side-nav-link" data-target="hibe-destegi">
+              <a href="#hibe-destegi" data-target="hibe-destegi">
                 <span class="side-arrow">➔</span>
-                <span class="side-text">HİBE DESTEĞİ &amp; TUTARLARI</span>
+                <span>HİBE DESTEĞİ</span>
               </a>
             </li>
             <li>
-              <a href="#program-takvimi" class="side-nav-link" data-target="program-takvimi">
+              <a href="#program-takvimi" data-target="program-takvimi">
                 <span class="side-arrow">➔</span>
-                <span class="side-text">PROGRAM TAKVİMİ</span>
+                <span>PROGRAM TAKVİMİ</span>
               </a>
             </li>
           </ul>
         </nav>
 
         <div class="side-nav-promo-box">
-          <div class="side-promo-badge">BAŞVURULAR AÇIK</div>
+          <div class="side-promo-badge">BAŞVURULAR 12 EKİM'DE BAŞLIYOR</div>
           <div class="side-promo-sum">4 Milyon TL Fon</div>
           <p>Gastronomideki kadın girişimcilere ücretsiz eğitim ve hibe desteği.</p>
-          <a href="kayit.html" class="btn-side-apply">
+          <a href="kayit.html">
             <span>Hemen Başvur</span>
             <span class="btn-arrow">➔</span>
           </a>
@@ -219,7 +226,7 @@
     </aside>
 
     <!-- SAĞ ANA İÇERİK ALANI -->
-    <main class="page-content-area">
+    <main class="page-content-area" id="main">
 
     <!-- -----------------------------------------------------------------
          BÖLÜM 1: PROJE HAKKINDA
@@ -233,29 +240,35 @@
       <h2 class="section-heading">PROJE HAKKINDA</h2>
 
       <div class="lead-text-box">
-        <p class="paragraph-lead">
+        <p>
           Coca-Cola Akademi tarafından ÖSGD iş birliğiyle hayata geçirilen <strong>Mutfaktan Yarına Eğitim ve Destek Programı</strong>, gastronomi (yeme-içme) sektöründe faaliyet gösteren kadın işletmecilerin ve kadın kooperatiflerinin işlerini geliştirmelerini, büyütmelerini ve daha sürdürülebilir hale getirmelerini desteklemeyi hedefliyor.
         </p>
       </div>
 
       <div class="text-body-flow">
         <p>
-          Mutfaktan Yarına Programı, eğitim ve hibe desteğiyle kadın işletmecilerin mutfaktaki emeğini; <strong>sürdürülebilir büyüme, etkili ekip yönetimi, iyi bir müşteri deneyimi ve değişen ihtiyaçlara uyum yetkinliğiyle</strong> buluşturuyor.
+          Mutfaktan Yarına Programı, eğitim ve hibe desteğiyle kadın işletmecilerin mutfaktaki emeğini, <strong>sürdürülebilir büyüme, etkili ekip yönetimi, iyi bir müşteri deneyimi ve değişen ihtiyaçlara uyum yetkinliğiyle</strong> destekliyor.
         </p>
         <p>
-          Eğitim ve hibe desteğini bir araya getiren program ile kadın işletmecilerin ve kadın kooperatiflerinin kapasitelerini artırmaları ve daha güçlü işletmeler oluşturmaları amaçlanıyor.
+          Program kapsamında Mutfak Sanatları Akademisi (MSA) tarafından Mutfaktan Yarına Programı’na özel olarak hazırlanan çevrim içi eğitimde; müşteri yönetiminden maliyet yönetimi ve sürdürülebilir büyümeye, menü verimliliğinden ekip ve operasyon yönetimine, kalite ve müşteri deneyiminden dijital görünürlük ve yapay zekâ destekli araçlara kadar işletmelerin gelişimine katkı sağlayabilecek farklı alanlar ele alınıyor.
+        </p>
+        <p>
+          Bu eğitimin sonundaki değerlendirmeden en az 70 puan alarak sertifika almaya hak kazanan katılımcılar, Hibe Desteği Yönergesinde belirtilen diğer başvuru koşullarını da sağlamaları halinde hibe desteğine başvurabiliyor.
+        </p>
+        <p>
+          Eğitim ve hibe desteğini bir araya getiren “Mutfaktan Yarına Programı” ile kadın işletmecilerin ve kadın kooperatiflerinin kapasitelerini artırmaları ve daha güçlü işletmeler oluşturmaları hedefleniyor.
         </p>
       </div>
 
       <!-- Resmî Yönerge Bağlantı Panosu -->
       <div class="section-action-banner">
         <div class="action-info">
-          <span class="info-label">RESMÎ DOKÜMAN</span>
-          <h4>Program Yönergesi ve Başvuru Kuralları</h4>
+          <span>RESMÎ DOKÜMAN</span>
+          <h3>Program Yönergesi ve Başvuru Kuralları</h3>
           <p>Hibe programına ilişkin tüm usul ve esasları detaylı olarak inceleyebilirsiniz.</p>
         </div>
         <div class="action-buttons">
-          <a href="#hibe-yonergesi" class="btn-outline-red" id="btn-open-yonerge">
+          <a href="hibe-yonergesi.html" id="btn-open-yonerge">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
@@ -280,41 +293,39 @@
       <h2 class="section-heading">MUTFAKTAN YARINA PROGRAMI’NA ÖZEL MSA EĞİTİMİ</h2>
 
       <div class="lead-text-box">
-        <p class="paragraph-lead">
+        <p>
           İşletmelerin sürdürülebilir büyümesi, mutfaktaki uzmanlığın güçlü bir yönetim anlayışıyla buluşmasıyla mümkün. <strong>Mutfak Sanatları Akademisi (MSA)</strong> tarafından Mutfaktan Yarına Programı’na özel olarak hazırlanan çevrim içi eğitim, bu ihtiyaçtan yola çıkarak kadın işletmecilerin işlerini daha verimli ve sürdürülebilir yönetmelerine destek oluyor.
         </p>
       </div>
 
       <p class="section-subtext">
-        Eğitim kapsamında müşteri yönetiminden maliyet yönetimine, menü verimliliğinden dijital dönüşüme kadar işletmelerin gelişimine doğrudan katkı sağlayan 6 ana alan ele alınıyor:
+        Eğitim kapsamında; müşteri ve maliyet yönetimi, sürdürülebilir büyüme, menü verimliliği, ekip ve operasyon yönetimi, kalite, müşteri deneyimi, dijital görünürlük ve yapay zekâ destekli araçlar ele alınıyor.
       </p>
 
       <!-- MSA Eğitim Modülleri Kartları -->
       <div class="modules-grid">
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="1" x2="12" y2="23"></line>
               <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
             </svg>
           </div>
           <h3>Müşteri ve Maliyet Yönetimi</h3>
-          <p>Maliyet kontrolü, kârlılık analizleri, porsiyonlama ve müşteri sadakati stratejileri.</p>
         </div>
 
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
               <polyline points="17 6 23 6 23 12"></polyline>
             </svg>
           </div>
           <h3>Sürdürülebilir Büyüme</h3>
-          <p>Kaynak verimliliği, atık azaltımı ve uzun vadeli işletme direnci kazandırma.</p>
         </div>
 
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
@@ -323,11 +334,10 @@
             </svg>
           </div>
           <h3>Menü Verimliliği</h3>
-          <p>Mutfak iş akışı ve malzeme dinamiklerine uygun kârlı menü mühendisliği.</p>
         </div>
 
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
@@ -336,28 +346,25 @@
             </svg>
           </div>
           <h3>Ekip ve Operasyon Yönetimi</h3>
-          <p>Mutfak ve servis koordinasyonu, ekip motivasyonu, hijyen ve kalite standartları.</p>
         </div>
 
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
             </svg>
           </div>
           <h3>Kalite ve Müşteri Deneyimi</h3>
-          <p>Hizmet kalitesinin standardize edilmesi ve müşteri memnuniyeti yönetimi.</p>
         </div>
 
-        <div class="module-card">
-          <div class="module-icon">
+        <div>
+          <div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
           </div>
-          <h3>Dijital Görünürlük & Yapay Zekâ</h3>
-          <p>Online haritalar, sosyal medya ve yapay zekâ destekli içerik ve iş araçları.</p>
+          <h3>Dijital Görünürlük ve Yapay Zekâ Destekli Araçlar</h3>
         </div>
       </div>
 
@@ -368,7 +375,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
           </svg>
         </div>
-        <div class="mandatory-text">
+        <div>
           <h4>Hibe Desteğine Başvuru İçin Sertifika Zorunluluğu</h4>
           <p>
             Hibe Desteğine başvurabilmek için MSA tarafından Mutfaktan Yarına Programı’na özel olarak hazırlanan eğitimi tamamlamak, eğitim sonundaki değerlendirmeden <strong>en az 70 puan alarak sertifikaya hak kazanmak</strong> ve bu sertifikayı Hibe Başvuru Formu’na eklemek zorunludur.
@@ -389,14 +396,20 @@
       <h2 class="section-heading">HİBE DESTEĞİ</h2>
 
       <div class="lead-text-box">
-        <p class="paragraph-lead">
-          Mutfaktan Yarına, eğitimle kazanılan bilgi ve becerilerin işletmelerin gelişimine katkı sağlamasını desteklemek amacıyla hibe desteğini de programın bir parçası haline getiriyor. Gastronomi sektöründe faaliyet gösteren kadın işletmecilerin ve kadın kooperatiflerinin kapasitelerini artırmalarını desteklemek amacıyla <strong>toplam 25 aday hibe desteğinden yararlanacak</strong>.
+        <p>
+          Mutfaktan Yarına, eğitimle kazanılan bilgi ve becerilerin işletmelerin gelişimine katkı sağlamasını desteklemek amacıyla, hibe desteğini de programın bir parçası haline getiriyor.
+        </p>
+      </div>
+
+      <div class="text-body-flow">
+        <p>
+          Gastronomi (yeme-içme) sektöründe faaliyet gösteren kadın işletmecilerin ve kadın kooperatiflerinin kapasitelerini artırmalarını, işlerini geliştirmelerini ve daha güçlü işletmeler oluşturmalarını desteklemek amacıyla <strong>toplam 25 aday hibe desteğinden yararlanacak</strong>.
         </p>
       </div>
 
       <!-- Hibe Başvuru Şartları ve Yönerge Butonları -->
       <div class="cta-direct-buttons" id="hibe-sartlari">
-        <a href="#modal-sartlar" class="btn-guide-primary" id="btn-sartlar-modal">
+        <a href="hibe-sartlari.html" class="btn-guide-primary" id="btn-sartlar-modal">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 11l3 3L22 4"></path>
             <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
@@ -404,7 +417,7 @@
           <span>Hibe Başvuru Şartları</span>
         </a>
 
-        <a href="#modal-yonerge" class="btn-guide-secondary" id="btn-yonerge-modal">
+        <a href="hibe-yonergesi.html" class="btn-guide-secondary" id="btn-yonerge-modal">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
@@ -428,7 +441,7 @@
           </div>
         </div>
 
-        <p class="showcase-desc">
+        <p>
           Program kapsamında toplam 25 aday hibe desteğinden yararlanacaktır. Hibe dağılımı aşağıdaki gibidir:
         </p>
 
@@ -436,43 +449,43 @@
         <div class="award-cards-grid">
           
           <!-- 1. Sıra (Öne Çıkan Baş Kart) -->
-          <div class="award-card award-rank-1">
+          <div class="award-rank-1">
             <div class="award-card-header">
               <span class="award-rank-badge gold">1. Sıra</span>
-              <span class="award-quota">1 Kişi</span>
+              <span>1 Kişi</span>
             </div>
             <div class="award-amount">1.000.000 TL</div>
-            <p class="award-desc">Birincilik hibe desteği, jüri değerlendirmesinde en yüksek toplam puanı alan işletmeciye verilir.</p>
+            <p>Birincilik hibe desteği, jüri değerlendirmesinde en yüksek toplam puanı alan işletmeciye verilir.</p>
           </div>
 
           <!-- 2. Sıra -->
-          <div class="award-card award-rank-2">
+          <div>
             <div class="award-card-header">
               <span class="award-rank-badge silver">2. Sıra</span>
-              <span class="award-quota">1 Kişi</span>
+              <span>1 Kişi</span>
             </div>
             <div class="award-amount">500.000 TL</div>
-            <p class="award-desc">İkincilik hibe desteği, jüri puanı sıralamasındaki ikinci en yüksek adaya tahsis edilir.</p>
+            <p>İkincilik hibe desteği, jüri puanı sıralamasındaki ikinci en yüksek adaya tahsis edilir.</p>
           </div>
 
           <!-- 3. Sıra -->
-          <div class="award-card award-rank-3">
+          <div>
             <div class="award-card-header">
               <span class="award-rank-badge bronze">3. Sıra</span>
-              <span class="award-quota">1 Kişi</span>
+              <span>1 Kişi</span>
             </div>
             <div class="award-amount">300.000 TL</div>
-            <p class="award-desc">Üçüncülük hibe desteği, jüri puanı sıralamasındaki üçüncü adaya aktarılır.</p>
+            <p>Üçüncülük hibe desteği, jüri puanı sıralamasındaki üçüncü adaya aktarılır.</p>
           </div>
 
           <!-- 4.–25. Sıralar (22 Kişi) -->
-          <div class="award-card award-rank-rest">
+          <div class="award-rank-rest">
             <div class="award-card-header">
               <span class="award-rank-badge standard">4. – 25. Sıra</span>
-              <span class="award-quota">22 Kişi</span>
+              <span>22 Kişi</span>
             </div>
             <div class="award-amount">100.000 TL <small>/ kişi başı</small></div>
-            <p class="award-desc">4. ile 25. sıradaki 22 hibe yararlanıcısına 100.000'er TL olmak üzere toplam 2.200.000 TL dağıtılır.</p>
+            <p>4. ile 25. sıradaki 22 hibe yararlanıcısına 100.000'er TL olmak üzere toplam 2.200.000 TL dağıtılır.</p>
           </div>
 
         </div>
@@ -480,8 +493,8 @@
 
       <!-- Hukuki ve Usul Şartları Kartları -->
       <div class="terms-grid">
-        <div class="term-card">
-          <div class="term-header">
+        <div>
+          <div>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"></circle>
               <path d="M12 6v6l4 2"></path>
@@ -493,8 +506,8 @@
           </p>
         </div>
 
-        <div class="term-card">
-          <div class="term-header">
+        <div>
+          <div>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
@@ -528,129 +541,122 @@
       <!-- Estetik Zaman Çizelgesi Kartı -->
       <div class="aesthetic-timeline-wrapper">
         
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node">1</div>
-            <div class="timeline-line"></div>
+            <div>1</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Hibe başvuru sürecinin başlaması</h4>
+            <div>
+              <h3>Hibe başvuru sürecinin başlaması</h3>
               <p>Çevrim içi portal üzerinden başvuru formlarının erişime açılması.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip">12 Ekim 2026</span>
+              <span>12 Ekim 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node highlight-red">2</div>
-            <div class="timeline-line"></div>
+            <div class="highlight-red">2</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Hibe başvurularının son günü</h4>
+            <div>
+              <h3>Hibe başvurularının son günü</h3>
               <p>Başvuru formunun eksiksiz doldurularak teslim edilmesi için son tarih.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip chip-important">12 Kasım 2026</span>
+              <span class="chip-important">12 Kasım 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node">3</div>
-            <div class="timeline-line"></div>
+            <div>3</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>70 puanlık Sistem Puanı sıralamasının oluşturulması ve adaylara bildirim</h4>
-              <p>Objektif kriterlerle sistem sıralamasının hesaplanması ve hak kazananlara bildirim.</p>
+            <div>
+              <h3>70 puanlık Sistem Puanı sıralamasının oluşturulması ve adaylara bildirim</h3>
+              <p>Sistem Puanı sıralaması oluşturulur ve adaylara bildirim yapılır.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip">13 Kasım 2026</span>
+              <span>13 Kasım 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node">4</div>
-            <div class="timeline-line"></div>
+            <div>4</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Adayların doğrulama belgelerini yüklemesi ve Ön Değerlendirme sorularını yanıtlaması</h4>
-              <p>Evrak doğrulama ve sisteme açılan 6 yazılı sorunun yanıtlanması.</p>
+            <div>
+              <h3>Adayların doğrulama belgelerini yüklemesi ve Ön Değerlendirme sorularını yanıtlaması</h3>
+              <p>Ön Değerlendirmeye alınan adaylara açılan 6 yazılı sorunun yanıtlanması ve doğrulama belgelerinin yüklenmesi.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip">14-21 Kasım 2026</span>
+              <span>14-21 Kasım 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node">5</div>
-            <div class="timeline-line"></div>
+            <div>5</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Belge ve beyan doğrulaması ile Ön Değerlendirme puanlaması</h4>
-              <p>Evrak incelemeleri ve komisyon tarafından 30 puan üzerinden değerlendirme.</p>
+            <div>
+              <h3>Belge ve beyan doğrulaması ile Ön Değerlendirme puanlaması</h3>
+              <p>Evrak incelemeleri ve program ekibi tarafından 30 puan üzerinden değerlendirme.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip">23-30 Kasım 2026</span>
+              <span>23-30 Kasım 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node">6</div>
-            <div class="timeline-line"></div>
+            <div>6</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Toplam Ön Sıralama Puanının oluşturulması, Jüri Aday Listesinin belirlenmesi ve Jüriye iletilmesi</h4>
-              <p>Jüri mülakatına katılacak finalist aday listesinin tespiti.</p>
+            <div>
+              <h3>Toplam Ön Sıralama Puanının oluşturulması, Jüri Aday Listesinin belirlenmesi ve Jüriye iletilmesi</h3>
+              <p>İlk 25 aday ve 25. sıradaki adayla eşit puanlı adaylar Jüri Aday Listesine alınır.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip">1 Aralık 2026</span>
+              <span>1 Aralık 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node highlight-blue">7</div>
-            <div class="timeline-line"></div>
+            <div class="highlight-blue">7</div>
           </div>
           <div class="timeline-body">
-            <div class="timeline-content">
-              <h4>Jüri değerlendirme süreci</h4>
-              <p>Bağımsız jüri heyeti ile çevrim içi birebir görüşmeler ve puanlama.</p>
+            <div>
+              <h3>Jüri değerlendirme süreci</h3>
+              <p>Jüri, Jüri Aday Listesindeki adaylarla çevrim içi görüşür ve puanlar; nihai sıralama yalnızca Jüri Toplam Puanına göre yapılır.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip chip-juri">2-12 Aralık 2026</span>
+              <span class="chip-juri">2-12 Aralık 2026</span>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item timeline-last">
+        <div>
           <div class="timeline-indicator">
-            <div class="timeline-node highlight-final">8</div>
+            <div class="highlight-final">8</div>
           </div>
           <div class="timeline-body body-final">
-            <div class="timeline-content">
-              <h4>Nihai sonuçların duyurulması</h4>
+            <div>
+              <h3>Nihai sonuçların duyurulması</h3>
               <p>Hibe almaya hak kazanan 25 kadın işletmeci ve kooperatifin resmî ilanı.</p>
             </div>
             <div class="timeline-date">
-              <span class="date-chip chip-final">14 Aralık 2026</span>
+              <span class="chip-final">14 Aralık 2026</span>
             </div>
           </div>
         </div>
@@ -671,13 +677,13 @@
 
       <!-- Harekete Geçirme Panosu -->
       <div class="final-cta-banner">
-        <div class="cta-banner-content">
-          <span class="cta-tag">2026 DÖNEMİ BAŞVURULARI</span>
+        <div>
+          <span>2026 DÖNEMİ BAŞVURULARI</span>
           <h3>Mutfaktaki Vizyonunuzu Birlikte Büyütelim.</h3>
-          <p>Ücretsiz MSA eğitimi ve 4 Milyon TL hibe fonundan yararlanmak için hemen başvurunuzu başlatın.</p>
+          <p>Ücretsiz MSA eğitimi ve 4 Milyon TL hibe fonundan yararlanmak için hemen başvurunuzu başlatın. Başvurular 12 Ekim – 12 Kasım 2026 tarihleri arasındadır.</p>
         </div>
-        <div class="cta-banner-action">
-          <a href="kayit.html" class="btn-cta-large">
+        <div>
+          <a href="kayit.html" class="btn btn-lg">
             <span>Hemen Başvur</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -692,155 +698,57 @@
     </main>
   </div>
 
-  <!-- =====================================================================
-       5. MODALLAR: HİBE BAŞVURU ŞARTLARI & HİBE YÖNERGESİ
-       ===================================================================== -->
-  <div class="modal-backdrop" id="modal-sartlar" role="dialog" aria-modal="true" aria-labelledby="modal-sartlar-title">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div>
-          <span class="modal-tag">BAŞVURU KOŞULLARI</span>
-          <h3 id="modal-sartlar-title">Hibe Başvuru Şartları</h3>
-        </div>
-        <button class="modal-close" aria-label="Kapat" onclick="closeModal('modal-sartlar')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-lead">Mutfaktan Yarına Eğitim ve Destek Programı hibe fonuna başvurabilmek için aranan asgari koşullar:</p>
-        
-        <ul class="criteria-list">
-          <li>
-            <strong>1. Faaliyet Alanı & Kadın Temsili:</strong>
-            Gastronomi (yeme-içme) sektöründe fiilen faaliyet gösteren, kadın işletmeciler veya yönetiminde çoğunluğu kadın olan işletmeler ile kadın kooperatifleri başvurabilir.
-          </li>
-          <li>
-            <strong>2. Yaş Kriteri:</strong>
-            Başvuru sahibinin başvuru tarihinde 18 yaşını doldurmuş olması gerekmektedir (18–30 yaş aralığındaki genç girişimciler ek değerlendirme puanına sahiptir).
-          </li>
-          <li>
-            <strong>3. İşletme Kıdemi ve Faallik:</strong>
-            İşletmenin en az 2 yıldır faal olarak ticari faaliyetini sürdürüyor olması ve güncel vergi levhasına sahip bulunması gerekmektedir.
-          </li>
-          <li>
-            <strong>4. İstihdam Yapısı:</strong>
-            İşletmede başvuru sahibi hariç en az 2 aktif SGK'lı çalışanın bulunması esastır. Kadın istihdamı oranı önceliklendirilmektedir.
-          </li>
-          <li>
-            <strong>5. Fiziki İşletme & Servis Alanı:</strong>
-            İşletmenin kayıtlı bir üretim alanına ve hizmet sunumuna uygun servis alanına sahip olması gerekmektedir. Bağımsız zincir/franchise şubeleri kapsam dışındadır.
-          </li>
-          <li>
-            <strong>6. Zorunlu MSA Sertifikası:</strong>
-            Mutfak Sanatları Akademisi (MSA) tarafından sunulan çevrim içi eğitimi tamamlayarak en az 70 puan ile sertifika almaya hak kazanmış olmak ve sertifikayı sisteme yüklemek zorunludur.
-          </li>
-          <li>
-            <strong>7. Kamu Borç Durumu:</strong>
-            Ödeme tarihinde vadesi geçmiş ve yapılandırılmamış vergi veya SGK prim borcunun bulunmadığının teyit edilmesi şarttır.
-          </li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <a href="kayit.html" class="btn-primary-modal">Uygunum, Başvuruya Geç</a>
-        <button type="button" class="btn-secondary-modal" onclick="closeModal('modal-sartlar')">Kapat</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="modal-yonerge" role="dialog" aria-modal="true" aria-labelledby="modal-yonerge-title">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div>
-          <span class="modal-tag">RESMÎ DOKÜMAN ÖZETİ</span>
-          <h3 id="modal-yonerge-title">Hibe Destek Yönergesi</h3>
-        </div>
-        <button class="modal-close" aria-label="Kapat" onclick="closeModal('modal-yonerge')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-lead">Mutfaktan Yarına Eğitim ve Destek Programı Hibe Desteği Yönergesi hükümleri:</p>
-        
-        <div class="yonerge-article">
-          <h4>Madde 1: Programın Amacı ve Kapsamı</h4>
-          <p>Gastronomi sektöründe kadın girişimciliğini güçlendirmek, sürdürülebilir işletme modellerini desteklemek ve Coca-Cola Akademi ile ÖSGD iş birliğinde 25 yararlanıcıya toplam 4 Milyon TL geri ödemesiz hibe desteğinin tahsis usullerini belirler.</p>
-        </div>
-
-        <div class="yonerge-article">
-          <h4>Madde 2: Hibe Fonunun Tahsisi ve Dağılımı</h4>
-          <p>Hibe tutarları; 1. sıradaki işletmeye 1.000.000 TL, 2. sıradaki işletmeye 500.000 TL, 3. sıradaki işletmeye 300.000 TL ve 4. ile 25. sıradaki 22 işletmeye 100.000'er TL olarak tahsis edilir.</p>
-        </div>
-
-        <div class="yonerge-article">
-          <h4>Madde 3: Uygun Giderler ve Yasaklı Kullanımlar</h4>
-          <p>Hibe desteği; ekipman modernizasyonu, dijital dönüşüm, operasyonel verimlilik ve kapasite artırımında kullanılabilir. Vergi, SGK prim borçları, gecikme cezaları ve diğer kamu borçları finanse edilemez. Mükerrer fonlama yapılamaz.</p>
-        </div>
-
-        <div class="yonerge-article">
-          <h4>Madde 4: Ödeme Tutanağı ve Kesinleşme</h4>
-          <p>Doğrulama evraklarının incelenmesi, işletmenin faallik kontrolü ve Hibe Ödeme Tutanağı'nın karşılıklı imzalanması akabinde hibe banka hesaplarına transfer edilir.</p>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-secondary-modal" onclick="closeModal('modal-yonerge')">Kapat</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- =====================================================================
-       6. KURUMSAL FOOTER
-       ===================================================================== -->
-  <footer class="site-footer">
-    <div class="footer-container">
+  <!-- @include footer -->
+  <!-- DÜZENLEME: partials/footer.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
+  <footer class="main-footer">
+    <div>
       <div class="footer-top">
-        
-        <div class="footer-brand-info">
-          <div class="footer-logo-lockup">
-            <img src="assets/coca-cola-akademi-clean.png" alt="Coca-Cola Akademi" class="footer-cc-img">
-            <div class="footer-sep"></div>
-            <img src="assets/mutfaktan-clean-mark.png" alt="Mutfaktan Yarına" class="footer-my-img">
-          </div>
-          <p class="footer-desc">
-            Coca-Cola Akademi tarafından ÖSGD iş birliğiyle ve Mutfak Sanatları Akademisi (MSA) uzmanlığıyla hayata geçirilen kadın işletmecileri destekleme programı.
-          </p>
+        <div>
+          <a href="index.html" class="brand-logo-card" aria-label="Mutfaktan Yarına Ana Sayfa">
+            <img class="brand-logo" src="assets/logo-full-opt.png" alt="Coca-Cola Akademi, Mutfaktan Yarına, Eğitim ve Destek Programı" width="160" height="125" loading="lazy" decoding="async">
+          </a>
+          <p>Coca-Cola Akademi tarafından ÖSGD iş birliğiyle ve Mutfak Sanatları Akademisi (MSA) uzmanlığıyla hayata geçirilen kadın işletmecileri destekleme programı.</p>
         </div>
 
-        <div class="footer-nav-col">
-          <h4>Ana Menü</h4>
-          <ul class="footer-links">
-            <li><a href="#hibe-sartlari" onclick="openModal('modal-sartlar'); return false;">Hibe Başvuru Şartları</a></li>
-            <li><a href="#hibe-yonergesi" onclick="openModal('modal-yonerge'); return false;">Hibe Yönergesi</a></li>
+        <nav aria-label="Alt Menü">
+          <h2>Ana Menü</h2>
+          <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="hibe-sartlari.html">Hibe Başvuru Şartları</a></li>
+            <li><a href="hibe-yonergesi.html">Hibe Yönergesi</a></li>
             <li><a href="sss.html">Sıkça Sorulan Sorular</a></li>
             <li><a href="iletisim.html">İletişim</a></li>
             <li><a href="kayit.html">Başvuru Yap</a></li>
           </ul>
-        </div>
+        </nav>
 
-        <div class="footer-nav-col">
-          <h4>Program Bölümleri</h4>
-          <ul class="footer-links">
-            <li><a href="#proje-hakkinda">Proje Hakkında</a></li>
-            <li><a href="#msa-egitimi">MSA Eğitimi</a></li>
-            <li><a href="#hibe-destegi">Hibe Desteği & Tutarlar</a></li>
-            <li><a href="#program-takvimi">Program Takvimi</a></li>
+        <nav aria-label="Program Bölümleri">
+          <h2>Program Bölümleri</h2>
+          <ul>
+            <li><a href="index.html#proje-hakkinda">Proje Hakkında</a></li>
+            <li><a href="index.html#msa-egitimi">MSA Eğitimi</a></li>
+            <li><a href="index.html#hibe-destegi">Hibe Desteği &amp; Tutarlar</a></li>
+            <li><a href="index.html#program-takvimi">Program Takvimi</a></li>
           </ul>
-        </div>
+        </nav>
 
-        <div class="footer-nav-col">
-          <h4>Destek ve İletişim</h4>
-          <p class="footer-contact-line">Sorularınız için SSS sayfamızı ziyaret edebilir veya bizimle iletişime geçebilirsiniz.</p>
-          <a href="iletisim.html" class="btn-footer-contact">İletişime Geç</a>
+        <div>
+          <h2>Destek ve İletişim</h2>
+          <p>Sorularınız için SSS sayfamızı ziyaret edebilir veya bizimle iletişime geçebilirsiniz.</p>
+          <a href="iletisim.html">İletişime Geç</a>
         </div>
-
       </div>
 
       <div class="footer-bottom">
         <p>&copy; 2026 Mutfaktan Yarına. Coca-Cola Akademi, ÖSGD ve MSA ortaklığıyla yürütülmektedir. Tüm hakları saklıdır.</p>
-        <div class="footer-legal">
-          <a href="#hibe-yonergesi" onclick="openModal('modal-yonerge'); return false;">Yönerge & Şartlar</a>
-          <span>•</span>
-          <a href="sss.html">Yardım & SSS</a>
-        </div>
+        <nav aria-label="Yasal">
+          <a href="hibe-yonergesi.html">Hibe Yönergesi</a>
+          <a href="sss.html">Yardım &amp; SSS</a>
+        </nav>
       </div>
     </div>
   </footer>
+  <!-- @end footer -->
 
-  <script src="index.js"></script>
 </body>
 </html>

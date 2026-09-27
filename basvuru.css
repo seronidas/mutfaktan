@@ -1,12 +1,10 @@
 /*============================================================================================
   Mutfaktan Yarına — Hibe Başvuru Sihirbazı
   Theme: Potenza Job Application Form Wizard
-  Kurumsal Temel: base.css üzerinden devralınır
+  Kurumsal Temel: base.css (token/yazı tipi), forms.css (form bileşenleri) ve layout-split.css (bölünmüş düzen) üzerinden devralınır
 ============================================================================================*/
-@import url('./base.css');
 
 
-/*-------- Üst Bar / Header --------*/
 /*-------- Split-Screen Sihirbaz Alanı --------*/
 .content-right.wizard-content {
   flex: 1;
@@ -19,7 +17,7 @@
   align-items: center;
 }
 
-.wizard-wrapper {
+.wizard-content > div {
   max-width: 900px;
   width: 100%;
   margin: 0 auto;
@@ -35,7 +33,7 @@
   padding-bottom: 0.25rem;
 }
 
-.wizard-page-title {
+.wizard-header-bar h1 {
   font-family: var(--font-headline);
   font-size: 1.85rem;
   font-weight: 800;
@@ -52,7 +50,7 @@
   background: var(--white);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-pill);
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.84rem;
   font-weight: 700;
   color: var(--gray-700);
@@ -67,15 +65,15 @@
 
 /* Düzenleme Modu Bildirimi */
 .edit-mode-banner {
-  background: #f0f7fd;
-  border: 1px solid #bfdbfe;
-  border-left: 4px solid #0284c7;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-left: 4px solid var(--gray-800);
   border-radius: var(--radius-sm);
   padding: 0.875rem 1.25rem;
   display: none;
   align-items: center;
   gap: 0.75rem;
-  color: #0369a1;
+  color: var(--gray-800);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -88,7 +86,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: #0284c7;
+  color: var(--gray-800);
 }
 
 /*-------- Adım Çubuğu (Steps Bar) --------*/
@@ -104,25 +102,32 @@
   position: relative;
   overflow-x: auto;
   gap: 0.75rem;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
 }
 
-.steps-bar::-webkit-scrollbar {
-  display: none;
+/* Üst etiket: temel .eyebrow base.css'te; sihirbazda altına boşluk verilir */
+.eyebrow {
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
-@media (min-width: 860px) {
+/* Geniş ekranda etiketler sarılır (taşma yok); dar ekranda yatay kaydırılır. 6 adım her genişlikte erişilebilir. */
+@media (min-width: 900px) {
   .steps-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1.25rem;
+    row-gap: 0.75rem;
     overflow-x: visible;
   }
 }
 
-.step-item {
+.steps-bar > div {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.84rem;
   font-weight: 700;
   color: var(--gray-400);
@@ -132,12 +137,12 @@
   user-select: none;
 }
 
-.step-item span.step-circle {
+.step-circle {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background: var(--white);
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--gray-300);
   color: var(--gray-600);
   display: flex;
   align-items: center;
@@ -147,22 +152,22 @@
   transition: var(--transition);
 }
 
-.step-item.active {
+.steps-bar > .active {
   color: var(--dark);
 }
 
-.step-item.active span.step-circle {
+.steps-bar > .active .step-circle {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--white);
   box-shadow: 0 3px 12px var(--primary-glow);
 }
 
-.step-item.completed {
+.steps-bar > .completed {
   color: var(--gray-800);
 }
 
-.step-item.completed span.step-circle {
+.steps-bar > .completed .step-circle {
   background: var(--primary);
   border-color: var(--primary);
   color: var(--white);
@@ -195,7 +200,7 @@
 }
 
 .top-wizard .location {
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--gray-600);
@@ -204,7 +209,7 @@
 }
 
 .top-wizard .progress-pct {
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 700;
   color: var(--primary);
@@ -214,11 +219,11 @@
   height: 8px;
   width: 100%;
   border-radius: 5px;
-  background-color: #ededed;
+  background-color: var(--gray-150);
   overflow: hidden;
 }
 
-.progressbar-fill {
+.progressbar > div {
   height: 100%;
   background: var(--primary);
   border-radius: 5px;
@@ -288,140 +293,6 @@
   color: var(--danger);
 }
 
-/*============================================================================================
-  POTENZA KONTROL ELEMANLARI (CHECKBOX & RADIO CARDS)
-  Görseldeki Gibi: Kart Kenarlığı + Sol Tarafta Daire İçi Beyaz Tik İkonu
-============================================================================================*/
-.checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
-
-/* Checkbox satırları, Radyo kartları ve Seçim kutuları */
-.check-row,
-.radio-card,
-.checkbox-choice {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 52px;
-  padding: 13px 20px 13px 56px; /* 56px sol boşluk: 24px daire ve hizalama için */
-  background: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
-  user-select: none;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--gray-800);
-  line-height: 1.45;
-}
-
-/* Tarayıcı varsayılan checkbox ve radyo ikonlarını gizle */
-.check-row input[type="checkbox"],
-.check-row input[type="radio"],
-.radio-card input[type="radio"],
-.radio-card input[type="checkbox"],
-.checkbox-choice input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  margin: 0;
-  pointer-events: none;
-}
-
-/* 1. SEÇİLMEMİŞ DURUM: Boş Açık Gri Daire */
-.check-row::before,
-.radio-card::before,
-.checkbox-choice::before {
-  content: "";
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  border: 1.5px solid #dcdcdc;
-  border-radius: 50%;
-  background-color: var(--white);
-  box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
-  flex-shrink: 0;
-}
-
-/* 2. BEYAZ TİK İKONU (Başlangıçta gizli) */
-.check-row::after,
-.radio-card::after,
-.checkbox-choice::after {
-  content: "";
-  position: absolute;
-  left: 27px;
-  top: 50%;
-  width: 5px;
-  height: 10px;
-  border: solid var(--white);
-  border-width: 0 2px 2px 0;
-  transform: translateY(-60%) rotate(45deg);
-  opacity: 0;
-  box-sizing: border-box;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
-}
-
-/* Hover Hali */
-.check-row:hover,
-.radio-card:hover,
-.checkbox-choice:hover {
-  border-color: var(--primary);
-  background-color: var(--white);
-}
-
-.check-row:hover::before,
-.radio-card:hover::before,
-.checkbox-choice:hover::before {
-  border-color: var(--primary);
-}
-
-/* 3. SEÇİLİ DURUM: Kart Çerçevesi Kurumsal Renk (#F40009) + Daire Dolgulu + Beyaz Tik */
-.check-row:has(input:checked),
-.radio-card:has(input:checked),
-.checkbox-choice:has(input:checked),
-.radio-card.selected,
-.checkbox-choice.checked {
-  border-color: var(--primary) !important;
-  background-color: var(--white) !important;
-}
-
-.check-row:has(input:checked)::before,
-.radio-card:has(input:checked)::before,
-.checkbox-choice:has(input:checked)::before,
-.radio-card.selected::before,
-.checkbox-choice.checked::before {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
-}
-
-.check-row:has(input:checked)::after,
-.radio-card:has(input:checked)::after,
-.checkbox-choice:has(input:checked)::after,
-.radio-card.selected::after,
-.checkbox-choice.checked::after {
-  opacity: 1 !important;
-}
-
-.check-row span,
-.radio-card span,
-.checkbox-choice span {
-  display: block;
-  width: 100%;
-}
-
 /*-------- Form Alanları & Izgara --------*/
 .form-grid {
   display: grid;
@@ -433,125 +304,14 @@
   grid-template-columns: 1fr;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  position: relative;
-}
-
-.field label {
-  font-family: var(--font-headline);
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--dark);
-}
-
-.field label small {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--gray-600);
-  font-weight: 400;
-  margin-left: 0.25rem;
-}
-
-/* Potenza Temiz Giriş Kutuları */
-.field input[type="text"],
-.field input[type="email"],
-.field input[type="tel"],
-.field input[type="date"],
-.field input[type="number"],
-.field select,
-.field textarea {
-  width: 100%;
-  height: 48px;
-  padding: 0 1rem;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  color: var(--dark);
-  background: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-}
-
-.field textarea {
-  height: 96px;
-  padding: 0.75rem 1rem;
-  resize: vertical;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--gray-400);
-  font-weight: 400;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  background: var(--white);
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-glow);
-}
-
-/* Potenza Hata Rozeti */
-.field .error {
-  font-size: 0.75rem;
-  color: var(--white);
-  background-color: var(--danger);
-  border-radius: var(--radius-xs);
-  padding: 4px 8px;
-  display: none;
-  margin-top: 4px;
-  width: fit-content;
-  position: relative;
-  font-weight: 500;
-  box-shadow: 0 2px 5px rgba(227, 79, 79, 0.2);
-}
-
-.field .error::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 12px;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid var(--danger);
-}
-
-.field.invalid .error,
-.field .error.show {
-  display: inline-block;
-}
-
-.field.invalid input,
-.field.invalid select,
-.field.invalid textarea {
-  border-color: var(--danger) !important;
-  background-color: #fff9f9;
-}
-
-/*-------- Radyo Kartları Grubu --------*/
-.radio-group {
-  display: flex;
-  gap: 0.85rem;
-  flex-wrap: wrap;
-}
-
-.radio-card {
-  flex: 1;
-  min-width: 160px;
-}
-
 /*-------- Dosya Yükleme / Dropzone --------*/
 .dropzone {
-  border: 2px dashed #cbd5e1;
+  position: relative;
+  border: 2px dashed var(--gray-300);
   border-radius: var(--radius-md);
   padding: 2.75rem 2rem;
   text-align: center;
-  background: #fafbfc;
+  background: var(--gray-50);
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -560,8 +320,27 @@
   gap: 0.85rem;
 }
 
+/* Dosya girdisi ekrandan gizli ama klavye ve ekran okuyucuya açık (display:none değil) */
 .dropzone input[type="file"] {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dropzone:focus-visible,
+.dropzone:has(input[type="file"]:focus-visible) {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-color: var(--primary);
+  background: var(--primary-light);
 }
 
 .dropzone:hover,
@@ -581,8 +360,8 @@
   transform: translateY(-2px);
 }
 
-.dropzone h4 {
-  font-family: var(--font-headline);
+.dropzone h3 {
+  font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--dark);
@@ -628,7 +407,7 @@
 
 /*-------- Değerlendirme Soruları (Adım 5) --------*/
 .question-box {
-  background: #fbfcfd;
+  background: var(--gray-50);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -637,23 +416,23 @@
   gap: 1.15rem;
 }
 
-.question-box h4 {
-  font-family: var(--font-headline);
+.question-box h3 {
+  font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--dark);
 }
 
-.question-box p.hint {
+.question-box > p {
   font-size: 0.8125rem;
   color: var(--gray-600);
   margin-top: -0.5rem;
 }
 
 .warning-callout-box {
-  background: var(--warning-bg);
+  background: var(--warning-light);
   border: 1px solid var(--warning-border);
-  border-left: 4px solid var(--warning-bar);
+  border-left: 4px solid var(--warning);
   border-radius: var(--radius-xs);
   padding: 0.875rem 1.15rem;
   display: flex;
@@ -666,14 +445,8 @@
 
 .warning-callout-box svg {
   flex-shrink: 0;
-  color: #d97706;
+  color: var(--warning);
   margin-top: 0.15rem;
-}
-
-.checkbox-choices {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
 }
 
 /*-------- Özet Akordeon (Adım 6) --------*/
@@ -683,21 +456,25 @@
   gap: 0.85rem;
 }
 
-.accordion-item {
+.summary-accordion > div {
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--white);
 }
 
-.accordion-header {
+.summary-accordion button {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  text-align: left;
   padding: 0.95rem 1.25rem;
   background: var(--gray-50);
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--dark);
@@ -705,27 +482,32 @@
   transition: var(--transition);
 }
 
-.accordion-header:hover {
-  background: #f1f3f5;
+.summary-accordion button:hover {
+  background: var(--gray-100);
 }
 
-.accordion-item.open .accordion-header {
+.summary-accordion button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: -3px;
+}
+
+.summary-accordion .open > button {
   background: var(--primary-light);
   color: var(--primary);
   border-bottom: 1px solid var(--border-light);
 }
 
-.accordion-header svg {
+.summary-accordion button svg {
   width: 18px;
   height: 18px;
   transition: transform 0.25s ease;
 }
 
-.accordion-item.open .accordion-header svg {
+.summary-accordion .open svg {
   transform: rotate(180deg);
 }
 
-.accordion-body {
+.summary-accordion > div > div {
   display: none;
   padding: 1.25rem;
   font-size: 0.875rem;
@@ -733,39 +515,39 @@
   line-height: 1.6;
 }
 
-.accordion-item.open .accordion-body {
+.summary-accordion .open > div {
   display: block;
 }
 
-.summary-table {
+.summary-accordion table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.summary-table tr {
+.summary-accordion tr {
   border-bottom: 1px solid var(--gray-100);
 }
 
-.summary-table tr:last-child {
+.summary-accordion tr:last-child {
   border-bottom: none;
 }
 
-.summary-table td {
+.summary-accordion td {
   padding: 0.65rem 0;
   font-size: 0.875rem;
 }
 
-.summary-table td:first-child {
+.summary-accordion td:first-child {
   color: var(--gray-600);
   width: 40%;
 }
 
-.summary-table td:last-child {
+.summary-accordion td:last-child {
   font-weight: 600;
   color: var(--dark);
 }
 
-/*-------- Potenza Sihirbaz Gezinme Butonları --------*/
+/*-------- Sihirbaz Gezinme: düğme görünümü forms.css (.btn); burada yalnızca yerleşim --------*/
 .wizard-footer {
   margin-top: 2.25rem;
   padding-top: 1.5rem;
@@ -775,95 +557,28 @@
   justify-content: space-between;
 }
 
-/* Önceki Adım (Potenza button.backward) */
-.btn-wizard-prev {
-  padding: 12px 24px;
-  background: var(--btn-backward-bg);
-  border: none;
-  border-radius: var(--radius-xs);
-  color: var(--btn-backward-color);
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: var(--btn-transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  outline: none;
-  line-height: 1;
-}
-
-.btn-wizard-prev:hover {
-  background-color: var(--btn-backward-hover);
-  color: var(--white);
-}
-
-.btn-wizard-prev.hidden {
-  visibility: hidden;
-  pointer-events: none;
-  opacity: 0;
-}
-
-/* Sonraki Adım / Gönder (Potenza button.forward / submit) */
-.btn-wizard-next {
-  padding: 13px 30px;
-  background: var(--primary);
-  border: none;
-  border-radius: var(--radius-xs);
-  color: var(--white);
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: var(--btn-transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: var(--shadow-btn);
-  outline: none;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.btn-wizard-next:hover {
-  background-color: var(--primary-hover);
-  color: var(--white);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-btn-hover);
-}
-
-.btn-wizard-next:active {
-  transform: translateY(0);
-}
-
-/*-------- Sayfa Altı / Footer --------*/
-footer.site-footer {
-  margin-top: auto;
-  background: var(--white);
-  border-top: 1px solid var(--border-light);
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.8125rem;
-  color: var(--gray-600);
+/* Önceki Adım gizliyken (.hidden) Sonraki Adım sağda kalır */
+.wizard-footer > :last-child {
+  margin-left: auto;
 }
 
 /*-------- Mobil Uyumluluk --------*/
-@media (max-width: 768px) {
-  main.wizard-main {
-    margin: 1.5rem auto 3rem;
-    padding: 0 1rem;
+@media (max-width: 1024px) {
+  .content-right.wizard-content {
+    padding: 1.25rem 1.25rem 3rem;
   }
+  /* Mobil üst çubuk (partials/topbar-mobile.html): boşluğu sarmalayıcının gap'i verir */
+  .wizard-content .mobile-topbar {
+    margin-bottom: 0;
+  }
+}
 
+@media (max-width: 900px) {
   .wizard-card {
     padding: 1.75rem 1.25rem;
   }
 
   .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .checkbox-choices {
     grid-template-columns: 1fr;
   }
 
@@ -880,9 +595,75 @@ footer.site-footer {
     gap: 0.75rem;
   }
 
-  .btn-wizard-next,
-  .btn-wizard-prev {
-    padding: 12px 18px;
-    font-size: 0.82rem;
+  .wizard-footer > .btn {
+    padding: 0 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .file-preview button {
+    min-height: 44px;
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .wizard-content > div {
+    gap: 1rem;
+  }
+}
+
+/* Dar telefon: gezinme düğmeleri tam genişlikte alt alta, ≥48px yükseklikte (etiketler sarılmaz) */
+@media (max-width: 480px) {
+  .wizard-header-bar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .wizard-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Uzun son adım etiketi ("Başvuruyu Tamamla ve Gönder") tek satırda kalsın: oklar gizlenir */
+  .wizard-footer > .btn {
+    width: 100%;
+    min-height: 3rem;
+    padding-inline: 0.75rem;
+  }
+
+  .wizard-footer > .btn > svg {
+    display: none;
+  }
+
+  .wizard-footer > :last-child {
+    margin-left: 0;
+  }
+
+  .dropzone {
+    padding: 1.75rem 1rem;
+  }
+
+  /* Adım 1 seçenekleri ilk ekranda görünsün: kart ve çubuk boşlukları sıkılaşır */
+  .steps-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .wizard-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .top-wizard {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-pane {
+    gap: 1rem;
+  }
+
+  .step-pane > header p {
+    margin-bottom: 0;
   }
 }

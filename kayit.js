@@ -25,67 +25,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const acceptConsent = document.getElementById('accept-consent');
   const proceedBtn = document.getElementById('proceed-grant');
 
-  function openModal(modal) {
-    modal.classList.add('active');
-    document.body.classList.add('no-scroll');
-  }
-
-  function closeModal(modal) {
-    modal.classList.remove('active');
-    document.body.classList.remove('no-scroll');
-  }
-
   document.querySelectorAll('[data-close]').forEach(btn => {
     btn.addEventListener('click', () => {
       const target = document.getElementById(btn.getAttribute('data-close'));
-      if (target) closeModal(target);
+      if (target) MYUI.closeModal(target);
     });
-  });
-
-  [modalKvkk, modalConsent, modalSuccess].forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal(modal);
-    });
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      [modalKvkk, modalConsent, modalSuccess].forEach(modal => {
-        if (modal.classList.contains('active')) closeModal(modal);
-      });
-    }
   });
 
   openKvkk.addEventListener('click', (e) => {
     e.preventDefault();
-    openModal(modalKvkk);
+    MYUI.openModal(modalKvkk);
   });
 
   openConsent.addEventListener('click', (e) => {
     e.preventDefault();
-    openModal(modalConsent);
+    MYUI.openModal(modalConsent);
   });
 
   acceptKvkk.addEventListener('click', () => {
     chkKvkk.checked = true;
     errKvkk.classList.remove('show');
-    closeModal(modalKvkk);
+    MYUI.closeModal(modalKvkk);
   });
 
   acceptConsent.addEventListener('click', () => {
     chkConsent.checked = true;
     errConsent.classList.remove('show');
-    closeModal(modalConsent);
+    MYUI.closeModal(modalConsent);
   });
 
-  toggleBtn.addEventListener('click', () => {
-    const isPass = passInput.type === 'password';
-    passInput.type = isPass ? 'text' : 'password';
-    toggleBtn.setAttribute('aria-label', isPass ? 'Şifreyi Gizle' : 'Şifreyi Göster');
-    toggleBtn.innerHTML = isPass
-      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
-      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
-  });
+  MYUI.bindPasswordToggle(toggleBtn, passInput);
 
   function validateUser() {
     const val = userInput.value.trim();
@@ -118,18 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  function getStrength(pwd) {
-    let score = 0;
-    if (!pwd) return 0;
-    if (pwd.length >= 8) score++;
-    if (/[A-Z]/.test(pwd) && /[a-z]/.test(pwd)) score++;
-    if (/[0-9]/.test(pwd)) score++;
-    if (/[^A-Za-z0-9]/.test(pwd)) score++;
-    return score;
-  }
-
-  const titles = ['Çok Zayıf', 'Zayıf', 'Orta', 'Çok Güçlü'];
-
   function validatePassword() {
     const val = passInput.value;
     const errEl = fieldPass.querySelector('.error');
@@ -151,9 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const val = passInput.value;
     if (val.length > 0) {
       strengthBox.classList.add('active');
-      const score = getStrength(val);
+      const { score, label } = MYUI.passwordStrength(val);
       strengthBox.dataset.score = score;
-      strengthTxt.textContent = score === 0 ? 'Çok Zayıf' : titles[score - 1];
+      strengthTxt.textContent = label;
     } else {
       strengthBox.classList.remove('active');
       strengthBox.dataset.score = '0';
@@ -225,12 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
-      openModal(modalSuccess);
+      MYUI.openModal(modalSuccess);
     }, 700);
   });
 
   proceedBtn.addEventListener('click', () => {
-    closeModal(modalSuccess);
-    alert("Hibe Başvuru Formu'na aktarılıyorsunuz. Lütfen MSA Sertifikanızı yüklemeyi unutmayınız.");
+    MYUI.closeModal(modalSuccess);
+    const email = userInput.value.trim();
+    MYUI.writeJSON('currentUser', { email, role: 'applicant' });
+    window.location.href = 'basvuru.html';
   });
 });

@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <!-- @include head title="Başvuru Değerlendirme Cetveli | Mutfaktan Yarına" description="Mutfaktan Yarına Eğitim ve Destek Programı 2026 Şartnameye Uygun Başvuru İnceleme ve 6 Soruluk Ön Değerlendirme Puanlaması" css="base editor" scripts="ui scoring demo-data editor-degerlendirme" robots=noindex -->
+  <!-- DÜZENLEME: partials/head.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Başvuru Değerlendirme Cetveli | Mutfaktan Yarına</title>
   <meta name="description" content="Mutfaktan Yarına Eğitim ve Destek Programı 2026 Şartnameye Uygun Başvuru İnceleme ve 6 Soruluk Ön Değerlendirme Puanlaması">
+  <meta name="theme-color" content="#F40009">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Başvuru Değerlendirme Cetveli | Mutfaktan Yarına">
+  <meta property="og:description" content="Mutfaktan Yarına Eğitim ve Destek Programı 2026 Şartnameye Uygun Başvuru İnceleme ve 6 Soruluk Ön Değerlendirme Puanlaması">
+  <meta property="og:image" content="https://mutfaktan.anatolia.solutions/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="fonts/TCCC-UnityText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityText-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityHeadline-Black.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="print.css" media="print">
+  <script src="ui.js" defer></script>
+  <script src="scoring.js" defer></script>
+  <script src="demo-data.js" defer></script>
+  <script src="editor-degerlendirme.js" defer></script>
+  <!-- @end head -->
 </head>
 <body>
+  <!-- @include skip-link -->
+  <!-- DÜZENLEME: partials/skip-link.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
+  <a href="#main">İçeriğe geç</a>
+  <!-- @end skip-link -->
+  <!-- @include header-editor href=editor-panel.html icon=back sub="← Başvuru Listesine Dön" badge="Ref: -" badgeid=appRefBadge session=1 -->
+  <!-- DÜZENLEME: partials/header-editor.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <header class="topbar">
     <a href="editor-panel.html" class="brand">
       <div class="brand-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="19" y1="12" x2="5" y2="12"/>
           <polyline points="12 19 5 12 12 5"/>
         </svg>
@@ -23,27 +53,33 @@
     </a>
 
     <div class="editor-identity">
-      <span class="role-badge" id="appRefBadge">Ref: MY26-0158</span>
+      <span class="role-badge" id="appRefBadge">Ref: -</span>
       <div class="editor-info">
-        <span class="editor-name" id="currentEditorName">Dr. Elif Kaya</span>
-        <span class="editor-mail" id="currentEditorMail">editor@mutfaktanyarina.com</span>
+        <span class="editor-name" id="currentEditorName"></span>
+        <span class="editor-mail" id="currentEditorMail"></span>
       </div>
       <a href="giris.html" class="btn-logout" id="btnLogout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
         <span>Çıkış</span>
       </a>
     </div>
   </header>
+  <!-- @end header-editor -->
 
-  <main class="editor-page-wrap">
+  <main class="editor-page-wrap" id="main">
     <div class="card-heading">
       <h1 id="appPageTitle">Başvuru Dosyası ve Puanlama Cetveli</h1>
-      <p>Şartname uyarınca başvuranın resmî belgelerini teyit ediniz ve 6 soruluk Ön Değerlendirme puan anahtarına göre puanlayınız.</p>
+      <p>Başvuranın belge ve beyanlarını teyit ediniz ve 6 soruluk Ön Değerlendirme yanıtlarını puanlayınız.</p>
     </div>
 
     <div id="saveFeedback" class="feedback-banner" hidden></div>
 
     <div class="split-layout">
-      <div class="left-col-files">
+      <div>
         <div class="card-box">
           <div class="card-box-header">
             <h2>Girişimci ve İşletme Künyesi</h2>
@@ -51,29 +87,29 @@
           </div>
 
           <div class="data-grid-two">
-            <div class="data-item-block">
-              <span class="data-item-label">Ad Soyad</span>
-              <span class="data-item-val" id="applicantName">Ayşe Yılmaz</span>
+            <div>
+              <span>Ad Soyad</span>
+              <strong id="applicantName">-</strong>
             </div>
-            <div class="data-item-block">
-              <span class="data-item-label">Doğum Tarihi / Yaş Kontrolü</span>
-              <span class="data-item-val" id="applicantAge">14.05.1998 (27 Yaşında — Uygun)</span>
+            <div>
+              <span>Doğum Tarihi / Yaş Kontrolü</span>
+              <strong id="applicantAge">-</strong>
             </div>
-            <div class="data-item-block">
-              <span class="data-item-label">İşletme Unvanı</span>
-              <span class="data-item-val" id="applicantBusiness">Ayşe Hanım El Böreği ve Mantı</span>
+            <div>
+              <span>İşletme Unvanı</span>
+              <strong id="applicantBusiness">-</strong>
             </div>
-            <div class="data-item-block">
-              <span class="data-item-label">İşletme Yapısı / Şehir</span>
-              <span class="data-item-val" id="applicantStructure">Şahıs İşletmesi · Balıkesir</span>
+            <div>
+              <span>İşletme Yapısı / Şehir</span>
+              <strong id="applicantStructure">-</strong>
             </div>
-            <div class="data-item-block">
-              <span class="data-item-label">Vergi Kimlik No</span>
-              <span class="data-item-val" id="applicantVkn">4820194821</span>
+            <div>
+              <span>Vergi Kimlik No</span>
+              <strong id="applicantVkn">-</strong>
             </div>
-            <div class="data-item-block">
-              <span class="data-item-label">Faaliyet Süresi & Servis Alanı</span>
-              <span class="data-item-val" id="applicantSpace">4 Yıldır Faaliyette · 6 Masalı Servis Alanı</span>
+            <div>
+              <span>Faaliyete Başlama Yılı</span>
+              <strong id="applicantSpace">-</strong>
             </div>
           </div>
         </div>
@@ -81,35 +117,10 @@
         <div class="card-box">
           <div class="card-box-header">
             <h2>Form Puanlama Verileri (Sistem: 70 Puan)</h2>
-            <div class="score-badge score-sistem" id="sistemScoreDisplay">52.5 <span class="score-max">/ 70</span></div>
+            <div class="score-badge score-sistem" id="sistemScoreDisplay">-</div>
           </div>
 
-          <div class="data-grid-two">
-            <div class="data-item-block">
-              <span class="data-item-label">1.1 & 1.2 Kadın İstihdam Oranı</span>
-              <span class="data-item-val">2 SGK'lı (2'si Kadın — %100 Oran: 20 Puan)</span>
-            </div>
-            <div class="data-item-block">
-              <span class="data-item-label">1.3 Bir Yıllık Değişim</span>
-              <span class="data-item-val">Aynı kaldı (2 çalışan → 4 Puan)</span>
-            </div>
-            <div class="data-item-block">
-              <span class="data-item-label">1.4 Çalışan Kalıcılığı</span>
-              <span class="data-item-val">Başlayan olmadı (3.5 Puan)</span>
-            </div>
-            <div class="data-item-block">
-              <span class="data-item-label">1.5 Yeni İşe Alım Niyeti</span>
-              <span class="data-item-val">Evet (5 Puan)</span>
-            </div>
-            <div class="data-item-block">
-              <span class="data-item-label">2.1 Tek Geçim Kaynağı</span>
-              <span class="data-item-val">Evet (8 Puan)</span>
-            </div>
-            <div class="data-item-block">
-              <span class="data-item-label">2.2 Hibe Kullanım Alanı</span>
-              <span class="data-item-val">Mutfak (6) + İstihdam (6) = 12 Puan</span>
-            </div>
-          </div>
+          <div class="data-grid-two" id="scoreDataGrid"></div>
         </div>
 
         <div class="card-box">
@@ -117,50 +128,7 @@
             <h2>Yüklenen Resmî Belgeler</h2>
           </div>
 
-          <div class="doc-files-list">
-            <div class="doc-file-item">
-              <div class="doc-file-info">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <div>
-                  <div class="doc-file-name">SGK Hizmet Listesi ve Barkodlu Belge.pdf</div>
-                  <div class="doc-file-meta">Son 6 aylık prim ve çalışan dökümü (2 aktif SGK kadın)</div>
-                </div>
-              </div>
-              <button type="button" class="btn-file-preview" data-doc="sgk">Belgeyi İncele</button>
-            </div>
-
-            <div class="doc-file-item">
-              <div class="doc-file-info">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <div>
-                  <div class="doc-file-name">Guncel_Vergi_Levhasi_2025.pdf</div>
-                  <div class="doc-file-meta">Faaliyete başlama: 2022 (2 yılı aşkın süre uygun)</div>
-                </div>
-              </div>
-              <button type="button" class="btn-file-preview" data-doc="vergi">Belgeyi İncele</button>
-            </div>
-
-            <div class="doc-file-item">
-              <div class="doc-file-info">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21 15 16 10 5 21"/>
-                </svg>
-                <div>
-                  <div class="doc-file-name">MSA_Mutfak_Egitimi_Sertifikasi.pdf</div>
-                  <div class="doc-file-meta">MSA Program Eğitimi Başarı Notu: 88 / 100 (Geçerli)</div>
-                </div>
-              </div>
-              <button type="button" class="btn-file-preview" data-doc="msa">Belgeyi İncele</button>
-            </div>
-          </div>
+          <div class="doc-files-list" id="docFilesList"></div>
         </div>
 
         <div class="card-box">
@@ -168,340 +136,257 @@
             <h2>Adayın 6 Ön Değerlendirme Sorusuna Yazılı Cevapları</h2>
           </div>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö1</span>
-              <span class="applicant-q-title">Son 2 yılda geri ödemesiz hibe veya ayni destek aldınız mı?</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ1">
-              "İşletmemiz bugüne kadar hiçbir kamu veya özel fondan nakdi veya ayni hibe almamıştır. Tamamen kendi öz sermayemiz ve aile birikimimizle 2022 yılında kurduk ve faaliyetimizi sürdürüyoruz."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö1</b>İşletmeniz son iki yılda herhangi bir kurumdan geri ödemesiz hibe veya ayni destek aldı mı? Destek aldıysanız hangi kurumdan ne zaman ve ne tutarda aldınız?</h3>
+            <div id="ansQ1"></div>
+          </article>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö2</span>
-              <span class="applicant-q-title">İşletme tamamen size mi ait, ortaklık payınız yüzde kaç?</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ2">
-              "İşletmemiz tek kişilik şahıs işletmesidir, mülkiyet ve imza yetkisinin tamamı (%100) şahsıma aittir."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö2</b>İşletme tamamen size mi ait, yoksa başka ortaklarınız da var mı? Varsa işletmedeki payınız yüzde kaç?</h3>
+            <div id="ansQ2"></div>
+          </article>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö3</span>
-              <span class="applicant-q-title">Düzenli ürün/hizmet aldığınız kadın girişimci veya kooperatif var mı?</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ3">
-              "Evet. Balıkesir Karesi Kadın Kooperatifi'nden haftalık köy tereyağı ve lor peyniri, ayrıca üretici Havva Teyze'den yerel taş değirmen un tedarik etmekteyiz."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö3</b>Düzenli olarak ürün veya hizmet aldığınız kadın girişimci, kadın üretici ya da kadın kooperatifi var mı?</h3>
+            <div id="ansQ3"></div>
+          </article>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö4</span>
-              <span class="applicant-q-title">Öne çıkan coğrafi işaretli veya reçetesi size özel bir ürün var mı?</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ4">
-              "Menümüzde Balıkesir Höşmerimi ve el açması otlu Manyas böreği bulunmaktadır. Hamur reçetemiz anneannemden devraldığımız soğuk mayalama tekniğiyle yapılmaktadır."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö4</b>İşletmenizin menüsünde/üretiminde öne çıkan, coğrafi işaretli, yerel veya reçetesi size özel bir ürün var mı?</h3>
+            <div id="ansQ4"></div>
+          </article>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö5</span>
-              <span class="applicant-q-title">Gıda güvenliği, hijyen ve sıfır atık konusunda özel uygulama veya belgeniz var mı?</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ5">
-              "İl Tarım Müdürlüğü onaylı Hijyen Eğitimi Sertifikamız mevcuttur. Mutfakta sebze atıkları kompost kutusunda toplanıp yerel bahçeye verilmekte, sıfır atık kurallarına uyulmaktadır."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö5</b>Gıda güvenliği, hijyen ve sıfır atık / gıda israfını önleme konusunda işletmenizde uyguladığınız özel bir yöntem veya belgeniz var mı?</h3>
+            <div id="ansQ5"></div>
+          </article>
 
-          <div class="applicant-q-card">
-            <div class="applicant-q-head">
-              <span class="q-badge">Ö6</span>
-              <span class="applicant-q-title">Kendinizi geliştirmek için katıldığınız eğitim ve sertifika programları</span>
-            </div>
-            <div class="applicant-q-answer" id="ansQ6">
-              "2023 yılında KOSGEB Kadın Girişimcilik Sertifika Programı'nı tamamladım. Ayrıca 2024 yılında Gastronomi Hijyen ve Sanitasyon Eğitimi aldım."
-            </div>
-          </div>
+          <article>
+            <h3><b>Ö6</b>Yaptığınız işe katkı sağlamak ve kendinizi geliştirmek amacıyla bugüne kadar katıldığınız eğitim, kurs veya sertifika programları var mı? Varsa eğitim/sertifika adı, düzenleyen kurum ve yılıyla birlikte belirtiniz.</h3>
+            <div id="ansQ6"></div>
+          </article>
         </div>
       </div>
 
-      <div class="right-col-scoring sticky-score-panel">
+      <div class="sticky-score-panel">
         <form id="evaluationForm">
           <div class="card-box">
             <div class="card-box-header">
               <h2>A) Belge ve Beyan Doğrulama</h2>
             </div>
-            <p class="data-item-label">Resmî Belgelerin Beyanlarla Uygunluğu</p>
+            <p>Resmî Belgelerin Beyanlarla Uygunluğu</p>
 
             <div class="verification-checklist">
-              <div class="v-check-row">
-                <div class="v-check-info">
-                  <span class="v-check-title">SGK Hizmet Dökümü</span>
-                  <span class="v-check-desc">2 aktif çalışan & %100 kadın oranı teyidi</span>
-                </div>
-                <div class="v-check-toggle">
-                  <button type="button" class="btn-toggle-status active-valid" data-v="sgk" data-status="valid">Doğrulandı</button>
-                  <button type="button" class="btn-toggle-status" data-v="sgk" data-status="invalid">Uyumsuz</button>
-                </div>
-              </div>
-
-              <div class="v-check-row">
-                <div class="v-check-info">
-                  <span class="v-check-title">Vergi Levhası & Faaliyet</span>
-                  <span class="v-check-desc">En az 2 yıllık ticari sicil geçmişi</span>
-                </div>
-                <div class="v-check-toggle">
-                  <button type="button" class="btn-toggle-status active-valid" data-v="vergi" data-status="valid">Doğrulandı</button>
-                  <button type="button" class="btn-toggle-status" data-v="vergi" data-status="invalid">Uyumsuz</button>
+              <div>
+                <p>
+                  <strong>SGK Hizmet Dökümü</strong>
+                  <small>Kendisi hariç en az 2 aktif SGK'lı çalışan; beyan edilen çalışan sayıları</small>
+                </p>
+                <div>
+                  <button type="button" class="active-valid" data-v="sgk" data-status="valid">Doğrulandı</button>
+                  <button type="button" data-v="sgk" data-status="invalid">Uyumsuz</button>
                 </div>
               </div>
 
-              <div class="v-check-row">
-                <div class="v-check-info">
-                  <span class="v-check-title">Kimlik & Yaş Şartı</span>
-                  <span class="v-check-desc">18-30 yaş uygunluğu kontrolü</span>
-                </div>
-                <div class="v-check-toggle">
-                  <button type="button" class="btn-toggle-status active-valid" data-v="kimlik" data-status="valid">Doğrulandı</button>
-                  <button type="button" class="btn-toggle-status" data-v="kimlik" data-status="invalid">Uyumsuz</button>
+              <div>
+                <p>
+                  <strong>Vergi Levhası & Faaliyet</strong>
+                  <small>Geçerli vergi levhası; en az 2 yıldır faaliyette olma</small>
+                </p>
+                <div>
+                  <button type="button" class="active-valid" data-v="vergi" data-status="valid">Doğrulandı</button>
+                  <button type="button" data-v="vergi" data-status="invalid">Uyumsuz</button>
                 </div>
               </div>
 
-              <div class="v-check-row">
-                <div class="v-check-info">
-                  <span class="v-check-title">MSA Başarı Sertifikası</span>
-                  <span class="v-check-desc">Eğitim sonu en az 70 başarı puanı teyidi</span>
+              <div>
+                <p>
+                  <strong>Kimlik & Yaş Şartı</strong>
+                  <small>18 yaşını doldurmuş ve 31 Aralık 2026'ya kadar 30 yaşını doldurmamış olma</small>
+                </p>
+                <div>
+                  <button type="button" class="active-valid" data-v="kimlik" data-status="valid">Doğrulandı</button>
+                  <button type="button" data-v="kimlik" data-status="invalid">Uyumsuz</button>
                 </div>
-                <div class="v-check-toggle">
-                  <button type="button" class="btn-toggle-status active-valid" data-v="msa" data-status="valid">Doğrulandı</button>
-                  <button type="button" class="btn-toggle-status" data-v="msa" data-status="invalid">Uyumsuz</button>
+              </div>
+
+              <div>
+                <p>
+                  <strong>MSA Sertifikası</strong>
+                  <small>Eğitim sonu değerlendirmeden en az 70 puan; sertifika geçerliliği</small>
+                </p>
+                <div>
+                  <button type="button" class="active-valid" data-v="msa" data-status="valid">Doğrulandı</button>
+                  <button type="button" data-v="msa" data-status="invalid">Uyumsuz</button>
                 </div>
+              </div>
             </div>
 
             <div id="rejection-box" class="rejection-box" hidden>
               <label for="inp-rejection-reason">Uyumsuzluk / İnceleme Ret Gerekçesi (Zorunlu)</label>
-              <textarea id="inp-rejection-reason" placeholder="Tespit edilen belge uyumsuzluğunu veya ret nedenini buraya açıkça yazınız (Tutanak ve yasal bildirim için zorunludur)..."></textarea>
-              <span id="rejection-error" class="rejection-error-text" hidden>Belge uyumsuzluğu tespit edildiğinde gerekçe yazılması zorunludur.</span>
+              <textarea id="inp-rejection-reason" placeholder="Tespit edilen belge uyumsuzluğunu veya ret nedenini buraya açıkça yazınız..."></textarea>
+              <span id="rejection-error" hidden>Belge uyumsuzluğu tespit edildiğinde gerekçe yazılması zorunludur.</span>
             </div>
           </div>
 
           <div class="card-box">
             <div class="card-box-header">
               <h2>B) 6 Soru Ön Değerlendirme Cetveli</h2>
-              <span class="score-badge score-on" id="previewPreScore">0 <span class="score-max">/ 30</span></span>
+              <span class="score-badge score-on" id="previewPreScore">0 <span>/ 30</span></span>
             </div>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö1. Geçmiş Hibe / Destek Durumu</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ1">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q1" value="5" data-q="1">
-                    <span>Destek almadı (İlk kez desteklenecek)</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö1. Geçmiş Hibe / Destek Durumu <span id="scoreBadgeQ1">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q1" value="5" data-q="1">
+                  <span>Destek almadı</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q1" value="3" data-q="1">
-                    <span>Yalnızca ayni destek aldı</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q1" value="3" data-q="1">
+                  <span>Yalnızca ayni destek aldı</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q1" value="0" data-q="1">
-                    <span>Geri ödemesiz nakit hibe aldı</span>
-                  </div>
-                  <span class="rubric-opt-pts">0 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q1" value="0" data-q="1">
+                  <span>Geri ödemesiz nakit hibe aldı</span>
+                  <small>0 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö2. Kadın Mülkiyeti / Ortaklık Payı</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ2">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q2" value="5" data-q="2">
-                    <span>Tamamı kendisine ait / Şahıs / Kooperatif</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö2. Ortaklık Payı <span id="scoreBadgeQ2">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q2" value="5" data-q="2">
+                  <span>Tamamı kendisine ait</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q2" value="3" data-q="2">
-                    <span>%51–99 ortaklık payı</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q2" value="3" data-q="2">
+                  <span>%51–99 ortaklık payı</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q2" value="1" data-q="2">
-                    <span>%50 ve altı pay</span>
-                  </div>
-                  <span class="rubric-opt-pts">1 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q2" value="1" data-q="2">
+                  <span>%50 ve altı pay</span>
+                  <small>1 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö3. Kadın Tedarikçi Ağı</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ3">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q3" value="5" data-q="3">
-                    <span>2 ve üzeri kadın tedarikçi (adı belirtilmiş)</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö3. Kadın Tedarikçi Ağı <span id="scoreBadgeQ3">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q3" value="5" data-q="3">
+                  <span>2 ve üzeri kadın tedarikçi (adı belirtilmiş)</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q3" value="3" data-q="3">
-                    <span>1 kadın tedarikçi (adı belirtilmiş)</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q3" value="3" data-q="3">
+                  <span>1 kadın tedarikçi (adı belirtilmiş)</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q3" value="0" data-q="3">
-                    <span>Kadın tedarikçi yok</span>
-                  </div>
-                  <span class="rubric-opt-pts">0 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q3" value="0" data-q="3">
+                  <span>Yok</span>
+                  <small>0 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö4. Coğrafi İşaret / Yerel Miras Ürünü</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ4">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q4" value="5" data-q="4">
-                    <span>Coğrafi işaretli ürün / belgelenmiş reçete</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö4. Coğrafi İşaret / Yerel Ürün <span id="scoreBadgeQ4">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q4" value="5" data-q="4">
+                  <span>Coğrafi işaretli / belgeli özgün reçete</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q4" value="3" data-q="4">
-                    <span>Özgün yerel ürün var, açıklanmış</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q4" value="3" data-q="4">
+                  <span>Var ve açıklanmış</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q4" value="0" data-q="4">
-                    <span>Özgün ürün yok</span>
-                  </div>
-                  <span class="rubric-opt-pts">0 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q4" value="0" data-q="4">
+                  <span>Yok</span>
+                  <small>0 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö5. Gıda Güvenliği & Sıfır Atık</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ5">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q5" value="5" data-q="5">
-                    <span>Belgeli (ISO 22000 / HACCP / Sıfır Atık)</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö5. Gıda Güvenliği & Sıfır Atık <span id="scoreBadgeQ5">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q5" value="5" data-q="5">
+                  <span>Belgeli</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q5" value="3" data-q="5">
-                    <span>Uygulama var, resmî belge yok</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q5" value="3" data-q="5">
+                  <span>Uygulama var, belge yok</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q5" value="0" data-q="5">
-                    <span>Uygulama veya belge yok</span>
-                  </div>
-                  <span class="rubric-opt-pts">0 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q5" value="0" data-q="5">
+                  <span>Yok</span>
+                  <small>0 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
 
-            <div class="rubric-question-block">
-              <div class="rubric-q-header">
-                <span class="rubric-q-title">Ö6. Mesleki Eğitim / Sertifika</span>
-                <span class="rubric-q-target-score" id="scoreBadgeQ6">0 Puan</span>
-              </div>
-              <div class="rubric-options-list">
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q6" value="5" data-q="6">
-                    <span>2 ve üzeri eğitim (kurum/yıl belirtilmiş)</span>
-                  </div>
-                  <span class="rubric-opt-pts">5 Puan</span>
+            <section>
+              <h3>Ö6. Mesleki Eğitim / Sertifika <span id="scoreBadgeQ6">0 Puan</span></h3>
+              <div class="checklist">
+                <label>
+                  <input type="radio" name="rubric_q6" value="5" data-q="6">
+                  <span>2 ve üzeri eğitim (kurum/yıl belirtilmiş)</span>
+                  <small>5 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q6" value="3" data-q="6">
-                    <span>1 eğitim (kurum ve yıl belirtilmiş)</span>
-                  </div>
-                  <span class="rubric-opt-pts">3 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q6" value="3" data-q="6">
+                  <span>1 eğitim (kurum ve yıl belirtilmiş)</span>
+                  <small>3 Puan</small>
                 </label>
-                <label class="rubric-option-label">
-                  <div>
-                    <input type="radio" name="rubric_q6" value="0" data-q="6">
-                    <span>Eğitim / sertifika yok</span>
-                  </div>
-                  <span class="rubric-opt-pts">0 Puan</span>
+                <label>
+                  <input type="radio" name="rubric_q6" value="0" data-q="6">
+                  <span>Yok</span>
+                  <small>0 Puan</small>
                 </label>
               </div>
-            </div>
+            </section>
           </div>
 
           <div class="live-score-summary-card">
-            <div class="live-score-row">
-              <div class="live-score-col">
-                <span class="live-score-col-label">Sistem Puanı</span>
-                <span class="live-score-col-val" id="summarySistemScore">52.5</span>
+            <div>
+              <div>
+                <span>Sistem Puanı</span>
+                <strong id="summarySistemScore">-</strong>
               </div>
-              <div class="live-score-col">
-                <span class="live-score-col-label">Ön Değerlendirme</span>
-                <span class="live-score-col-val accent" id="summaryPreScore">0</span>
+              <div>
+                <span>Ön Değerlendirme Puanı</span>
+                <strong class="accent" id="summaryPreScore">0</strong>
               </div>
             </div>
 
-            <div class="live-score-total-wrap">
-              <span class="live-score-col-label">Toplam Ön Sıralama</span>
-              <div class="live-score-total-val" id="summaryTotalScore">52.5</div>
-            </div>
+            <p>
+              <span>Toplam Ön Sıralama Puanı</span>
+              <strong id="summaryTotalScore">-</strong>
+            </p>
           </div>
 
           <div class="card-box">
-            <div class="eval-notes-box">
+            <div class="field">
               <label for="evalNotes">Editör Değerlendirme Notu / Gözlem</label>
-              <textarea id="evalNotes" placeholder="Adayın beyanları ve belgelerine dair kurul değerlendirme notunuzu buraya ekleyebilirsiniz..."></textarea>
+              <textarea id="evalNotes" placeholder="Adayın beyanları ve belgelerine dair değerlendirme notunuzu buraya ekleyebilirsiniz..."></textarea>
             </div>
 
-            <button type="submit" class="btn-primary-action" id="btnSaveEvaluation">
+            <button type="submit" class="btn" id="btnSaveEvaluation">
               <span>Ön Değerlendirmeyi Kaydet</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
@@ -516,19 +401,18 @@
   </main>
 
   <div class="modal-backdrop" id="docPreviewModal" hidden>
-    <div class="modal-card">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="docPreviewTitle">
       <div class="modal-head">
-        <h3 id="docPreviewTitle">Resmî Belge Önizleme</h3>
-        <button type="button" class="modal-close-btn" id="closeDocPreviewModal">&times;</button>
+        <h3 id="docPreviewTitle">Belge Bilgisi</h3>
+        <button type="button" class="modal-close-btn" id="closeDocPreviewModal" aria-label="Kapat">&times;</button>
       </div>
       <div class="modal-body-text" id="docPreviewBody">
       </div>
       <div class="card-box-header">
-        <button type="button" class="btn-secondary" id="confirmDocPreview">Kapat</button>
+        <button type="button" class="btn btn-outline" id="confirmDocPreview">Kapat</button>
       </div>
     </div>
   </div>
 
-  <script src="editor-degerlendirme.js"></script>
 </body>
 </html>

@@ -8,65 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const fieldUser = userInput.closest('.field');
   const fieldPass = passInput.closest('.field');
 
-  const modalForgot = document.getElementById('modal-forgot');
-  const openForgot = document.getElementById('open-forgot');
-  const btnSendReset = document.getElementById('btn-send-reset');
-  const resetEmail = document.getElementById('reset-email');
-  const resetError = document.getElementById('reset-error');
-  const fieldReset = resetEmail.closest('.field');
-
-  function openModal(modal) {
-    modal.classList.add('active');
-    document.body.classList.add('no-scroll');
-  }
-
-  function closeModal(modal) {
-    modal.classList.remove('active');
-    document.body.classList.remove('no-scroll');
-  }
-
-  document.querySelectorAll('[data-close]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.getAttribute('data-close'));
-      if (target) closeModal(target);
-    });
-  });
-
-  if (modalForgot) {
-    modalForgot.addEventListener('click', (e) => {
-      if (e.target === modalForgot) closeModal(modalForgot);
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalForgot.classList.contains('active')) {
-      closeModal(modalForgot);
-    }
-  });
-
-  if (openForgot) {
-    openForgot.addEventListener('click', () => {
-      window.location.href = 'sifre-sifirla.html';
-    });
-  }
-
-  btnSendReset.addEventListener('click', () => {
-    const emailVal = resetEmail.value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailVal)) {
-      fieldReset.classList.add('invalid');
-      resetError.textContent = 'Lütfen geçerli bir e-posta adresi giriniz.';
-      return;
-    }
-    fieldReset.classList.remove('invalid');
-    btnSendReset.textContent = 'Gönderildi!';
-    setTimeout(() => {
-      closeModal(modalForgot);
-      btnSendReset.textContent = 'Sıfırlama Bağlantısı Gönder';
-      resetEmail.value = '';
-      alert('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.');
-    }, 600);
-  });
 
   toggleBtn.addEventListener('click', () => {
     const isPass = passInput.type === 'password';
@@ -134,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.classList.remove('loading');
       submitBtn.disabled = false;
       const userVal = userInput.value.trim().toLowerCase();
-      const storedEditor = JSON.parse(localStorage.getItem('editorUser') || 'null');
+      const storedEditor = MYUI.readJSON('editorUser');
+      // DEMO: gerçek kimlik doğrulama arka uç gerektirir
       const isEditor = userVal.includes('editor') || (storedEditor && storedEditor.email && storedEditor.email.toLowerCase() === userVal);
       if (isEditor) {
         const editorObj = storedEditor || {
@@ -142,14 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
           name: 'Dr. Elif Kaya',
           role: 'editor'
         };
-        localStorage.setItem('currentUser', JSON.stringify(editorObj));
+        MYUI.writeJSON('currentUser', editorObj);
         window.location.href = 'editor-panel.html';
       } else {
         const applicantObj = {
           email: userInput.value.trim(),
           role: 'applicant'
         };
-        localStorage.setItem('currentUser', JSON.stringify(applicantObj));
+        MYUI.writeJSON('currentUser', applicantObj);
         window.location.href = 'panel.html';
       }
     }, 700);

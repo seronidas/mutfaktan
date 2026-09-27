@@ -1,176 +1,7 @@
 /*============================================================================================
-  Mutfaktan Yarına — Kayıt ve Ön Başvuru Formu Stilleri
-  Temel: base.css üzerinden kurumsal TCCC Unity fontları ve Coca-Cola kırmızısı (#F40009)
-  Düzen: Potenza İki Kolonlu Split-Screen Tasarımı
+  Mutfaktan Yarına — Kayıt ve Giriş Sayfaları (yalnızca sayfaya özgü kurallar)
+  Ortak düzen: layout-split.css; form bileşenleri: forms.css. Renk ve yazı tipi: base.css (TCCC Unity, marka kırmızısı)
 ============================================================================================*/
-@import url('./base.css');
-
-body {
-  background-color: #ffffff;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-/* Sağ Form Kutusu */
-.form-box {
-  width: 100%;
-  max-width: 520px;
-  margin: auto 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-header {
-  margin-bottom: 2rem;
-  text-align: left;
-}
-
-.form-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-headline);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.form-title {
-  font-family: var(--font-headline);
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--dark);
-  margin-bottom: 0.45rem;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.form-subtitle {
-  font-size: 0.92rem;
-  color: var(--gray-600);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* Form Alanları */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.35rem;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  position: relative;
-}
-
-.field label {
-  font-family: var(--font-headline);
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: var(--dark);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.field label small {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--gray-500);
-}
-
-.field .input-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.field .input-box > svg {
-  position: absolute;
-  left: 1rem;
-  width: 19px;
-  height: 19px;
-  color: var(--gray-400);
-  pointer-events: none;
-  transition: var(--transition);
-}
-
-.field .input-box input {
-  width: 100%;
-  height: 50px;
-  padding: 0 1rem 0 2.85rem;
-  font-family: inherit;
-  font-size: 0.92rem;
-  color: var(--dark);
-  background: var(--bg-muted);
-  border: 1.5px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  outline: none;
-  transition: var(--transition);
-}
-
-.field .input-box input:focus {
-  background: #ffffff;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3.5px rgba(244, 0, 9, 0.12);
-}
-
-.field .input-box input:focus ~ svg,
-.field .input-box input:focus + svg {
-  color: var(--primary);
-}
-
-.field .input-box:has(button) input {
-  padding-right: 3rem;
-}
-
-.field .input-box button {
-  position: absolute;
-  right: 0.75rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--gray-400);
-  padding: 0.4rem;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-}
-
-.field .input-box button:hover {
-  color: var(--dark);
-}
-
-.field .input-box button svg {
-  width: 20px;
-  height: 20px;
-}
-
-.field .error {
-  font-size: 0.78rem;
-  color: var(--danger);
-  display: none;
-  margin-top: 0.2rem;
-  font-weight: 500;
-}
-
-.field.invalid .error {
-  display: block;
-}
-
-.field.invalid .input-box input {
-  border-color: var(--danger);
-  background-color: var(--danger-light);
-}
 
 /* Şifre Gücü Çubuğu */
 .strength {
@@ -209,68 +40,15 @@ form {
   justify-content: space-between;
 }
 
-.strength[data-score="1"] > div > span:nth-child(1) { background: #ef4444; }
-.strength[data-score="2"] > div > span:nth-child(-n+2) { background: #f97316; }
-.strength[data-score="3"] > div > span:nth-child(-n+3) { background: #eab308; }
-.strength[data-score="4"] > div > span:nth-child(-n+4) { background: #22c55e; }
+.strength[data-score="1"] > div > span:nth-child(1) { background: var(--danger); }
+.strength[data-score="2"] > div > span:nth-child(-n+2) { background: var(--warning); }
+.strength[data-score="3"] > div > span:nth-child(-n+3),
+.strength[data-score="4"] > div > span:nth-child(-n+4) { background: var(--success); }
 
-.strength[data-score="1"] p b { color: #ef4444; }
-.strength[data-score="2"] p b { color: #f97316; }
-.strength[data-score="3"] p b { color: #eab308; }
-.strength[data-score="4"] p b { color: #22c55e; }
-
-/* Onay Kutuları (KVKK ve Açık Rıza) */
-.agreements {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin-top: 0.25rem;
-  padding: 1.15rem;
-  background: var(--bg-muted);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-}
-
-.agreements label {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  font-size: 0.85rem;
-  color: var(--gray-700);
-  line-height: 1.45;
-}
-
-.agreements label input {
-  width: 19px;
-  height: 19px;
-  margin-top: 2px;
-  cursor: pointer;
-  accent-color: var(--primary);
-  flex-shrink: 0;
-}
-
-.agreements label a {
-  color: var(--primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  font-weight: 700;
-  transition: var(--transition);
-}
-
-.agreements .error {
-  font-size: 0.78rem;
-  color: var(--danger);
-  display: none;
-  margin-left: 2rem;
-  margin-top: -0.4rem;
-}
-
-.agreements .error.show {
-  display: block;
-}
+.strength[data-score="1"] p b { color: var(--danger); }
+.strength[data-score="2"] p b { color: var(--warning); }
+.strength[data-score="3"] p b,
+.strength[data-score="4"] p b { color: var(--success); }
 
 /* Giriş Formu Seçenekleri */
 .form-options {
@@ -278,20 +56,6 @@ form {
   align-items: center;
   justify-content: space-between;
   font-size: 0.85rem;
-}
-
-.form-options label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: var(--gray-700);
-}
-
-.form-options label input {
-  accent-color: var(--primary);
-  width: 16px;
-  height: 16px;
 }
 
 .form-options a {
@@ -304,52 +68,11 @@ form {
   text-decoration: underline;
 }
 
-/* Gönder Butonu (Coca-Cola Kırmızı) */
-form > button[type="submit"] {
-  margin-top: 0.5rem;
-  height: 52px;
-  background: var(--primary);
-  color: var(--white);
-  border: none;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-headline);
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  box-shadow: 0 4px 14px rgba(244, 0, 9, 0.28);
-  transition: all 0.2s ease;
-}
-
-form > button[type="submit"]:hover {
-  background: #d80007;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(201, 0, 7, 0.35);
-}
-
-form > button[type="submit"]:active {
-  transform: translateY(0);
-}
-
-form > button[type="submit"] svg {
-  width: 18px;
-  height: 18px;
-  transition: transform 0.2s ease;
-}
-
-form > button[type="submit"]:hover svg {
-  transform: translateX(3px);
-}
-
 /* Bilgilendirme Kutusu */
 .notice {
-  background: #fffcf0;
-  border: 1px solid #fef08a;
-  border-left: 4px solid #eab308;
+  background: var(--warning-light);
+  border: 1px solid var(--warning-border);
+  border-left: 4px solid var(--warning);
   border-radius: var(--radius-sm);
   padding: 1.15rem 1.25rem;
   margin-top: 1.5rem;
@@ -361,54 +84,39 @@ form > button[type="submit"]:hover svg {
 .notice > svg {
   width: 20px;
   height: 20px;
-  color: #ca8a04;
+  color: var(--warning);
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.notice > div h2 {
-  font-family: var(--font-headline);
+.notice h2 {
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #854d0e;
+  color: var(--warning-text);
   margin-bottom: 0.35rem;
 }
 
-.notice > div p {
+.notice p {
   font-size: 0.85rem;
   line-height: 1.55;
-  color: #713f12;
+  color: var(--warning-text);
   margin: 0;
 }
 
-.notice > div p strong {
-  color: #854d0e;
+.notice strong {
   font-weight: 800;
 }
 
-.notice > div small {
+.notice small {
   display: inline-block;
   margin-top: 0.4rem;
   font-size: 0.75rem;
   font-weight: 600;
-  background: rgba(234, 179, 8, 0.2);
+  background: rgba(180,83,9, 0.2);
   padding: 0.15rem 0.55rem;
   border-radius: 4px;
-  color: #854d0e;
-}
-
-.login-link {
-  margin-top: 1.5rem;
-  text-align: center;
-  font-size: 0.88rem;
-  color: var(--gray-600);
-}
-
-.login-link a {
-  color: var(--primary);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  color: var(--warning-text);
 }
 
 /* Modal Stilleri */
@@ -416,7 +124,7 @@ form > button[type="submit"]:hover svg {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(0,0,0, 0.65);
   backdrop-filter: blur(4px);
   display: none;
   align-items: center;
@@ -428,7 +136,7 @@ form > button[type="submit"]:hover svg {
   display: flex;
 }
 
-.modal-box {
+.modal > div {
   background: var(--white);
   border-radius: var(--radius-md);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -446,7 +154,7 @@ form > button[type="submit"]:hover svg {
   to { opacity: 1; transform: scale(1); }
 }
 
-.modal-box > header {
+.modal header {
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-light);
   display: flex;
@@ -454,8 +162,8 @@ form > button[type="submit"]:hover svg {
   justify-content: space-between;
 }
 
-.modal-box > header h3 {
-  font-family: var(--font-headline);
+.modal header h3 {
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--dark);
@@ -464,11 +172,11 @@ form > button[type="submit"]:hover svg {
   gap: 0.5rem;
 }
 
-.modal-box > header h3 svg {
+.modal h3 svg {
   color: var(--primary);
 }
 
-.modal-box > header button {
+.modal header button {
   background: none;
   border: none;
   color: var(--gray-400);
@@ -477,16 +185,16 @@ form > button[type="submit"]:hover svg {
   border-radius: 4px;
 }
 
-.modal-box > header button:hover {
+.modal header button:hover {
   color: var(--dark);
 }
 
-.modal-box > header button svg {
+.modal header svg {
   width: 20px;
   height: 20px;
 }
 
-.modal-box > article {
+.modal article {
   padding: 1.5rem;
   overflow-y: auto;
   font-size: 0.9rem;
@@ -494,24 +202,24 @@ form > button[type="submit"]:hover svg {
   color: var(--gray-700);
 }
 
-.modal-box > article h4 {
-  font-family: var(--font-headline);
+.modal h4 {
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--dark);
   margin: 1rem 0 0.4rem;
 }
 
-.modal-box > article h4:first-child {
+.modal h4:first-child {
   margin-top: 0;
 }
 
-.modal-box > article ul {
+.modal ul {
   padding-left: 1.25rem;
   margin: 0.5rem 0;
 }
 
-.modal-box > footer {
+.modal footer {
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--border-light);
   display: flex;
@@ -521,34 +229,39 @@ form > button[type="submit"]:hover svg {
   background: var(--bg-muted);
 }
 
-.modal-box > footer button {
+.modal footer button {
   padding: 0.65rem 1.25rem;
   border-radius: var(--radius-sm);
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.modal-box > footer button.secondary {
+.modal footer .secondary {
   background: var(--white);
   border: 1px solid var(--border-color);
   color: var(--gray-700);
 }
 
-.modal-box > footer button.primary {
+.modal footer .secondary:hover {
+  border-color: var(--gray-400);
+  background: var(--gray-50);
+}
+
+.modal footer .primary {
   background: var(--primary);
   border: 1px solid var(--primary);
   color: var(--white);
 }
 
-.modal-box > footer button.primary:hover {
-  background: #d80007;
+.modal footer .primary:hover {
+  background: var(--primary-hover);
 }
 
 /* Başarı Modalı */
-.modal-box .success-icon {
+.success-icon {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -560,36 +273,36 @@ form > button[type="submit"]:hover svg {
   margin: 0.5rem auto 1.25rem;
 }
 
-.modal-box .success-icon svg {
+.success-icon svg {
   width: 30px;
   height: 30px;
 }
 
-.modal-box .alert-card {
-  background: #fffbeb;
-  border: 1.5px solid #fcd34d;
+.alert-card {
+  background: var(--warning-light);
+  border: 1.5px solid var(--warning-border);
   border-radius: var(--radius-sm);
   padding: 1rem 1.25rem;
   margin: 1.25rem 0;
   text-align: left;
 }
 
-.modal-box .alert-card h4 {
+.modal .alert-card h4 {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #92400e;
+  color: var(--warning-text);
   font-size: 0.92rem;
   margin-bottom: 0.35rem;
 }
 
-.modal-box .alert-card p {
-  color: #78350f;
+.alert-card p {
+  color: var(--warning-text);
   font-size: 0.84rem;
   margin: 0;
 }
 
-#modal-success .modal-box {
+#modal-success > div {
   text-align: center;
 }
 
@@ -598,6 +311,7 @@ form > button[type="submit"]:hover svg {
 }
 
 #modal-success h3 {
+  font-family: var(--font-headline);
   font-size: 1.45rem;
   color: var(--dark);
   font-weight: 800;
@@ -609,6 +323,49 @@ form > button[type="submit"]:hover svg {
   padding: 0.85rem;
 }
 
-body.no-scroll {
-  overflow: hidden;
+/*-------- Mobil: dokunma hedefi ≥44px, dar ekranda modal düzeni --------*/
+@media (max-width: 768px), (pointer: coarse) {
+  .form-options a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .modal header button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .modal footer button {
+    min-height: 44px;
+  }
+
+  /* Uzun metinde yalnızca makale kaydırılır; başlık ve düğmeler sıkışıp 44px'in altına inmez */
+  .modal header,
+  .modal footer {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 1rem;
+  }
+
+  .modal header,
+  .modal article,
+  .modal footer {
+    padding-inline: 1rem;
+  }
+
+  .modal footer {
+    flex-wrap: wrap;
+  }
+
+  .modal footer button {
+    flex: 1 1 auto;
+  }
 }

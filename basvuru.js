@@ -1,3 +1,8 @@
+const LAST_ELIGIBLE_START_YEAR = 2024; // başvuru 12 Ekim–12 Kasım 2026, en az 2 yıl
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const DRAFT_KEY = 'mutfaktan_app_draft';
+const APP_KEY = 'mutfaktan_application';
+
 document.addEventListener('DOMContentLoaded', () => {
   let currentStep = 1;
   const totalSteps = 6;
@@ -8,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isEditMode && editBanner) editBanner.classList.add('active');
 
   const stepPanes = document.querySelectorAll('.step-pane');
-  const stepItems = document.querySelectorAll('.step-item');
+  const stepItems = document.querySelectorAll('[data-step]');
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
 
@@ -18,14 +23,74 @@ document.addEventListener('DOMContentLoaded', () => {
   const fileName = document.getElementById('file-name');
   const btnRemoveFile = document.getElementById('btn-remove-file');
   const fileError = document.getElementById('file-error');
+  const fileErrorText = document.getElementById('file-error-text');
+  const FILE_ERROR_DEFAULT = fileErrorText ? fileErrorText.textContent : '';
+
+  const bizyearInput = document.getElementById('inp-bizyear');
+  const bizyearError = document.getElementById('bizyear-error');
+  bizyearInput.max = LAST_ELIGIBLE_START_YEAR;
+  if (bizyearError) {
+    bizyearError.textContent = `İşletme en az 2 yıldır faaliyette olmalıdır (en geç ${LAST_ELIGIBLE_START_YEAR}).`;
+  }
+
+  const birthError = document.getElementById('birth-error');
+  const BIRTH_ERROR_DEFAULT = birthError ? birthError.textContent : '';
+
+  const hiredRadios = document.querySelectorAll('input[name="q14_hired"]');
+  const detailField = document.getElementById('field-q14-detail');
+  const q14Select = document.getElementById('inp-q14');
+  const q22Inputs = document.querySelectorAll('input[name="q22"]');
+  const q22CounterLabel = document.getElementById('q22-counter-label');
+  const q22Err = document.getElementById('q22-error');
 
   let uploadedFile = null;
+  // Düzenlemede referans numarası ve ilk gönderim tarihi değişmesin
+  let refNo = null;
+  let submittedAt = null;
+
+  function checkedValue(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : null;
+  }
+
+  function toInt(v) {
+    const str = String(v == null ? '' : v).trim();
+    if (str === '') return NaN;
+    const n = Number(str);
+    return Number.isInteger(n) ? n : NaN;
+  }
+
+  function syncQ14Detail() {
+    if (checkedValue('q14_hired') === 'yes') detailField.removeAttribute('hidden');
+    else detailField.setAttribute('hidden', '');
+  }
+
+  function syncQ22UI() {
+    q22Inputs.forEach(input => {
+      input.closest('label').classList.toggle('checked', input.checked);
+    });
+    const count = document.querySelectorAll('input[name="q22"]:checked').length;
+    if (q22CounterLabel) {
+      q22CounterLabel.textContent = `(Tam 2 seçim yapınız — Seçilen: ${count} / 2)`;
+    }
+    q22Inputs.forEach(input => {
+      input.disabled = count >= 2 && !input.checked;
+    });
+    return count;
+  }
 
   function loadDraft() {
-    const saved = localStorage.getItem('mutfaktan_app_draft') || localStorage.getItem('mutfaktan_application');
-    if (!saved) return;
+    const draft = MYUI.readJSON(DRAFT_KEY);
+    const app = MYUI.readJSON(APP_KEY);
+    const isObj = d => d && typeof d === 'object';
+    const data = [draft, app].find(isObj);
+    const metaSrc = [app, draft].find(d => isObj(d) && d.refNo);
+    if (metaSrc) {
+      refNo = metaSrc.refNo;
+      submittedAt = metaSrc.submittedAt || null;
+    }
+    if (!data) return;
     try {
-      const data = JSON.parse(saved);
       if (data.eligibility) {
         data.eligibility.forEach((val, i) => {
           const chk = document.getElementById(`chk-el-${i + 1}`);
@@ -63,7 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.q11) document.getElementById('inp-q11').value = data.q11;
       if (data.q12) document.getElementById('inp-q12').value = data.q12;
       if (data.q13) document.getElementById('inp-q13').value = data.q13;
-      if (data.q14) document.getElementById('inp-q14').value = data.q14;
+
+      // q14: eski taslaklarda q14_hired yok; 'none' -> Hayır, dolu başka değer -> Evet
+      let hired = data.q14_hired || null;
+      if (!hired && data.q14) hired = data.q14 === 'none' ? 'no' : 'yes';
+      if (hired) {
+        const rad = document.querySelector(`input[name="q14_hired"][value="${hired}"]`);
+        if (rad) rad.checked = true;
+      }
+      if (hired === 'yes' && data.q14 && data.q14 !== 'none') q14Select.value = data.q14;
+      syncQ14Detail();
+
       if (data.q15) {
         const rad = document.querySelector(`input[name="q15"][value="${data.q15}"]`);
         if (rad) rad.checked = true;
@@ -75,16 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.q22 && Array.isArray(data.q22)) {
         data.q22.forEach(val => {
           const chk = document.querySelector(`input[name="q22"][value="${val}"]`);
-          if (chk) {
-            chk.checked = true;
-            chk.closest('.checkbox-choice').classList.add('checked');
-          }
+          if (chk) chk.checked = true;
         });
       }
+      syncQ22UI();
     } catch (e) {}
   }
 
   function saveDraft() {
+    const hired = checkedValue('q14_hired');
+    let q14 = null;
+    if (hired === 'no') q14 = 'none';
+    else if (hired === 'yes') q14 = q14Select.value || null;
+
     const data = {
       eligibility: Array.from(document.querySelectorAll('input[name="eligibility"]')).map(c => c.checked),
       fullname: document.getElementById('inp-fullname').value.trim(),
@@ -102,14 +180,17 @@ document.addEventListener('DOMContentLoaded', () => {
       q11: document.getElementById('inp-q11').value,
       q12: document.getElementById('inp-q12').value,
       q13: document.getElementById('inp-q13').value,
-      q14: document.getElementById('inp-q14').value,
-      q15: (document.querySelector('input[name="q15"]:checked') || {}).value || 'yes',
-      q21: (document.querySelector('input[name="q21"]:checked') || {}).value || 'yes',
+      q14_hired: hired,
+      q14: q14,
+      q15: checkedValue('q15'),
+      q21: checkedValue('q21'),
       q22: Array.from(document.querySelectorAll('input[name="q22"]:checked')).map(c => c.value),
       status: 'draft',
       updatedAt: new Date().toISOString()
     };
-    localStorage.setItem('mutfaktan_app_draft', JSON.stringify(data));
+    if (refNo) data.refNo = refNo;
+    if (submittedAt) data.submittedAt = submittedAt;
+    MYUI.writeJSON(DRAFT_KEY, data);
   }
 
   function updateStepsUI() {
@@ -191,18 +272,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!birth.value) {
+      if (birthError) birthError.textContent = 'Doğum tarihi zorunludur.';
       birth.closest('.field').classList.add('invalid');
       valid = false;
-    } else {
-      const bDate = new Date(birth.value);
-      const today = new Date();
-      const end2026 = new Date('2026-12-31');
-      let ageNow = today.getFullYear() - bDate.getFullYear();
-      let age2026 = end2026.getFullYear() - bDate.getFullYear();
-      if (ageNow < 18 || age2026 > 30) {
-        birth.closest('.field').classList.add('invalid');
-        valid = false;
-      }
+    } else if (!MYScoring.isAgeEligible(birth.value)) {
+      if (birthError) birthError.textContent = BIRTH_ERROR_DEFAULT;
+      birth.closest('.field').classList.add('invalid');
+      valid = false;
     }
 
     if (!phone.value.trim() || phone.value.trim().length < 10) {
@@ -210,8 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       valid = false;
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email.value.trim())) {
+    if (!MYUI.isEmail(email.value.trim())) {
       email.closest('.field').classList.add('invalid');
       valid = false;
     }
@@ -246,8 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
       valid = false;
     }
 
-    const yearVal = parseInt(bizyear.value, 10);
-    if (!yearVal || yearVal > 2024 || yearVal < 1950) {
+    const yearVal = toInt(bizyear.value);
+    if (!yearVal || yearVal > LAST_ELIGIBLE_START_YEAR || yearVal < 1950) {
       bizyear.closest('.field').classList.add('invalid');
       valid = false;
     }
@@ -262,6 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function validateStep4() {
     if (!uploadedFile) {
+      if (fileErrorText) fileErrorText.textContent = FILE_ERROR_DEFAULT;
       fileError.classList.add('show');
       return false;
     }
@@ -274,32 +350,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const q11 = document.getElementById('inp-q11');
     const q12 = document.getElementById('inp-q12');
     const q13 = document.getElementById('inp-q13');
-    const q14 = document.getElementById('inp-q14');
+    const q14Pre = document.getElementById('field-q14-pre');
+    const q15Field = document.querySelector('input[name="q15"]').closest('.field');
+    const q21Field = document.querySelector('input[name="q21"]').closest('.field');
     const q22Checks = document.querySelectorAll('input[name="q22"]:checked');
-    const q22Err = document.getElementById('q22-error');
 
-    [q11, q12, q13, q14].forEach(inp => inp.closest('.field').classList.remove('invalid'));
+    [q11, q12, q13, q14Select].forEach(inp => inp.closest('.field').classList.remove('invalid'));
+    [q14Pre, q15Field, q21Field].forEach(f => f.classList.remove('invalid'));
 
-    const val11 = parseInt(q11.value, 10);
+    const val11 = toInt(q11.value);
     if (isNaN(val11) || val11 < 2) {
       q11.closest('.field').classList.add('invalid');
       valid = false;
     }
 
-    const val12 = parseInt(q12.value, 10);
+    const val12 = toInt(q12.value);
     if (isNaN(val12) || val12 < 0 || val12 > val11) {
       q12.closest('.field').classList.add('invalid');
       valid = false;
     }
 
-    const val13 = parseInt(q13.value, 10);
+    const val13 = toInt(q13.value);
     if (isNaN(val13) || val13 < 0) {
       q13.closest('.field').classList.add('invalid');
       valid = false;
     }
 
-    if (!q14.value) {
-      q14.closest('.field').classList.add('invalid');
+    const hired = checkedValue('q14_hired');
+    if (!hired) {
+      q14Pre.classList.add('invalid');
+      valid = false;
+    } else if (hired === 'yes' && !q14Select.value) {
+      q14Select.closest('.field').classList.add('invalid');
+      valid = false;
+    }
+
+    if (!checkedValue('q15')) {
+      q15Field.classList.add('invalid');
+      valid = false;
+    }
+
+    if (!checkedValue('q21')) {
+      q21Field.classList.add('invalid');
       valid = false;
     }
 
@@ -314,11 +406,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validateStep6() {
-    const c1 = document.getElementById('chk-doc-1').checked;
-    const c2 = document.getElementById('chk-doc-2').checked;
-    const c3 = document.getElementById('chk-doc-3').checked;
+    const allChecked = Array.from(document.querySelectorAll('input[id^="chk-doc-"]')).every(c => c.checked);
     const err = document.getElementById('final-error');
-    if (!c1 || !c2 || !c3) {
+    if (!allChecked) {
       err.classList.add('show');
       return false;
     }
@@ -341,13 +431,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sum-bizyear').textContent = document.getElementById('inp-bizyear').value || '-';
     document.getElementById('sum-address').textContent = document.getElementById('inp-address').value || '-';
 
-    document.getElementById('sum-msa').textContent = uploadedFile ? uploadedFile.name : 'Yüklendi';
+    document.getElementById('sum-msa').textContent = uploadedFile ? uploadedFile.name : '-';
     document.getElementById('sum-emp-total').textContent = document.getElementById('inp-q11').value || '-';
     document.getElementById('sum-emp-female').textContent = document.getElementById('inp-q12').value || '-';
     document.getElementById('sum-emp-prev').textContent = document.getElementById('inp-q13').value || '-';
 
-    const q14Select = document.getElementById('inp-q14');
-    document.getElementById('sum-emp-stay').textContent = q14Select.options[q14Select.selectedIndex].text || '-';
+    const hired = checkedValue('q14_hired');
+    let stay = '-';
+    if (hired === 'no') stay = 'İşe başlayan olmadı';
+    else if (hired === 'yes' && q14Select.value) stay = q14Select.options[q14Select.selectedIndex].text;
+    document.getElementById('sum-emp-stay').textContent = stay;
   }
 
   btnNext.addEventListener('click', () => {
@@ -364,13 +457,33 @@ document.addEventListener('DOMContentLoaded', () => {
     saveDraft();
 
     if (currentStep === totalSteps) {
-      const finalData = JSON.parse(localStorage.getItem('mutfaktan_app_draft') || '{}');
+      const finalData = MYUI.readJSON(DRAFT_KEY, {});
       finalData.status = 'submitted';
-      finalData.submittedAt = new Date().toISOString();
+      if (!finalData.submittedAt) finalData.submittedAt = new Date().toISOString();
       if (!finalData.refNo) {
         finalData.refNo = 'MY-2026-' + Math.floor(10000 + Math.random() * 90000);
       }
-      localStorage.setItem('mutfaktan_application', JSON.stringify(finalData));
+      // Başvurana gösterilmez; yalnızca kayıtta tutulur
+      try {
+        finalData.sistemScore = MYScoring.systemScore({
+          biztype: finalData.biztype,
+          q11: toInt(finalData.q11),
+          q12: toInt(finalData.q12),
+          q13: toInt(finalData.q13),
+          q14: finalData.q14,
+          q15: finalData.q15,
+          q21: finalData.q21,
+          q22: finalData.q22
+        }).total;
+      } catch (err) {
+        const finalErr = document.getElementById('final-error');
+        if (finalErr) {
+          finalErr.querySelector('span').textContent = 'Başvuru bilgilerinizde eksik veya hatalı bir alan var; lütfen önceki adımları kontrol ediniz.';
+          finalErr.classList.add('show');
+        }
+        return;
+      }
+      MYUI.writeJSON(APP_KEY, finalData);
       window.location.href = 'panel.html';
       return;
     }
@@ -387,66 +500,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', (e) => {
-    if (e.target.files && e.target.files[0]) {
-      uploadedFile = e.target.files[0];
-      fileName.textContent = uploadedFile.name;
-      filePreview.classList.add('active');
-      fileError.classList.remove('show');
+  function showFileError(msg) {
+    if (fileErrorText) fileErrorText.textContent = msg;
+    fileError.classList.add('show');
+  }
+
+  function handleFile(file) {
+    if (!file) return;
+    const okType = /\.(pdf|jpe?g|png)$/i.test(file.name) &&
+      (!file.type || /^(application\/pdf|image\/jpeg|image\/png)$/.test(file.type));
+    if (!okType) {
+      fileInput.value = '';
+      showFileError('Yalnızca PDF, JPG veya PNG dosyası yükleyebilirsiniz.');
+      return;
     }
+    if (file.size > MAX_FILE_BYTES) {
+      fileInput.value = '';
+      showFileError('Dosya boyutu en fazla 10 MB olabilir.');
+      return;
+    }
+    uploadedFile = file;
+    fileName.textContent = file.name;
+    filePreview.classList.add('active');
+    dropzone.classList.add('hidden');
+    fileError.classList.remove('show');
+  }
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInput.click();
+    }
+  });
+  ['dragenter', 'dragover'].forEach(evt => {
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+  });
+  dropzone.addEventListener('dragleave', (e) => {
+    if (!dropzone.contains(e.relatedTarget)) dropzone.classList.remove('dragover');
+  });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+    const files = e.dataTransfer && e.dataTransfer.files;
+    if (files && files[0]) handleFile(files[0]);
+  });
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
   });
 
   btnRemoveFile.addEventListener('click', () => {
     uploadedFile = null;
     fileInput.value = '';
     filePreview.classList.remove('active');
+    dropzone.classList.remove('hidden');
   });
 
-  const hiredRadios = document.querySelectorAll('input[name="q14_hired"]');
-  const detailField = document.getElementById('field-q14-detail');
-  const q14Select = document.getElementById('inp-q14');
   hiredRadios.forEach(r => {
     r.addEventListener('change', () => {
-      if (r.value === 'yes') {
-        if (detailField) detailField.removeAttribute('hidden');
-        if (q14Select) q14Select.value = 'all';
-      } else {
-        if (detailField) detailField.setAttribute('hidden', '');
-        if (q14Select) q14Select.value = 'none';
-      }
+      if (r.value === 'no') q14Select.value = '';
+      syncQ14Detail();
     });
   });
 
-  const q22Inputs = document.querySelectorAll('input[name="q22"]');
-  const q22CounterLabel = document.getElementById('q22-counter-label');
-  const q22Err = document.getElementById('q22-error');
-
   q22Inputs.forEach(chk => {
-    chk.addEventListener('change', (e) => {
-      const parent = e.target.closest('.checkbox-choice');
-      if (e.target.checked) parent.classList.add('checked');
-      else parent.classList.remove('checked');
-
-      const checkedBoxes = document.querySelectorAll('input[name="q22"]:checked');
-      const checkedCount = checkedBoxes.length;
-
-      if (q22CounterLabel) {
-        q22CounterLabel.textContent = `(Tam 2 seçim yapınız — Seçilen: ${checkedCount} / 2)`;
-      }
-
-      if (checkedCount >= 2) {
-        q22Inputs.forEach(input => {
-          if (!input.checked) {
-            input.disabled = true;
-          }
-        });
-      } else {
-        q22Inputs.forEach(input => {
-          input.disabled = false;
-        });
-      }
-
+    chk.addEventListener('change', () => {
+      const checkedCount = syncQ22UI();
       if (checkedCount !== 2) {
         q22Err.classList.add('show');
       } else {
@@ -455,10 +577,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('.accordion-header').forEach(hdr => {
+  document.querySelectorAll('.summary-accordion button').forEach(hdr => {
     hdr.addEventListener('click', () => {
-      const item = hdr.closest('.accordion-item');
-      item.classList.toggle('open');
+      const item = hdr.parentElement;
+      const open = item.classList.toggle('open');
+      hdr.setAttribute('aria-expanded', String(open));
     });
   });
 

@@ -1,119 +1,20 @@
-// index.js - Mutfaktan Yarına Ana Sayfa Etkileşim Scripti
+// index.js - Mutfaktan Yarına Ana Sayfa Etkileşim Scripti (üst menü davranışı: site-chrome.js)
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Mobil Menü Aç/Kapat
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const navMenu = document.getElementById('nav-menu');
+  // Scrollspy & Sekmeler Arası Gezinti (Yan Menü ve Sticky Subnav)
+  const sectionEls = ['proje-hakkinda', 'msa-egitimi', 'hibe-destegi', 'program-takvimi']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  // Mobil sekme çubuğu ve masaüstü yan menü bağlantıları (ikisi de data-target taşır)
+  const navLinks = document.querySelectorAll('a[data-target]');
+  const headerEl = document.querySelector('.main-header');
+  const subnavEl = document.getElementById('subnav-bar');
 
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-      mobileToggle.setAttribute('aria-expanded', !isExpanded);
-      mobileToggle.classList.toggle('active');
-      navMenu.classList.toggle('mobile-open');
-    });
-
-    // Menü dışına tıklandığında kapat
-    document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('mobile-open')) {
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('mobile-open');
-      }
-    });
-
-    // Mobil menü linkine tıklandığında menüyü kapat
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('mobile-open');
-      });
-    });
+  // Sabit üst alan yüksekliği: ana başlık + (yalnızca mobilde görünen) sekme barı.
+  // Sekme barı masaüstünde display:none olduğundan offsetHeight 0 döner.
+  function getStickyOffset() {
+    return (headerEl ? headerEl.offsetHeight : 0) + (subnavEl ? subnavEl.offsetHeight : 0);
   }
-
-  // 2. Modallar: Hibe Şartları ve Hibe Yönergesi
-  window.openModal = function(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-  };
-
-  window.closeModal = function(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-  };
-
-  // Modal dışına tıklandığında kapat
-  document.querySelectorAll('.modal-backdrop').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('show');
-        document.body.style.overflow = '';
-      }
-    });
-  });
-
-  // ESC tuşu ile kapat
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-backdrop.show').forEach(modal => {
-        modal.classList.remove('show');
-      });
-      document.body.style.overflow = '';
-    }
-  });
-
-  // Hibe Şartları & Yönerge butonları için modal tetikleyiciler
-  const btnSartlar = document.getElementById('btn-sartlar-modal');
-  if (btnSartlar) {
-    btnSartlar.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal('modal-sartlar');
-    });
-  }
-
-  const btnYonerge = document.getElementById('btn-yonerge-modal');
-  if (btnYonerge) {
-    btnYonerge.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal('modal-yonerge');
-    });
-  }
-
-  const btnOpenYonerge = document.getElementById('btn-open-yonerge');
-  if (btnOpenYonerge) {
-    btnOpenYonerge.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal('modal-yonerge');
-    });
-  }
-
-  const navLinkSartlar = document.getElementById('nav-link-sartlar');
-  if (navLinkSartlar) {
-    navLinkSartlar.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal('modal-sartlar');
-    });
-  }
-
-  const navLinkYonerge = document.getElementById('nav-link-yonerge');
-  if (navLinkYonerge) {
-    navLinkYonerge.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal('modal-yonerge');
-    });
-  }
-
-  // 3. Scrollspy & Sekmeler Arası Gezinti (Yan Menü ve Sticky Subnav)
-  const sections = ['proje-hakkinda', 'msa-egitimi', 'hibe-destegi', 'program-takvimi'];
-  const subnavTabs = document.querySelectorAll('.subnav-tab');
-  const sideLinks = document.querySelectorAll('.side-nav-link, .side-link');
 
   function getTargetId(elem) {
     if (!elem) return '';
@@ -123,20 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateActiveTabs(activeId) {
-    subnavTabs.forEach(tab => {
-      if (getTargetId(tab) === activeId) {
-        tab.classList.add('active');
-      } else {
-        tab.classList.remove('active');
-      }
-    });
-
-    sideLinks.forEach(link => {
-      if (getTargetId(link) === activeId) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+    navLinks.forEach(link => {
+      link.classList.toggle('active', getTargetId(link) === activeId);
     });
   }
 
@@ -145,22 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        const headerEl = document.querySelector('.site-header');
-        const headerH = headerEl ? headerEl.offsetHeight : 75;
-        const scrollPosition = window.scrollY + headerH + 60;
-        let currentSectionId = sections[0];
+        const scrollPosition = window.scrollY + getStickyOffset() + 60;
+        let currentSectionId = sectionEls.length ? sectionEls[0].id : '';
 
-        for (const sectionId of sections) {
-          const el = document.getElementById(sectionId);
-          if (el) {
-            const top = el.offsetTop;
-            const height = el.offsetHeight;
-            if (scrollPosition >= top && scrollPosition < top + height) {
-              currentSectionId = sectionId;
-              break;
-            } else if (scrollPosition >= top) {
-              currentSectionId = sectionId;
-            }
+        for (const el of sectionEls) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (scrollPosition >= top && scrollPosition < top + el.offsetHeight) {
+            currentSectionId = el.id;
+            break;
+          } else if (scrollPosition >= top) {
+            currentSectionId = el.id;
           }
         }
 
@@ -176,8 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e) e.preventDefault();
     const targetEl = document.getElementById(targetId);
     if (targetEl) {
-      const headerEl = document.querySelector('.site-header');
-      const headerOffset = (headerEl ? headerEl.offsetHeight : 75) + 15;
+      const headerOffset = getStickyOffset() + 15;
       const elementPosition = targetEl.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -193,14 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  subnavTabs.forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      const targetId = getTargetId(tab);
-      if (targetId) smoothScrollTo(targetId, e);
-    });
-  });
-
-  sideLinks.forEach(link => {
+  navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       const targetId = getTargetId(link);
       if (targetId) smoothScrollTo(targetId, e);

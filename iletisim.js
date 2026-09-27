@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   const successState = document.getElementById('contact-success');
   const btnNewMessage = document.getElementById('btn-new-message');
-  const ticketCode = document.getElementById('contact-ticket-code');
+  // TODO(backend): form gönderimi
 
   const inpName = document.getElementById('inp-cname');
   const inpEmail = document.getElementById('inp-cemail');
@@ -60,9 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       if (!validate()) return;
-
-      const randomCode = 'TALEP NO: DST-2026-' + Math.floor(1000 + Math.random() * 9000);
-      if (ticketCode) ticketCode.textContent = randomCode;
 
       form.reset();
       form.classList.add('hidden');

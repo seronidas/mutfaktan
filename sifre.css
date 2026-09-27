@@ -1,42 +1,10 @@
 /*============================================================================================
   Mutfaktan Yarına — Şifre Sıfırlama & Yenileme Stilleri
-  Theme: Potenza Split-Screen Modeli (base.css ve kayit.css üzerine kurulu)
+  Theme: Potenza Split-Screen Modeli (base.css, forms.css ve layout-split.css üzerine kurulu)
 ============================================================================================*/
-@import url('./base.css');
-@import url('./kayit.css');
-
-/* Buton ve Vurgu Kırmızıları */
-#btn-submit,
-#btn-submit-change,
-.btn-submit {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  background: var(--primary) !important;
-  color: var(--white) !important;
-  font-family: var(--font-headline);
-  font-size: 1.05rem;
-  font-weight: 700;
-  padding: 1rem 1.5rem;
-  border-radius: var(--radius-sm);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(244, 0, 9, 0.25);
-  transition: var(--transition);
-}
-
-#btn-submit:hover,
-#btn-submit-change:hover,
-.btn-submit:hover {
-  background: var(--primary-hover) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 0, 9, 0.35);
-}
 
 /* Şifre Sıfırlama & Yenileme Özel Stilleri */
-.icon-badge {
+.form-header > div {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -48,15 +16,15 @@
   margin-bottom: 1rem;
 }
 
-.icon-badge svg {
+.form-header svg {
   width: 24px;
   height: 24px;
 }
 
 .success-card {
   display: none;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: var(--success-light);
+  border: 1px solid var(--success-border);
   border-radius: var(--radius-md);
   padding: 1.75rem;
   text-align: center;
@@ -68,10 +36,11 @@
 }
 
 .success-icon {
+  font-family: var(--font-headline);
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #22c55e;
+  background: var(--success);
   color: white;
   display: inline-flex;
   align-items: center;
@@ -81,16 +50,16 @@
   margin-bottom: 1rem;
 }
 
-.success-card h3 {
+.success-card h2 {
   font-family: var(--font-headline);
   font-size: 1.35rem;
   font-weight: 700;
-  color: #15803d;
+  color: var(--success);
   margin-bottom: 0.5rem;
 }
 
 .success-card p {
-  color: #166534;
+  color: var(--success-dark);
   font-size: 0.92rem;
   line-height: 1.55;
   margin-bottom: 1.25rem;
@@ -98,17 +67,17 @@
 
 .sim-box {
   background: white;
-  border: 1px dashed #86efac;
+  border: 1px dashed var(--success-border);
   border-radius: var(--radius-sm);
   padding: 1rem;
   text-align: left;
   margin-top: 1rem;
 }
 
-.sim-box h4 {
+.sim-box h3 {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #166534;
+  color: var(--success-dark);
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -117,16 +86,16 @@
 
 .sim-box p {
   font-size: 0.82rem;
-  color: #374151;
+  color: var(--gray-800);
   margin-bottom: 0.75rem;
 }
 
-.btn-sim-link {
+.sim-box > a {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: #15803d;
-  color: white !important;
+  background: var(--success);
+  color: white;
   font-size: 0.82rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -135,8 +104,8 @@
   transition: var(--transition);
 }
 
-.btn-sim-link:hover {
-  background: #166534;
+.sim-box > a:hover {
+  background: var(--success-dark);
 }
 
 /* Şifre Güç Göstergesi */
@@ -144,7 +113,7 @@
   margin-top: 0.5rem;
 }
 
-.strength-track {
+.strength-meter > div {
   height: 5px;
   background: var(--gray-200);
   border-radius: var(--radius-pill);
@@ -152,79 +121,61 @@
   margin-bottom: 0.35rem;
 }
 
-.strength-fill {
+.strength-meter > div > div {
   height: 100%;
   width: 0;
   transition: all 0.3s ease;
   border-radius: var(--radius-pill);
 }
 
-.strength-fill.weak {
+.strength-meter > div > .weak {
   width: 30%;
-  background: #ef4444;
+  background: var(--danger);
 }
 
-.strength-fill.medium {
+.strength-meter > div > .medium {
   width: 65%;
-  background: #f59e0b;
+  background: var(--warning);
 }
 
-.strength-fill.strong {
+.strength-meter > div > .strong {
   width: 100%;
-  background: #10b981;
+  background: var(--success);
 }
 
-.strength-text {
+.strength-meter > p {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
   color: var(--gray-500);
 }
 
-.strength-text strong {
+.strength-meter strong {
   color: var(--gray-700);
 }
 
-.hidden {
-  display: none !important;
-}
-
-.field.invalid .input-box {
-  border-color: #ef4444;
-  background: #fef2f2;
-}
-
-.field.invalid .error {
-  display: block;
-}
-
-.btn-toggle-pw {
-  background: none;
-  border: none;
-  color: var(--gray-400);
-  cursor: pointer;
-  padding: 0 0.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.btn-toggle-pw:hover {
-  color: var(--primary);
-}
-
-.bottom-link {
+.form-box > p {
   text-align: center;
   font-size: 0.88rem;
   color: var(--gray-500);
   margin-top: 1.5rem;
 }
 
-.bottom-link a {
+.form-box > p a {
   color: var(--primary);
   font-weight: 600;
   text-decoration: none;
 }
 
-.bottom-link a:hover {
+.form-box > p a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .sim-box > a,
+  .form-box > p > a:only-child {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
 }

@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Basit istemci koruması (gerçek kimlik doğrulama arka uç işidir).
+  const currentUser = MYUI.readJSON('currentUser');
+  if (!currentUser || currentUser.role !== 'applicant') {
+    window.location.replace('giris.html');
+    return;
+  }
+
   const modalEdit = document.getElementById('modal-edit-confirm');
   const btnOpenEdit = document.getElementById('btn-open-edit');
   const btnConfirmEdit = document.getElementById('btn-confirm-edit');
@@ -7,146 +14,162 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnLogout = document.getElementById('btn-logout');
 
   function getStoredData() {
-    try {
-      const app = localStorage.getItem('mutfaktan_application');
-      if (app) return JSON.parse(app);
-      const draft = localStorage.getItem('mutfaktan_app_draft');
-      if (draft) return JSON.parse(draft);
-    } catch (e) {}
-    return null;
+    return MYUI.readJSON('mutfaktan_application') || MYUI.readJSON('mutfaktan_app_draft');
+  }
+
+  function isFilled(v) {
+    return v !== null && v !== undefined && v !== '';
+  }
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && isFilled(value)) el.textContent = String(value);
+  }
+
+  function setVisible(el, visible) {
+    if (!el) return;
+    if (visible) {
+      el.removeAttribute('hidden');
+      el.style.display = '';
+    } else {
+      el.setAttribute('hidden', '');
+      el.style.display = 'none';
+    }
+  }
+
+  function formatBirth(v) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v));
+    return m ? `${m[3]}.${m[2]}.${m[1]}` : v;
   }
 
   const appData = getStoredData();
 
+  // Ön değerlendirme yanıtları yalnızca bu başvurunun ref numarasıyla eşleşiyorsa bu başvuruya aittir.
+  const storedAnswers = MYUI.readJSON('onDegerlendirmeAnswers');
+  const hasAnswers = !!(appData && appData.refNo && storedAnswers && storedAnswers.ref === appData.refNo);
+
+  // Durum -> rozet metni ve süreç çizelgesindeki güncel adım (0 tabanlı).
+  const STATUS_INFO = {
+    draft: { text: 'Taslak — göndermeniz gerekiyor', stage: 0 },
+    submitted: { text: 'Başvuru Alındı — İnceleme Aşamasında', stage: 1 },
+    'preeval-open': { text: 'Ön Değerlendirme Aşaması Açıldı', stage: 2 }
+  };
+
+  let status = 'draft';
   if (appData) {
-    if (appData.fullname) {
-      const userEl = document.getElementById('panel-username');
-      const tblName = document.getElementById('tbl-name');
-      if (userEl) userEl.textContent = appData.fullname;
-      if (tblName) tblName.textContent = appData.fullname;
-    }
+    status = appData.status || (appData.submittedAt ? 'submitted' : 'draft');
+  }
+  const statusInfo = STATUS_INFO[status] || STATUS_INFO.submitted;
 
-    if (appData.refNo) {
-      const refEl = document.getElementById('val-refno');
-      if (refEl) refEl.textContent = appData.refNo;
-    }
-
-    if (appData.submittedAt) {
-      const dateEl = document.getElementById('val-date');
-      if (dateEl) {
-        const d = new Date(appData.submittedAt);
-        dateEl.textContent = d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
-      }
-    }
-
-    if (appData.birthdate) {
-      const el = document.getElementById('tbl-birth');
-      if (el) el.textContent = appData.birthdate;
-    }
-
-    if (appData.phone) {
-      const el = document.getElementById('tbl-phone');
-      if (el) el.textContent = appData.phone;
-    }
-
-    if (appData.email) {
-      const el = document.getElementById('tbl-email');
-      if (el) el.textContent = appData.email;
-    }
-
-    if (appData.city) {
-      const el = document.getElementById('tbl-city');
-      if (el) el.textContent = appData.city;
-    }
-
-    if (appData.bizname) {
-      const el = document.getElementById('tbl-bizname');
-      if (el) el.textContent = appData.bizname;
-    }
-
-    if (appData.biztype) {
-      const el = document.getElementById('tbl-biztype');
-      if (el) {
-        const typeMap = {
-          sahis: 'Şahıs İşletmesi',
-          sirket: 'Şirket (Ltd. / A.Ş.)',
-          kooperatif: 'Kadın Kooperatifi'
-        };
-        el.textContent = typeMap[appData.biztype] || appData.biztype;
-      }
-    }
-
-    if (appData.taxno) {
-      const el = document.getElementById('tbl-taxno');
-      if (el) el.textContent = appData.taxno;
-    }
-
-    if (appData.bizyear) {
-      const el = document.getElementById('tbl-bizyear');
-      if (el) el.textContent = appData.bizyear;
-    }
-
-    if (appData.address) {
-      const el = document.getElementById('tbl-address');
-      if (el) el.textContent = appData.address;
-    }
-
-    if (appData.fileName) {
-      const el = document.getElementById('tbl-msa');
-      if (el) el.textContent = `${appData.fileName} (Doğrulandı)`;
-    }
-
-    if (appData.q11) {
-      const el = document.getElementById('tbl-q11');
-      if (el) el.textContent = `${appData.q11} Kişi`;
-    }
-
-    if (appData.q12) {
-      const el = document.getElementById('tbl-q12');
-      if (el) {
-        const total = parseInt(appData.q11, 10);
-        const female = parseInt(appData.q12, 10);
-        let ratio = '';
-        if (total > 0 && !isNaN(female)) {
-          ratio = ` (%${Math.round((female / total) * 100)})`;
-        }
-        el.textContent = `${appData.q12} Kişi${ratio}`;
-      }
-    }
-
-    if (appData.q13) {
-      const el = document.getElementById('tbl-q13');
-      if (el) el.textContent = `${appData.q13} Kişi`;
-    }
-
-    if (appData.q14) {
-      const el = document.getElementById('tbl-q14');
-      if (el) {
-        const map14 = {
-          '100': 'Tamamı Devam Ediyor (%100)',
-          '70': 'Çoğunluğu Devam Ediyor (%70-99)',
-          '50': 'Yarısı Devam Ediyor (%50-69)',
-          'less': 'Yarısından Azı Devam Ediyor'
-        };
-        el.textContent = map14[appData.q14] || appData.q14;
-      }
-    }
-
-    if (appData.q15) {
-      const el = document.getElementById('tbl-q15');
-      if (el) el.textContent = appData.q15 === 'no' ? 'Hayır' : 'Evet';
-    }
-
-    if (appData.q21) {
-      const el = document.getElementById('tbl-q21');
-      if (el) el.textContent = appData.q21 === 'no' ? 'Hayır' : 'Evet';
+  const statusTextEl = document.getElementById('status-text');
+  if (statusTextEl) {
+    if (!appData) {
+      statusTextEl.textContent = 'Kayıtlı başvuru bulunamadı';
+    } else if (status === 'preeval-open' && hasAnswers) {
+      statusTextEl.textContent = 'Ön Değerlendirme Yanıtları Alındı';
+    } else {
+      statusTextEl.textContent = statusInfo.text;
     }
   }
 
-  document.querySelectorAll('.acc-head').forEach(header => {
+  const timelineSteps = document.querySelectorAll('.timeline-steps > div');
+  const stage = appData ? statusInfo.stage : 0;
+  timelineSteps.forEach((step, i) => {
+    step.classList.remove('completed', 'current', 'locked');
+    const icon = step.firstElementChild;
+    if (i < stage) {
+      step.classList.add('completed');
+      if (icon) icon.textContent = '✓';
+    } else {
+      step.classList.add(i === stage ? 'current' : 'locked');
+      if (icon) icon.textContent = String(i + 1);
+    }
+  });
+
+  if (appData) {
+    setText('panel-username', appData.fullname || currentUser.name);
+    setText('tbl-name', appData.fullname);
+    setText('val-refno', appData.refNo);
+
+    if (appData.submittedAt) {
+      const d = new Date(appData.submittedAt);
+      if (!isNaN(d.getTime())) {
+        setText('val-date', d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }));
+      }
+    }
+
+    if (isFilled(appData.birthdate)) setText('tbl-birth', formatBirth(appData.birthdate));
+    setText('tbl-phone', appData.phone);
+    setText('tbl-email', appData.email);
+    setText('tbl-city', appData.city);
+    setText('tbl-bizname', appData.bizname);
+
+    if (isFilled(appData.biztype)) {
+      const typeMap = {
+        sahis: 'Şahıs İşletmesi',
+        sirket: 'Şirket (Ltd. / A.Ş.)',
+        kooperatif: 'Kadın Kooperatifi'
+      };
+      setText('tbl-biztype', typeMap[appData.biztype] || appData.biztype);
+    }
+
+    setText('tbl-taxno', appData.taxno);
+    setText('tbl-bizyear', appData.bizyear);
+    setText('tbl-address', appData.address);
+    setText('tbl-msa', appData.fileName);
+
+    if (isFilled(appData.q11)) setText('tbl-q11', `${appData.q11} Kişi`);
+
+    if (isFilled(appData.q12)) {
+      const total = parseInt(appData.q11, 10);
+      const female = parseInt(appData.q12, 10);
+      let ratio = '';
+      if (total > 0 && !isNaN(female)) {
+        ratio = ` (%${Math.round((female / total) * 100)})`;
+      }
+      setText('tbl-q12', `${appData.q12} Kişi${ratio}`);
+    }
+
+    if (isFilled(appData.q13)) setText('tbl-q13', `${appData.q13} Kişi`);
+
+    if (isFilled(appData.q14)) {
+      const map14 = {
+        none: 'İşe başlayan olmadı',
+        zero: 'Oldu, kimse kalmadı',
+        less_half: 'Yarıdan azı',
+        half_more: 'Yarısı ve fazlası',
+        all: 'Tamamı'
+      };
+      setText('tbl-q14', map14[appData.q14] || appData.q14);
+    }
+
+    const yesNo = { yes: 'Evet', no: 'Hayır' };
+    if (isFilled(appData.q15)) setText('tbl-q15', yesNo[appData.q15] || appData.q15);
+    if (isFilled(appData.q21)) setText('tbl-q21', yesNo[appData.q21] || appData.q21);
+  } else {
+    setVisible(btnOpenEdit, false);
+  }
+
+  // Ön değerlendirme bandı yalnızca aşama açıkken görünür.
+  const banner = document.getElementById('banner-preeval');
+  setVisible(banner, !!appData && status === 'preeval-open');
+  if (appData && status === 'preeval-open' && hasAnswers) {
+    const bannerTitle = document.getElementById('preeval-banner-title');
+    const bannerDesc = document.getElementById('preeval-banner-desc');
+    const btnText = document.getElementById('btn-preeval-text');
+    const btnLink = document.getElementById('btn-preeval-link');
+    if (bannerTitle) bannerTitle.textContent = 'Ön Değerlendirme Yanıtlarınız Alındı';
+    if (bannerDesc) bannerDesc.textContent = 'Yanıtlarınız kaydedilmiştir ve program ekibi tarafından incelenmektedir.';
+    if (btnText) btnText.textContent = 'Cevaplarımı İncele';
+    if (btnLink) btnLink.setAttribute('href', 'on-degerlendirme-formu.html?mode=view');
+  }
+
+  document.querySelectorAll('.accordion-group button').forEach(header => {
     header.addEventListener('click', () => {
-      const card = header.closest('.acc-card');
-      if (card) card.classList.toggle('open');
+      const card = header.parentElement;
+      if (!card) return;
+      const isOpen = card.classList.toggle('open');
+      header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
   });
 
@@ -159,66 +182,36 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnLogout) {
     btnLogout.addEventListener('click', (e) => {
       e.preventDefault();
+      try { localStorage.removeItem('currentUser'); } catch (err) {}
       window.location.href = 'giris.html';
     });
   }
 
-  function openModal() {
-    if (modalEdit) {
-      modalEdit.classList.add('active');
-      document.body.classList.add('no-scroll');
-    }
-  }
-
-  function closeModal() {
-    if (modalEdit) {
-      modalEdit.classList.remove('active');
-      document.body.classList.remove('no-scroll');
-    }
-  }
-
   if (btnOpenEdit) {
-    btnOpenEdit.addEventListener('click', openModal);
+    if (appData && status === 'draft') {
+      // Taslak zaten düzenlenebilir durumda; onay penceresi gerekmez.
+      const label = btnOpenEdit.querySelector('span');
+      if (label) label.textContent = 'Başvuruya Devam Et';
+      btnOpenEdit.addEventListener('click', () => {
+        window.location.href = 'basvuru.html?mode=edit';
+      });
+    } else {
+      btnOpenEdit.addEventListener('click', () => MYUI.openModal(modalEdit));
+    }
   }
 
   closeButtons.forEach(btn => {
-    btn.addEventListener('click', closeModal);
+    btn.addEventListener('click', () => MYUI.closeModal(modalEdit));
   });
 
-  if (modalEdit) {
-    modalEdit.addEventListener('click', (e) => {
-      if (e.target === modalEdit) {
-        closeModal();
-      }
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  });
-
-    if (btnConfirmEdit) {
+  if (btnConfirmEdit) {
     btnConfirmEdit.addEventListener('click', () => {
       const current = getStoredData() || {};
       current.status = 'draft';
       current.updatedAt = new Date().toISOString();
-      localStorage.setItem('mutfaktan_app_draft', JSON.stringify(current));
-      localStorage.setItem('mutfaktan_application', JSON.stringify(current));
+      MYUI.writeJSON('mutfaktan_app_draft', current);
+      MYUI.writeJSON('mutfaktan_application', current);
       window.location.href = 'basvuru.html?mode=edit';
     });
-  }
-
-  const preAnswers = localStorage.getItem('onDegerlendirmeAnswers');
-  if (preAnswers) {
-    const bannerTitle = document.getElementById('preeval-banner-title');
-    const bannerDesc = document.getElementById('preeval-banner-desc');
-    const btnText = document.getElementById('btn-preeval-text');
-    const btnLink = document.getElementById('btn-preeval-link');
-    if (bannerTitle) bannerTitle.textContent = 'Ön Değerlendirme Yanıtlarınız Alındı';
-    if (bannerDesc) bannerDesc.textContent = '6 soruluk ön değerlendirme yanıtlarınız başarıyla sisteme kaydedilmiştir. Değerlendirme Kurulu incelemesi sürmektedir.';
-    if (btnText) btnText.textContent = 'Cevaplarımı İncele';
-    if (btnLink) btnLink.setAttribute('href', 'on-degerlendirme-formu.html?mode=view');
   }
 });

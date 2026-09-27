@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <!-- @include head title="Başvuru Takip Paneli | Mutfaktan Yarına" description="Mutfaktan Yarına - Başvuru Takip ve Katılımcı Paneli." css="base panel" scripts="ui panel" robots=noindex -->
+  <!-- DÜZENLEME: partials/head.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Mutfaktan Yarına - Başvuru Takip ve Katılımcı Paneli.">
   <title>Başvuru Takip Paneli | Mutfaktan Yarına</title>
+  <meta name="description" content="Mutfaktan Yarına - Başvuru Takip ve Katılımcı Paneli.">
+  <meta name="theme-color" content="#F40009">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Başvuru Takip Paneli | Mutfaktan Yarına">
+  <meta property="og:description" content="Mutfaktan Yarına - Başvuru Takip ve Katılımcı Paneli.">
+  <meta property="og:image" content="https://mutfaktan.anatolia.solutions/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="tr_TR">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="fonts/TCCC-UnityText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityText-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/TCCC-UnityHeadline-Black.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="print.css" media="print">
+  <script src="ui.js" defer></script>
+  <script src="panel.js" defer></script>
+  <!-- @end head -->
 </head>
 <body>
+  <!-- @include skip-link -->
+  <!-- DÜZENLEME: partials/skip-link.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
+  <a href="#main">İçeriğe geç</a>
+  <!-- @end skip-link -->
 
+  <!-- @include header-app userid=panel-username -->
+  <!-- DÜZENLEME: partials/header-app.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <header class="panel-header">
     <div>
       <a href="index.html" class="brand">
         <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
             <line x1="6" y1="17" x2="18" y2="17"/>
           </svg>
@@ -26,7 +54,7 @@
 
       <div class="header-actions">
         <div class="user-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
@@ -36,21 +64,22 @@
       </div>
     </div>
   </header>
+  <!-- @end header-app -->
 
-  <main class="panel-main">
+  <main class="panel-main" id="main">
 
     <section class="status-card">
-      <div class="status-info">
+      <div>
         <h1>
           <span>Başvuru Durumu</span>
           <span class="status-badge">
             <span class="dot"></span>
-            Başvuru Alındı — İnceleme Aşamasında
+            <span id="status-text">-</span>
           </span>
         </h1>
         <div class="status-meta">
-          <span>Başvuru No: <strong id="val-refno">MY-2026-08412</strong></span>
-          <span>Tarih: <strong id="val-date">14 Eylül 2026</strong></span>
+          <span>Başvuru No: <strong id="val-refno">-</strong></span>
+          <span>Tarih: <strong id="val-date">-</strong></span>
           <span>Program: <strong>Mutfaktan Yarına 2026</strong></span>
         </div>
       </div>
@@ -75,19 +104,19 @@
       </div>
     </section>
 
-    <div class="pre-eval-action-banner" id="banner-preeval">
-      <div class="pre-eval-info">
+    <div class="pre-eval-action-banner" id="banner-preeval" hidden>
+      <div>
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 14 14"></polyline>
         </svg>
         <div>
-          <h3 id="preeval-banner-title">30 Puanlık Ön Değerlendirme Aşamanız Açıldı</h3>
-          <p id="preeval-banner-desc">Tebrikler! SGK ve resmî belge doğrulamasını başarıyla tamamladınız. Jüri aday listesi sıralamasına katılabilmek için 6 yazılı soruyu lütfen 5 gün içinde yanıtlayınız.</p>
+          <h2 id="preeval-banner-title">Ön Değerlendirme Aşamanız Açıldı</h2>
+          <p id="preeval-banner-desc">Belge doğrulamanız tamamlandı. Jüri Aday Listesi sıralamasına katılabilmek için yazılı soruları size bildirilen süre içinde yanıtlayınız.</p>
         </div>
       </div>
-      <a href="on-degerlendirme-formu.html" class="btn-start-preeval" id="btn-preeval-link">
-        <span id="btn-preeval-text">6 Soruyu Yanıtla</span>
+      <a href="on-degerlendirme-formu.html" id="btn-preeval-link">
+        <span id="btn-preeval-text">Soruları Yanıtla</span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
@@ -99,34 +128,34 @@
       <h2>Süreç Takip Çizelgesi</h2>
 
       <div class="timeline-steps">
-        <div class="timeline-step completed">
-          <div class="step-icon">✓</div>
-          <h4>1. Başvuru Alındı</h4>
+        <div class="completed">
+          <div>✓</div>
+          <h3>1. Başvuru Alındı</h3>
           <p>Beyanlar ve form sisteme kaydedildi.</p>
         </div>
 
-        <div class="timeline-step current">
-          <div class="step-icon">2</div>
-          <h4>2. Sistem Puanı & Doğrulama</h4>
+        <div class="current">
+          <div>2</div>
+          <h3>2. Sistem Puanı & Doğrulama</h3>
           <p>70 puanlık sistem sıralaması ve SGK/MSA kontrolü sürüyor.</p>
         </div>
 
-        <div class="timeline-step locked">
-          <div class="step-icon">3</div>
-          <h4>3. Ön Değerlendirme</h4>
+        <div class="locked">
+          <div>3</div>
+          <h3>3. Ön Değerlendirme</h3>
           <p>Sıralamayı geçen adaylara 6 yazılı soru açılacaktır.</p>
         </div>
 
-        <div class="timeline-step locked">
-          <div class="step-icon">4</div>
-          <h4>4. Çevrim İçi Jüri</h4>
-          <p>İlk 25 aday jüri ile canlı görüşmeye alınır.</p>
+        <div class="locked">
+          <div>4</div>
+          <h3>4. Çevrim İçi Jüri</h3>
+          <p>İlk 25 aday ve eşit puanlılar çevrim içi jüri görüşmesine alınır.</p>
         </div>
 
-        <div class="timeline-step locked">
-          <div class="step-icon">5</div>
-          <h4>5. Nihai Hibe İlanı</h4>
-          <p>Nihai jüri puanlarına göre hibe dağıtımı yapılır.</p>
+        <div class="locked">
+          <div>5</div>
+          <h3>5. Nihai Hibe İlanı</h3>
+          <p>Nihai sıralama yalnızca Jüri Toplam Puanına göre belirlenir.</p>
         </div>
       </div>
     </section>
@@ -138,9 +167,9 @@
         <line x1="12" y1="8" x2="12.01" y2="8"></line>
       </svg>
       <div>
-        <h3>Değerlendirme Süreci Hakkında Bilgilendirme</h3>
+        <h2>Değerlendirme Süreci Hakkında Bilgilendirme</h2>
         <p>
-          Hibe yönergesi gereği adaylara anlık puan gösterilmemektedir. Sistem sıralamasında yer alan adayların SGK dökümleri ve MSA Sertifikası incelenecektir. Doğrulamayı geçen adaylara SMS ve e-posta ile bildirim yapılacak ve bu panel üzerinden 6 soruluk <strong>Ön Değerlendirme</strong> bölümü aktif hale gelecektir.
+          Adaylara anlık puan gösterilmemektedir. Sistem Puanı sıralamasında yer alan adaylardan Program Yöneticileri SGK hizmet dökümü, vergi levhası, kimlik ve MSA Sertifikası gibi doğrulama belgelerini isteyecektir. Doğrulamayı geçen adaylara e-posta ile bildirim yapılacak ve bu panel üzerinden 6 soruluk <strong>Ön Değerlendirme</strong> bölümü aktif hale gelecektir.
         </p>
       </div>
     </div>
@@ -148,7 +177,7 @@
     <section class="review-section">
       <div class="review-header">
         <h2>Kayıtlı Başvuru Bilgileriniz</h2>
-        <span class="locked-tag">
+        <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -158,58 +187,58 @@
       </div>
 
       <div class="accordion-group">
-        <div class="acc-card open">
-          <div class="acc-head">
+        <div class="open">
+          <button type="button" aria-expanded="true" aria-controls="acc-content-1">
             <span>Kimlik ve İletişim Bilgileri</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
-          <div class="acc-content">
-            <table class="data-table">
-              <tr><td>Ad Soyad:</td><td id="tbl-name">Ayşe Yılmaz</td></tr>
-              <tr><td>Doğum Tarihi:</td><td id="tbl-birth">1998-05-12</td></tr>
-              <tr><td>Telefon:</td><td id="tbl-phone">0532 555 12 34</td></tr>
-              <tr><td>E-posta:</td><td id="tbl-email">ayse@mutfaktan.com</td></tr>
-              <tr><td>İl:</td><td id="tbl-city">İzmir</td></tr>
+          </button>
+          <div id="acc-content-1">
+            <table>
+              <tr><td>Ad Soyad:</td><td id="tbl-name">-</td></tr>
+              <tr><td>Doğum Tarihi:</td><td id="tbl-birth">-</td></tr>
+              <tr><td>Telefon:</td><td id="tbl-phone">-</td></tr>
+              <tr><td>E-posta:</td><td id="tbl-email">-</td></tr>
+              <tr><td>İl:</td><td id="tbl-city">-</td></tr>
             </table>
           </div>
         </div>
 
-        <div class="acc-card">
-          <div class="acc-head">
+        <div>
+          <button type="button" aria-expanded="false" aria-controls="acc-content-2">
             <span>İşletme Bilgileri</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
-          <div class="acc-content">
-            <table class="data-table">
-              <tr><td>İşletme Unvanı:</td><td id="tbl-bizname">Ayşe Mutfak ve Fırın Atölyesi</td></tr>
-              <tr><td>İşletme Yapısı:</td><td id="tbl-biztype">Şahıs İşletmesi</td></tr>
-              <tr><td>Vergi Numarası:</td><td id="tbl-taxno">1234567890</td></tr>
-              <tr><td>Faaliyet Yılı:</td><td id="tbl-bizyear">2021</td></tr>
-              <tr><td>Adres:</td><td id="tbl-address">Alsancak Mah. 1453 Sok. No:12 Konak / İzmir</td></tr>
+          </button>
+          <div id="acc-content-2">
+            <table>
+              <tr><td>İşletme Unvanı:</td><td id="tbl-bizname">-</td></tr>
+              <tr><td>İşletme Yapısı:</td><td id="tbl-biztype">-</td></tr>
+              <tr><td>Vergi Numarası:</td><td id="tbl-taxno">-</td></tr>
+              <tr><td>Faaliyet Yılı:</td><td id="tbl-bizyear">-</td></tr>
+              <tr><td>Adres:</td><td id="tbl-address">-</td></tr>
             </table>
           </div>
         </div>
 
-        <div class="acc-card">
-          <div class="acc-head">
+        <div>
+          <button type="button" aria-expanded="false" aria-controls="acc-content-3">
             <span>MSA Sertifikası & İstihdam Beyanları</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
-          <div class="acc-content">
-            <table class="data-table">
-              <tr><td>MSA Sertifikası:</td><td id="tbl-msa">msa_sertifika_ayse.pdf (Doğrulandı)</td></tr>
-              <tr><td>Toplam SGK'lı Çalışan:</td><td id="tbl-q11">3 Kişi</td></tr>
-              <tr><td>Kadın Çalışan Sayısı:</td><td id="tbl-q12">3 Kişi (%100)</td></tr>
-              <tr><td>1 Yıl Önceki Çalışan:</td><td id="tbl-q13">2 Kişi (+1 Artış)</td></tr>
-              <tr><td>İstihdam Kalıcılığı:</td><td id="tbl-q14">Tamamı Devam Ediyor</td></tr>
-              <tr><td>Hibe ile Yeni İşe Alım:</td><td id="tbl-q15">Evet</td></tr>
-              <tr><td>Ailenin Tek Geçim Kaynağı:</td><td id="tbl-q21">Evet</td></tr>
+          </button>
+          <div id="acc-content-3">
+            <table>
+              <tr><td>MSA Sertifikası:</td><td id="tbl-msa">-</td></tr>
+              <tr><td>Toplam SGK'lı Çalışan:</td><td id="tbl-q11">-</td></tr>
+              <tr><td>Kadın Çalışan Sayısı:</td><td id="tbl-q12">-</td></tr>
+              <tr><td>1 Yıl Önceki Çalışan:</td><td id="tbl-q13">-</td></tr>
+              <tr><td>İstihdam Kalıcılığı:</td><td id="tbl-q14">-</td></tr>
+              <tr><td>Hibe ile Yeni İşe Alım:</td><td id="tbl-q15">-</td></tr>
+              <tr><td>Ailenin Tek Geçim Kaynağı:</td><td id="tbl-q21">-</td></tr>
             </table>
           </div>
         </div>
@@ -218,14 +247,17 @@
 
   </main>
 
+  <!-- @include footer variant=short -->
+  <!-- DÜZENLEME: partials/footer.html dosyasını değiştirin, sonra ./build.sh çalıştırın -->
   <footer class="site-footer">
-    <p><a href="index.html">Ana Sayfa</a> · <a href="sss.html">Sıkça Sorulan Sorular</a> · <a href="iletisim.html">İletişim</a> · &copy; 2026 Mutfaktan Yarına & MSA. Tüm hakları saklıdır.</p>
+    <p><a href="index.html">Ana Sayfa</a> · <a href="sss.html">Sıkça Sorulan Sorular</a> · <a href="iletisim.html">İletişim</a> · &copy; 2026 Mutfaktan Yarına. Tüm hakları saklıdır.</p>
   </footer>
+  <!-- @end footer -->
 
-  <div class="modal" id="modal-edit-confirm" role="dialog" aria-modal="true">
-    <div class="modal-box">
+  <div class="modal" id="modal-edit-confirm" role="dialog" aria-modal="true" aria-labelledby="modal-edit-title">
+    <div>
       <header>
-        <h3>Başvuruyu Düzenleme Onayı</h3>
+        <h3 id="modal-edit-title">Başvuruyu Düzenleme Onayı</h3>
         <button type="button" data-close="modal-edit-confirm" aria-label="Kapat">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -237,7 +269,7 @@
         <p>
           Başvurunuzu düzenleme moduna aldığınızda form adımları tekrar açılacaktır.
         </p>
-        <div class="warn-card">
+        <div>
           ⚠️ <strong>Önemli Kural:</strong> Başvurunuzu düzenlemeye açtığınızda mevcut başvurunuz taslak durumuna düşecek ve sıralamadan geçici olarak çıkarılacaktır. Değişiklikleri tamamladıktan sonra son adımdan <strong>tekrar onaylayıp göndermeniz zorunludur</strong>.
         </div>
       </article>
@@ -248,6 +280,5 @@
     </div>
   </div>
 
-  <script src="panel.js"></script>
 </body>
 </html>

@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Basit istemci koruması (gerçek kimlik doğrulama arka uç işidir).
+  const currentUser = MYUI.readJSON('currentUser');
+  if (!currentUser || currentUser.role !== 'editor') {
+    window.location.replace('giris.html');
+    return;
+  }
+
   const currentEditorName = document.getElementById('currentEditorName');
   const currentEditorMail = document.getElementById('currentEditorMail');
   const btnLogout = document.getElementById('btnLogout');
@@ -10,156 +17,104 @@ document.addEventListener('DOMContentLoaded', () => {
   const statPendingDocs = document.getElementById('statPendingDocs');
   const statPendingScore = document.getElementById('statPendingScore');
   const statCompleted = document.getElementById('statCompleted');
+  const statRejected = document.getElementById('statRejected');
 
-  const storedEditor = JSON.parse(localStorage.getItem('editorUser') || localStorage.getItem('currentUser') || 'null');
-  if (storedEditor && storedEditor.name) {
-    if (currentEditorName) currentEditorName.textContent = storedEditor.name;
-    if (currentEditorMail) currentEditorMail.textContent = storedEditor.email || 'editor@mutfaktanyarina.com';
-  }
+  const storedEditor = MYUI.readJSON('editorUser') || currentUser;
+  if (currentEditorName) currentEditorName.textContent = storedEditor.name || storedEditor.email || '';
+  if (currentEditorMail) currentEditorMail.textContent = storedEditor.email || '';
 
   if (btnLogout) {
     btnLogout.addEventListener('click', (e) => {
       e.preventDefault();
-      localStorage.removeItem('currentUser');
+      try { localStorage.removeItem('currentUser'); } catch (err) {}
       window.location.href = 'giris.html';
     });
   }
 
-  const defaultApplications = [
-    {
-      ref: 'MY26-0042',
-      name: 'Gülşah Güven',
-      business: 'Gül Kadın Kooperatifi',
-      structure: 'Kadın Kooperatifi',
-      city: 'Hatay',
-      totalEmployees: 6,
-      femaleRatio: 100,
-      sistemScore: 66,
-      preScore: 26,
-      totalScore: 92,
-      status: 'scored',
-      statusText: 'Puanlandı (92 Puan)'
-    },
-    {
-      ref: 'MY26-0089',
-      name: 'Zeynep Doğan',
-      business: 'Zeynep Atölye Kafe',
-      structure: 'Şahıs İşletmesi',
-      city: 'İzmir',
-      totalEmployees: 3,
-      femaleRatio: 100,
-      sistemScore: 58,
-      preScore: 24,
-      totalScore: 82,
-      status: 'scored',
-      statusText: 'Puanlandı (82 Puan)'
-    },
-    {
-      ref: 'MY26-0115',
-      name: 'Hatice Arslan',
-      business: 'Arslan Yöresel Mutfak Ltd.',
-      structure: 'Şirket',
-      city: 'Gaziantep',
-      totalEmployees: 20,
-      femaleRatio: 75,
-      sistemScore: 54,
-      preScore: null,
-      totalScore: null,
-      status: 'pending-score',
-      statusText: 'Ön Değerlendirme Bekliyor'
-    },
-    {
-      ref: 'MY26-0158',
-      name: 'Ayşe Yılmaz',
-      business: 'Ayşe Hanım El Böreği',
-      structure: 'Şahıs İşletmesi',
-      city: 'Balıkesir',
-      totalEmployees: 2,
-      femaleRatio: 100,
-      sistemScore: 52.5,
-      preScore: null,
-      totalScore: null,
-      status: 'pending-score',
-      statusText: 'Ön Değerlendirme Bekliyor'
-    },
-    {
-      ref: 'MY26-0204',
-      name: 'Fatma Çelik',
-      business: 'Çelik Gastronomi A.Ş.',
-      structure: 'Şirket',
-      city: 'Adana',
-      totalEmployees: 12,
-      femaleRatio: 25,
-      sistemScore: 32,
-      preScore: null,
-      totalScore: null,
-      status: 'pending-verify',
-      statusText: 'Belge Doğrulama Bekliyor'
-    },
-    {
-      ref: 'MY26-0241',
-      name: 'Emine Demir',
-      business: 'Demir Karadeniz Lokantası',
-      structure: 'Şahıs İşletmesi',
-      city: 'Trabzon',
-      totalEmployees: 8,
-      femaleRatio: 25,
-      sistemScore: 24,
-      preScore: null,
-      totalScore: null,
-      status: 'pending-verify',
-      statusText: 'Belge Doğrulama Bekliyor'
-    }
-  ];
-
-  let applications = JSON.parse(localStorage.getItem('programApplications') || 'null');
-  if (!applications) {
-    applications = defaultApplications;
-    localStorage.setItem('programApplications', JSON.stringify(applications));
-  }
+  const applications = MYDemo.getApplications();
 
   let currentFilter = 'all';
   let searchQuery = '';
 
-  function updateMetrics() {
-    let pendingVerify = 0;
-    let pendingScore = 0;
-    let scored = 0;
+  const KNOWN_STATUSES = ['pending-verify', 'pending-score', 'scored', 'rejected'];
 
+  // Bilinmeyen durum, ilk aşama olarak sayılır; böylece toplam her zaman kovaların toplamına eşit kalır.
+  function statusOf(app) {
+    return KNOWN_STATUSES.indexOf(app.status) >= 0 ? app.status : 'pending-verify';
+  }
+
+  function num(v) {
+    const n = Number(v);
+    return v === null || v === undefined || v === '' || !Number.isFinite(n) ? null : n;
+  }
+
+  // Toplam Ön Sıralama Puanı oluşmuş (puanlanmış) kayıtlar birinci gruptur.
+  function isRanked(app) {
+    return statusOf(app) === 'scored' && num(app.totalScore) !== null;
+  }
+
+  function compareApps(a, b) {
+    const ra = isRanked(a);
+    const rb = isRanked(b);
+    if (ra !== rb) return ra ? -1 : 1;
+    if (ra) {
+      const diff = num(b.totalScore) - num(a.totalScore);
+      if (diff) return diff;
+    }
+    const sysDiff = (num(b.sistemScore) || 0) - (num(a.sistemScore) || 0);
+    if (sysDiff) return sysDiff;
+    return String(a.ref).localeCompare(String(b.ref));
+  }
+
+  // Jüri Aday Listesi: ilk 25 + 25. ile eşit puanlıların tamamı (yalnızca puanlanmış, elenmemiş kayıtlar).
+  function juryRefSet() {
+    const candidates = applications
+      .filter(isRanked)
+      .map(a => ({ ref: a.ref, totalScore: num(a.totalScore) }));
+    const result = MYScoring.juryCandidates(candidates) || [];
+    return new Set(result.map(item => (typeof item === 'string' ? item : item.ref)));
+  }
+
+  function updateMetrics() {
+    const counts = { 'pending-verify': 0, 'pending-score': 0, scored: 0, rejected: 0 };
     applications.forEach(app => {
-      if (app.status === 'pending-verify') pendingVerify++;
-      else if (app.status === 'pending-score') pendingScore++;
-      else if (app.status === 'scored') scored++;
+      counts[statusOf(app)]++;
     });
 
     if (statTotalApps) statTotalApps.textContent = applications.length;
-    if (statPendingDocs) statPendingDocs.textContent = pendingVerify;
-    if (statPendingScore) statPendingScore.textContent = pendingScore;
-    if (statCompleted) statCompleted.textContent = scored;
+    if (statPendingDocs) statPendingDocs.textContent = counts['pending-verify'];
+    if (statPendingScore) statPendingScore.textContent = counts['pending-score'];
+    if (statCompleted) statCompleted.textContent = counts.scored;
+    if (statRejected) statRejected.textContent = counts.rejected;
+  }
+
+  function scoreBadge(className, value, max) {
+    const badge = document.createElement('div');
+    badge.className = className;
+    badge.textContent = `${value} `;
+    const maxEl = document.createElement('span');
+    maxEl.textContent = `/ ${max}`;
+    badge.appendChild(maxEl);
+    return badge;
   }
 
   function renderTable() {
     if (!appsTableBody) return;
-    appsTableBody.innerHTML = '';
+    appsTableBody.replaceChildren();
 
-    const sortedApps = [...applications].sort((a, b) => {
-      if (a.totalScore !== null && b.totalScore !== null) {
-        return b.totalScore - a.totalScore;
-      }
-      return b.sistemScore - a.sistemScore;
-    });
+    // Sıra numarası filtrelenmemiş listeye göre verilir; arama ve sekme sırayı değiştirmez.
+    const jury = juryRefSet();
+    const ranked = [...applications].sort(compareApps).map((app, index) => ({ app, rank: index + 1 }));
 
-    const filtered = sortedApps.filter(app => {
-      if (currentFilter !== 'all' && app.status !== currentFilter) {
+    const query = searchQuery.toLocaleLowerCase('tr-TR');
+    const filtered = ranked.filter(({ app }) => {
+      if (currentFilter !== 'all' && statusOf(app) !== currentFilter) {
         return false;
       }
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchName = app.name.toLowerCase().includes(query);
-        const matchBiz = app.business.toLowerCase().includes(query);
-        const matchRef = app.ref.toLowerCase().includes(query);
-        const matchCity = app.city.toLowerCase().includes(query);
-        if (!matchName && !matchBiz && !matchRef && !matchCity) return false;
+      if (query) {
+        const fields = [app.name, app.business, app.ref, app.city];
+        const hit = fields.some(f => String(f || '').toLocaleLowerCase('tr-TR').includes(query));
+        if (!hit) return false;
       }
       return true;
     });
@@ -169,19 +124,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const td = document.createElement('td');
       td.setAttribute('colspan', '10');
       td.textContent = 'Kriterlere uygun başvuru bulunamadı.';
-      td.className = 'table-empty-message';
       tr.appendChild(td);
       appsTableBody.appendChild(tr);
       return;
     }
 
-    filtered.forEach((app, index) => {
+    filtered.forEach(({ app, rank }) => {
+      const status = statusOf(app);
+      const inJury = jury.has(app.ref);
       const tr = document.createElement('tr');
 
       const tdRank = document.createElement('td');
       const rankPill = document.createElement('span');
-      rankPill.className = index < 25 ? 'rank-pill rank-top25' : 'rank-pill';
-      rankPill.textContent = index + 1;
+      rankPill.className = inJury ? 'rank-pill rank-top25' : 'rank-pill';
+      rankPill.textContent = rank;
       tdRank.appendChild(rankPill);
       tr.appendChild(tdRank);
 
@@ -192,11 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const tdApplicant = document.createElement('td');
       const colDiv = document.createElement('div');
       colDiv.className = 'applicant-col-main';
-      const nameSpan = document.createElement('span');
-      nameSpan.className = 'applicant-name';
+      const nameSpan = document.createElement('strong');
       nameSpan.textContent = app.name;
       const bizSpan = document.createElement('span');
-      bizSpan.className = 'business-title';
       bizSpan.textContent = app.business;
       colDiv.appendChild(nameSpan);
       colDiv.appendChild(bizSpan);
@@ -212,41 +166,25 @@ document.addEventListener('DOMContentLoaded', () => {
       tr.appendChild(tdEmp);
 
       const tdSistem = document.createElement('td');
-      const sistemBadge = document.createElement('div');
-      sistemBadge.className = 'score-badge score-sistem';
-      sistemBadge.textContent = `${app.sistemScore} `;
-      const sistemMax = document.createElement('span');
-      sistemMax.className = 'score-max';
-      sistemMax.textContent = '/ 70';
-      sistemBadge.appendChild(sistemMax);
-      tdSistem.appendChild(sistemBadge);
+      const sistem = num(app.sistemScore);
+      if (sistem !== null) {
+        tdSistem.appendChild(scoreBadge('score-badge score-sistem', sistem, 70));
+      } else {
+        tdSistem.textContent = '—';
+      }
       tr.appendChild(tdSistem);
 
       const tdPre = document.createElement('td');
-      if (app.preScore !== null) {
-        const preBadge = document.createElement('div');
-        preBadge.className = 'score-badge score-on';
-        preBadge.textContent = `${app.preScore} `;
-        const preMax = document.createElement('span');
-        preMax.className = 'score-max';
-        preMax.textContent = '/ 30';
-        preBadge.appendChild(preMax);
-        tdPre.appendChild(preBadge);
+      if (num(app.preScore) !== null) {
+        tdPre.appendChild(scoreBadge('score-badge score-on', app.preScore, 30));
       } else {
         tdPre.textContent = '—';
       }
       tr.appendChild(tdPre);
 
       const tdTotal = document.createElement('td');
-      if (app.totalScore !== null) {
-        const totalBadge = document.createElement('div');
-        totalBadge.className = 'score-badge score-total';
-        totalBadge.textContent = `${app.totalScore} `;
-        const totalMax = document.createElement('span');
-        totalMax.className = 'score-max';
-        totalMax.textContent = '/ 100';
-        totalBadge.appendChild(totalMax);
-        tdTotal.appendChild(totalBadge);
+      if (num(app.totalScore) !== null) {
+        tdTotal.appendChild(scoreBadge('score-badge score-total', app.totalScore, 100));
       } else {
         tdTotal.textContent = '—';
       }
@@ -254,24 +192,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const tdStatus = document.createElement('td');
       const statusBadge = document.createElement('span');
-      if (app.status === 'pending-verify') {
+      if (status === 'pending-verify') {
         statusBadge.className = 'badge-status status-pending-verify';
         statusBadge.textContent = 'Belge Doğrulama';
-      } else if (app.status === 'pending-score') {
+      } else if (status === 'pending-score') {
         statusBadge.className = 'badge-status status-pending-score';
         statusBadge.textContent = 'Ön Değerlendirme';
+      } else if (status === 'rejected') {
+        statusBadge.className = 'badge-status status-rejected';
+        statusBadge.textContent = 'Elendi';
       } else {
         statusBadge.className = 'badge-status status-scored';
         statusBadge.textContent = 'Puanlandı';
       }
       tdStatus.appendChild(statusBadge);
+      if (inJury) {
+        const juryBadge = document.createElement('span');
+        juryBadge.className = 'badge-status status-jury';
+        juryBadge.textContent = 'Jüri Aday Listesi';
+        tdStatus.appendChild(juryBadge);
+      }
       tr.appendChild(tdStatus);
 
       const tdAction = document.createElement('td');
       const actionLink = document.createElement('a');
       actionLink.href = `editor-degerlendirme.html?ref=${encodeURIComponent(app.ref)}`;
       actionLink.className = 'btn-table-action';
-      actionLink.textContent = app.status === 'scored' ? 'İncele' : 'İncele ve Puanla';
+      actionLink.textContent = status === 'scored' || status === 'rejected' ? 'İncele' : 'İncele ve Puanla';
       tdAction.appendChild(actionLink);
       tr.appendChild(tdAction);
 
@@ -281,8 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      filterTabs.forEach(t => t.classList.remove('active'));
+      filterTabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-pressed', 'true');
       currentFilter = tab.getAttribute('data-filter');
       renderTable();
     });
