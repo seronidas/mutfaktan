@@ -84,12 +84,10 @@ form > button[type="submit"],
   font-size: 18pt;
 }
 
-.hero-badge,
 .hero-stats-bar > div > div {
   color: #333 !important;
 }
 
-.hero-badge,
 .hero-stats-bar {
   background: none !important;
   border-color: #999 !important;

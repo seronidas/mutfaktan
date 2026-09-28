@@ -75,37 +75,6 @@ a {
   margin-top: var(--block-gap);
 }
 
-.hero-content-wrapper > .hero-badge + * {
-  margin-top: var(--head-gap);
-}
-
-.hero-badge {
-  display: flex;
-  width: fit-content;
-  margin-inline: auto;
-  align-items: center;
-  gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.4rem 1.1rem;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--primary-tint);
-}
-
-.hero-badge > span {
-  width: 7px;
-  height: 7px;
-  background: var(--primary);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--primary);
-}
-
 .hero-content-wrapper > h1 {
   font-family: var(--font-headline);
   font-size: 1.85rem;
@@ -297,21 +266,6 @@ a {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.side-nav-header {
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 0.85rem;
-  margin-bottom: 1.15rem;
-}
-
-.side-nav-header > h2 {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--dark);
-  margin-top: 0.35rem;
-  letter-spacing: -0.01em;
-}
-
 .desktop-side-nav ul {
   list-style: none;
   margin: 0;
@@ -374,20 +328,12 @@ a {
   border-radius: var(--radius-sm);
 }
 
-.side-promo-badge {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 0.08em;
-}
-
 .side-promo-sum {
   font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--dark);
-  margin: 0.2rem 0 0.35rem;
+  margin: 0 0 0.35rem;
 }
 
 .side-nav-promo-box p {
@@ -542,8 +488,8 @@ a {
 }
 
 .modules-grid > div > div {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   background: var(--primary-light);
   color: var(--primary);
   border-radius: var(--radius-sm);
@@ -566,11 +512,11 @@ a {
 .mandatory-card {
   display: flex;
   gap: 1.25rem;
-  background: var(--primary);
+  background: var(--dark);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
   padding: 1.5rem 1.75rem;
-  box-shadow: 0 8px 24px rgba(244, 0, 9, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
   align-items: flex-start;
 }
 
@@ -605,7 +551,7 @@ a {
 .mandatory-card strong {
   color: #ffffff;
   font-weight: 800;
-  background: rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 0.16);
   padding: 0.1rem 0.4rem;
   border-radius: 4px;
 }
@@ -1057,14 +1003,6 @@ a {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-.final-cta-banner > div > span {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--primary-80);
-  letter-spacing: 0.12em;
-}
-
 .final-cta-banner h3 {
   font-family: var(--font-headline);
   font-size: 1.65rem;
@@ -1186,13 +1124,6 @@ a {
     width: 100%;
     justify-content: center;
     white-space: normal;
-  }
-}
-
-/* Mobil (≤768px): etiketler en az 12px */
-@media (max-width: 768px) {
-  .final-cta-banner > div > span {
-    font-size: 0.75rem;
   }
 }
 
