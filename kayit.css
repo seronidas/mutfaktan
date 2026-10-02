@@ -369,3 +369,13 @@
     flex: 1 1 auto;
   }
 }
+
+.notice a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.25rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

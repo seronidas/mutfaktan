@@ -168,7 +168,7 @@ test('SSS soruları <h2><button> yapısında: başlık düğmeyi sarar, düğme 
       n: document.querySelectorAll('.faq-card > h2 > button.faq-question').length,
       nested: document.querySelectorAll('button h1, button h2, button h3, button h4').length
     })`);
-    assert.equal(r.n, 12);
+    assert.equal(r.n, 16);
     assert.equal(r.nested, 0, 'düğme içinde başlık olmamalı');
   }));
 

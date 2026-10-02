@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const fieldUser = userInput.closest('.field');
   const fieldPass = passInput.closest('.field');
   const errKvkk = document.getElementById('err-kvkk');
+  const chkSartlar = document.getElementById('chk-sartlar');
+  const errSartlar = document.getElementById('err-sartlar');
+  const chkYonerge = document.getElementById('chk-yonerge');
+  const errYonerge = document.getElementById('err-yonerge');
   const errConsent = document.getElementById('err-consent');
 
   const strengthBox = document.getElementById('strength-box');
@@ -137,6 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (chkConsent.checked) errConsent.classList.remove('show');
   });
 
+  chkSartlar.addEventListener('change', () => {
+    if (chkSartlar.checked) errSartlar.classList.remove('show');
+  });
+
+  chkYonerge.addEventListener('change', () => {
+    if (chkYonerge.checked) errYonerge.classList.remove('show');
+  });
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -159,6 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
       errConsent.classList.remove('show');
     }
 
+    const isSartlarValid = chkSartlar.checked;
+    const isYonergeValid = chkYonerge.checked;
+    errSartlar.classList.toggle('show', !isSartlarValid);
+    errYonerge.classList.toggle('show', !isYonergeValid);
+
     if (!isUserValid) {
       userInput.focus();
       return;
@@ -173,6 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!isConsentValid) {
       chkConsent.focus();
+      return;
+    }
+    if (!isSartlarValid) {
+      chkSartlar.focus();
+      return;
+    }
+    if (!isYonergeValid) {
+      chkYonerge.focus();
       return;
     }
 

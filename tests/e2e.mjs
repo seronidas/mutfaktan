@@ -87,10 +87,11 @@ scn(1, 'Kayıt: doğrulama, başarı modalı, başvuruya geçiş', async () => {
     await p.click('#btn-submit');
     assert.equal(await p.eval(`document.querySelectorAll('.field.invalid').length`), 2, 'kullanıcı adı + şifre hatası');
     assert.ok(await hasCls(p, '#err-kvkk', 'show') && await hasCls(p, '#err-consent', 'show'), 'onay hataları');
+    assert.ok(await hasCls(p, '#err-sartlar', 'show') && await hasCls(p, '#err-yonerge', 'show'), 'şartlar + yönerge onay hataları');
     css(await p.visible('#err-kvkk'), '#err-kvkk görünmüyor');
     await p.type('#username', 'aday@example.com');
     await p.type('#password', 'Sifre1234!');
-    await p.click('#chk-kvkk'); await p.click('#chk-consent');
+    await p.click('#chk-kvkk'); await p.click('#chk-consent'); await p.click('#chk-sartlar'); await p.click('#chk-yonerge');
     await p.click('#btn-submit');
     await p.waitFor('#modal-success.active');
     css(await p.visible('#modal-success'), 'başarı modalı görünmüyor');
@@ -392,9 +393,9 @@ scn(6, 'Güvenlik ve giriş', async t => {
 scn(7, 'SSS', async () => {
   await withPage('sss.html', {}, async p => {
     assert.equal(await p.eval(`document.querySelectorAll('.faq-question:not(button)').length`), 0, 'başlıklar <button> olmalı');
-    await p.type('#inp-search', 'işletmemin');
+    await p.type('#inp-search', 'kooperatif');
     const n = await p.eval(`document.querySelectorAll('.faq-card:not(.hidden)').length`);
-    assert.ok(n >= 1, '"işletmemin" en az 1 kart bulmalı');
+    assert.ok(n >= 1, '"kooperatif" en az 1 kart bulmalı');
     assert.equal(await txt(p, '#count-total'), String(n));
     const q = '.faq-card:not(.hidden) .faq-question';
     const before = await p.eval(`document.querySelector(${S(q)}).getAttribute('aria-expanded')`);

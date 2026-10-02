@@ -1,4 +1,4 @@
-const LAST_ELIGIBLE_START_YEAR = 2024; // başvuru 12 Ekim–12 Kasım 2026, en az 2 yıl
+const LAST_ELIGIBLE_START_YEAR = 2024; // başvuru 12 Ekim–20 Kasım 2026, en az 2 yıl
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const DRAFT_KEY = 'mutfaktan_app_draft';
 const APP_KEY = 'mutfaktan_application';

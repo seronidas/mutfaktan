@@ -53,7 +53,7 @@ test('baskıda SSS yanıtları açık ve süzgeçle gizlenenler basılmaz', asyn
     const r = await p.eval(`(() => { const cards = [...document.querySelectorAll('.faq-card')];
       const shown = cards.filter(c => getComputedStyle(c).display !== 'none');
       return { shown: shown.length, allAnswersOpen: shown.every(c => getComputedStyle(c.querySelector(':scope > div')).display === 'block'), onlyHibe: shown.every(c => c.dataset.cat === 'hibe') }; })()`);
-    assert.ok(r.shown > 0 && r.shown < 12, `süzgeç uygulanmalı (${r.shown})`);
+    assert.ok(r.shown > 0 && r.shown < 16, `süzgeç uygulanmalı (${r.shown})`);
     assert.ok(r.onlyHibe, 'yalnız süzgeçteki kategori');
     assert.ok(r.allAnswersOpen, 'yanıtlar açık basılmalı');
   } finally { await p.close(); }

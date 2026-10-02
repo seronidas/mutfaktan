@@ -1133,3 +1133,47 @@ a {
     display: block;
   }
 }
+
+/* Üst duyuru bandı */
+.promo-banner {
+  background: var(--primary);
+  color: var(--white);
+  text-align: center;
+  padding: 0.7rem 1rem;
+}
+
+.promo-banner > p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Paydaşlar şeridi (logo dosyaları gelince <li> içine <img> konur) */
+.partners {
+  background: var(--gray-50);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.partners > h2 {
+  font-family: var(--font-headline);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--gray-600);
+  margin: 0 0 1.25rem;
+}
+
+.partners > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 2.5rem;
+}
+
+.partners > ul > li {
+  font-weight: 700;
+  color: var(--gray-800);
+}

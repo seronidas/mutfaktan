@@ -32,3 +32,49 @@
   font-family: var(--font-body);
   color: var(--dark);
 }
+
+/* Yönerge ve şartlar metni: boşluk ritmi site-chrome.css'teki .content-section kuralından gelir; burada yalnızca başlık ve tablo biçimi */
+.hibe-page .content-section > :is(h2, h3) {
+  font-family: var(--font-headline);
+  color: var(--dark);
+}
+
+.hibe-page .content-section > h2 {
+  font-size: 1.25rem;
+}
+
+.hibe-page .content-section > h3 {
+  font-size: 1.05rem;
+}
+
+.hibe-page table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.hibe-page :is(th, td) {
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+}
+
+.hibe-page th {
+  background: var(--gray-100);
+  font-weight: 700;
+}
+
+/* Metin içi bağlantılar */
+.hibe-page .content-section > p:not(.cta-direct-buttons) > a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hibe-page .disclaimer-box a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

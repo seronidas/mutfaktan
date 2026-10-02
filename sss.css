@@ -160,7 +160,7 @@
   color: var(--gray-900);
 }
 
-.faq-card ul {
+.faq-card :is(ul, ol) {
   margin: 0.75rem 0 0.75rem 1.25rem;
 }
 

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!isViewMode && appData.status !== 'preeval-open') {
     if (form) form.setAttribute('hidden', '');
-    showFeedback('Ön Değerlendirme aşamanız henüz açılmadı', 'Bu aşama, belge doğrulamasını geçen adaylar için açılır; açıldığında e-posta ile bilgilendirileceksiniz.');
+    showFeedback('Ön Değerlendirme aşamanız henüz açılmadı', 'Bu aşama, talep edilen doğrulama belgelerinin tamamını yükleyen adaylar için açılır; belgelerinizi yüklemeniz halinde erişebilirsiniz.');
     return;
   }
 
