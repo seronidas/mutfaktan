@@ -1147,7 +1147,7 @@ a {
   font-size: 0.95rem;
 }
 
-/* Paydaşlar şeridi (logo dosyaları gelince <li> içine <img> konur) */
+/* Paydaşlar şeridi */
 .partners {
   background: var(--gray-50);
   border-top: 1px solid var(--border-color);
@@ -1156,26 +1156,19 @@ a {
 }
 
 .partners > h2 {
-  font-family: var(--font-headline);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.12em;
   color: var(--gray-600);
   margin: 0 0 1.25rem;
 }
 
-.partners > ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem 2.5rem;
-}
-
-.partners > ul > li {
-  font-weight: 700;
-  color: var(--gray-800);
+.partners > img {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin-inline: auto;
 }
 
 /* Hero başlığındaki zorunlu satır sonları yalnızca geniş ekranda */
