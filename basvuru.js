@@ -585,6 +585,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const modalKvkk = document.getElementById('modal-kvkk');
+  const modalConsent = document.getElementById('modal-consent');
+  const openKvkk = document.getElementById('open-kvkk');
+  const openConsent = document.getElementById('open-consent');
+  const acceptKvkk = document.getElementById('accept-kvkk');
+  const acceptConsent = document.getElementById('accept-consent');
+  const chkDoc3 = document.getElementById('chk-doc-3');
+  const chkDoc4 = document.getElementById('chk-doc-4');
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.getAttribute('data-close'));
+      if (target) MYUI.closeModal(target);
+    });
+  });
+
+  if (openKvkk && modalKvkk) {
+    openKvkk.addEventListener('click', (e) => {
+      e.preventDefault();
+      MYUI.openModal(modalKvkk);
+    });
+  }
+
+  if (openConsent && modalConsent) {
+    openConsent.addEventListener('click', (e) => {
+      e.preventDefault();
+      MYUI.openModal(modalConsent);
+    });
+  }
+
+  if (acceptKvkk && modalKvkk && chkDoc3) {
+    acceptKvkk.addEventListener('click', () => {
+      chkDoc3.checked = true;
+      MYUI.closeModal(modalKvkk);
+    });
+  }
+
+  if (acceptConsent && modalConsent && chkDoc4) {
+    acceptConsent.addEventListener('click', () => {
+      chkDoc4.checked = true;
+      MYUI.closeModal(modalConsent);
+    });
+  }
+
   loadDraft();
   updateStepsUI();
 });

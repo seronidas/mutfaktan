@@ -81,4 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetId) smoothScrollTo(targetId, e);
     });
   });
+
+  const msaBtn = document.getElementById('btn-msa-info');
+  const msaModal = document.getElementById('modal-msa-info');
+  if (msaBtn && msaModal) {
+    msaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      msaModal.removeAttribute('hidden');
+      msaModal.classList.add('active');
+    });
+    msaModal.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        msaModal.classList.remove('active');
+        msaModal.setAttribute('hidden', '');
+      });
+    });
+  }
 });

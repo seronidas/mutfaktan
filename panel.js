@@ -150,9 +150,72 @@ document.addEventListener('DOMContentLoaded', () => {
     setVisible(btnOpenEdit, false);
   }
 
-  // Ön değerlendirme bandı yalnızca aşama açıkken görünür.
+  // Ön değerlendirme bandı ve doğrulama belgeleri yalnızca aşama açıkken görünür.
   const banner = document.getElementById('banner-preeval');
-  setVisible(banner, !!appData && status === 'preeval-open');
+  const sectionVerifyDocs = document.getElementById('section-verify-docs');
+  const inpVerifyFiles = document.getElementById('inp-verify-files');
+  const btnUploadVerify = document.getElementById('btn-upload-verify-docs');
+  const verifyFilesList = document.getElementById('verify-files-list');
+  const verifyError = document.getElementById('verify-error');
+  const verifySuccess = document.getElementById('verify-uploaded-success');
+  const badgeVerifyStatus = document.getElementById('badge-verify-status');
+  const btnPreevalLink = document.getElementById('btn-preeval-link');
+
+  const isPreEvalOpen = !!appData && status === 'preeval-open';
+  setVisible(banner, isPreEvalOpen);
+  setVisible(sectionVerifyDocs, isPreEvalOpen);
+
+  function syncVerifyDocsUI() {
+    if (!isPreEvalOpen || !sectionVerifyDocs) return;
+    const isUploaded = !!(appData && (appData.verificationDocsUploaded || (appData.verificationDocs && appData.verificationDocs.length > 0) || hasAnswers));
+    if (badgeVerifyStatus) {
+      badgeVerifyStatus.textContent = isUploaded ? 'Belgeler Yüklendi' : 'Belge Bekleniyor';
+    }
+    if (verifySuccess) {
+      verifySuccess.style.display = isUploaded ? 'block' : 'none';
+    }
+    if (verifyFilesList && appData && appData.verificationDocs && appData.verificationDocs.length > 0) {
+      verifyFilesList.textContent = 'Yüklenen Belgeler: ' + appData.verificationDocs.join(', ');
+    }
+  }
+
+  if (isPreEvalOpen) {
+    syncVerifyDocsUI();
+    if (btnUploadVerify) {
+      btnUploadVerify.addEventListener('click', () => {
+        if (inpVerifyFiles && inpVerifyFiles.files && inpVerifyFiles.files.length > 0) {
+          const fileNames = Array.from(inpVerifyFiles.files).map(f => f.name);
+          if (appData) {
+            appData.verificationDocsUploaded = true;
+            appData.verificationDocs = fileNames;
+            MYUI.writeJSON('mutfaktan_application', appData);
+          }
+          if (verifyError) verifyError.style.display = 'none';
+          syncVerifyDocsUI();
+        } else {
+          if (verifyError) {
+            verifyError.textContent = 'Lütfen en az bir doğrulama belgesi seçiniz.';
+            verifyError.style.display = 'block';
+          }
+        }
+      });
+    }
+
+    if (btnPreevalLink) {
+      btnPreevalLink.addEventListener('click', (e) => {
+        const isUploaded = !!(appData && (appData.verificationDocsUploaded || (appData.verificationDocs && appData.verificationDocs.length > 0) || hasAnswers));
+        if (!isUploaded) {
+          e.preventDefault();
+          if (verifyError) {
+            verifyError.textContent = 'Ön Değerlendirme sorularına erişebilmek için lütfen önce doğrulama belgelerinizi yükleyiniz.';
+            verifyError.style.display = 'block';
+          }
+          sectionVerifyDocs.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  }
+
   if (appData && status === 'preeval-open' && hasAnswers) {
     const bannerTitle = document.getElementById('preeval-banner-title');
     const bannerDesc = document.getElementById('preeval-banner-desc');

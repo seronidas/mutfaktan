@@ -112,7 +112,7 @@
         </svg>
         <div>
           <h2 id="preeval-banner-title">Ön Değerlendirme Aşamanız Açıldı</h2>
-          <p id="preeval-banner-desc">Doğrulama belgelerinizi yüklediniz; Ön Değerlendirme bölümü açıldı. Belge yükleme ve soruları yanıtlama için ilan edilen süre içinde (25 Kasım – 2 Aralık 2026) 6 yazılı soruyu yanıtlayınız. Bölümün açılması belgelerin doğrulandığı anlamına gelmez.</p>
+          <p id="preeval-banner-desc">Doğrulama belgelerinizi yükledikten sonra Ön Değerlendirme soruları açılır. Belge yükleme ve soruları yanıtlama için ilan edilen süre içinde (25 Kasım – 2 Aralık 2026) 6 yazılı soruyu yanıtlayınız. Bölümün açılması belgelerin doğrulandığı anlamına gelmez.</p>
         </div>
       </div>
       <a href="on-degerlendirme-formu.html" id="btn-preeval-link">
@@ -123,6 +123,32 @@
         </svg>
       </a>
     </div>
+
+    <section class="review-section" id="section-verify-docs" hidden>
+      <div class="review-header">
+        <h2>Doğrulama Belgeleri (Ön Değerlendirme İçin Zorunlu)</h2>
+        <span class="status-badge" id="badge-verify-status">Belge Bekleniyor</span>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--gray-600); margin: 0; line-height: 1.5;">
+        Ön değerlendirme sorularına erişebilmek için Program Yöneticileri tarafından talep edilen resmî belgelerinizi (SGK Hizmet Dökümü, Vergi Levhası / Kooperatif Kayıtları, Borcu Yoktur Belgeleri, Kimlik Fotokopisi ve Faaliyet/Üretim Alanı Görselleri) yüklemeniz gerekmektedir.
+      </p>
+      
+      <div id="verify-upload-box" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <label for="inp-verify-files" style="font-weight: 600; font-size: 0.9rem; color: var(--gray-800);">Belge veya Görsellerinizi Seçiniz (PDF, JPG, PNG — En fazla 10 MB):</label>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+          <input type="file" id="inp-verify-files" multiple accept=".pdf,.jpg,.jpeg,.png" style="font-size: 0.88rem;">
+          <button type="button" class="btn-panel-outline" id="btn-upload-verify-docs" style="padding: 0.6rem 1.25rem;">
+            <span>Belgeleri Sisteme Yükle</span>
+          </button>
+        </div>
+        <div id="verify-files-list" style="font-size: 0.85rem; color: var(--gray-700);"></div>
+        <span id="verify-error" style="display: none; font-size: 0.85rem; color: var(--primary); font-weight: 600;">Lütfen en az bir doğrulama belgesi seçiniz.</span>
+      </div>
+
+      <div id="verify-uploaded-success" style="display: none; padding: 0.75rem 1rem; background: var(--success-light); border: 1px solid var(--success-border); border-radius: var(--radius-sm); font-size: 0.88rem; color: var(--success); font-weight: 500;">
+        ✓ Doğrulama belgeleriniz sisteme yüklendi. Ön Değerlendirme sorularını yanıtlayabilirsiniz. (Bölümün açılması belgelerin henüz nihai olarak doğrulandığı anlamına gelmez; kontroller Program Takviminde ilan edilen tarihlerde yapılacaktır.)
+      </div>
+    </section>
 
     <section class="timeline-card">
       <h2>Süreç Takip Çizelgesi</h2>

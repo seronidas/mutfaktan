@@ -179,7 +179,7 @@
         <div class="checklist">
           <label>
             <input type="checkbox" name="eligibility" id="chk-el-1">
-            <span>Kadın işletmeciyim.</span>
+            <span>Gastronomi sektöründe faaliyet gösteren kadın işletmeciyim veya kadın kooperatifi adına temsile yetkiliyim.</span>
           </label>
           <label>
             <input type="checkbox" name="eligibility" id="chk-el-2">
@@ -199,7 +199,7 @@
           </label>
           <label>
             <input type="checkbox" name="eligibility" id="chk-el-6">
-            <span>Vergi levhası sahibiyim.</span>
+            <span>İşletmem adına geçerli vergi levhasına veya kadın kooperatifi resmî belgelerine sahibim.</span>
           </label>
           <label>
             <input type="checkbox" name="eligibility" id="chk-el-7">
@@ -319,7 +319,7 @@
         <header>
           <h2>Adım 4 — MSA Sertifikası Yükleme</h2>
           <p>Program kapsamında sunulan MSA eğitimine ait sertifikayı almak için ücretsiz eğitimi tamamlayabilirsiniz. Eğitim sonundaki değerlendirmeden en az 70 puan alınması ve geçerli sertifikanın başvuru sırasında yüklenmesi zorunludur. Sistem sertifika doğruluğunu teyit etmez; doğrulama Program Yöneticileri tarafından yapılır.</p>
-          <p><a href="https://TODO-MSA-URL.invalid/" class="btn btn-outline" target="_blank" rel="noopener">MSA Sertifikası almak için tıklayın</a></p>
+          <p><a href="index.html#msa-egitimi" class="btn btn-outline" target="_blank" rel="noopener">MSA Sertifikası Almak İçin Tıklayın <span aria-hidden="true">➔</span></a></p>
         </header>
 
         <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="MSA sertifikası dosyası seç">
@@ -557,11 +557,11 @@
           </label>
           <label>
             <input type="checkbox" id="chk-doc-3">
-            <span>KVKK Aydınlatma Metnini okudum ve kişisel verilerimin burada belirtilen kapsamda işleneceği konusunda bilgilendirildim.</span>
+            <span><a href="#" id="open-kvkk">KVKK Aydınlatma Metnini</a> okudum ve kişisel verilerimin burada belirtilen kapsamda işleneceği konusunda bilgilendirildim.</span>
           </label>
           <label>
             <input type="checkbox" id="chk-doc-4">
-            <span>Açık Rıza Metnini okudum ve burada belirtilen kişisel veri işleme faaliyetlerine açık rıza veriyorum.</span>
+            <span><a href="#" id="open-consent">Açık Rıza Metnini</a> okudum ve burada belirtilen kişisel veri işleme faaliyetlerine açık rıza veriyorum.</span>
           </label>
           <label>
             <input type="checkbox" id="chk-doc-5">
@@ -599,6 +599,78 @@
     </div>
   </main><!-- /.content-right.wizard-content -->
 </div><!-- /.split-container -->
+
+  <!-- MODALLAR -->
+  <div class="modal" id="modal-kvkk" role="dialog" aria-modal="true" aria-labelledby="modal-kvkk-title" hidden>
+    <div>
+      <header>
+        <h3 id="modal-kvkk-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Kişisel Verilerin İşlenmesine İlişkin Aydınlatma Metni
+        </h3>
+        <button type="button" data-close="modal-kvkk" aria-label="Kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      <article>
+        <h4>1. Veri Sorumlusu</h4>
+        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, Mutfaktan Yarına Eğitim ve Destek Programı çerçevesinde toplanan kişisel verileriniz veri sorumlusu sıfatıyla işlenmektedir.</p>
+
+        <h4>2. Kişisel Verilerin Hangi Amaçla İşleneceği</h4>
+        <p>Toplanan kullanıcı adı, e-posta adresi, iletişim bilgileri, MSA sertifika bilgileri ve hibe başvuru programına ilişkin veriler;</p>
+        <ul>
+          <li>Girişimci aday kayıtlarının oluşturulması ve doğrulanması,</li>
+          <li>Hibe ve teşvik başvuru süreçlerinin yürütülmesi ve değerlendirilmesi,</li>
+          <li>Değerlendirme sonuçlarının ve bilgilendirmelerin adaylara tebliği amacıyla işlenmektedir.</li>
+        </ul>
+
+        <h4>3. Kişisel Veri Toplamanın Yöntemi ve Hukuki Sebebi</h4>
+        <p>Kişisel verileriniz, işbu kayıt formu ve akabinde dolduracağınız hibe başvuru formu üzerinden elektronik ortamda toplanmaktadır.</p>
+      </article>
+      <footer>
+        <button type="button" class="secondary" data-close="modal-kvkk">Kapat</button>
+        <button type="button" class="primary" id="accept-kvkk">Okudum ve Anladım</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-consent" role="dialog" aria-modal="true" aria-labelledby="modal-consent-title" hidden>
+    <div>
+      <header>
+        <h3 id="modal-consent-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+          Açık Rıza Metni
+        </h3>
+        <button type="button" data-close="modal-consent" aria-label="Kapat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      <article>
+        <h4>Açık Rıza Beyanı</h4>
+        <p>Mutfaktan Yarına Eğitim ve Destek Programı kapsamında tarafıma sunulan Aydınlatma Metni'ni inceledim. Bu doğrultuda;</p>
+        <ul>
+          <li>Kimlik, iletişim ve MSA sertifika belgelerimin Program Yöneticileri ve yetkili değerlendirme ekibi ile paylaşılmasına,</li>
+          <li>Kişisel verilerimin güvenli altyapılarda başvuru süreci boyunca saklanmasına,</li>
+        </ul>
+        <p>Özgür irademle açık rıza veriyorum.</p>
+      </article>
+      <footer>
+        <button type="button" class="secondary" data-close="modal-consent">İptal</button>
+        <button type="button" class="primary" id="accept-consent">Açık Rıza Metnini Onayla</button>
+      </footer>
+    </div>
+  </div>
 
 </body>
 </html>
