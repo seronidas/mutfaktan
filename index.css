@@ -1177,3 +1177,10 @@ a {
   font-weight: 700;
   color: var(--gray-800);
 }
+
+/* Hero başlığındaki zorunlu satır sonları yalnızca geniş ekranda */
+@media (max-width: 900px) {
+  .hero-content-wrapper > h1 br {
+    display: none;
+  }
+}
